@@ -74,7 +74,6 @@ static void prvSetupHardware( void );
  * main_full() is used when configCREATE_SIMPLE_TICKLESS_DEMO is set to 0.
  */
 extern void main_blinky( void );
-extern void main_full( void );
 
 /*-----------------------------------------------------------*/
 

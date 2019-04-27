@@ -10,6 +10,8 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
+"./MPU9250.obj" \
+"./blink.obj" \
 "./main.obj" \
 "./trcKernelPort.obj" \
 "./trcSnapshotRecorder.obj" \
@@ -184,34 +186,34 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-RTOSDemo.out \
+RTOSDemo_mod.out \
 
 EXE_OUTPUTS__QUOTED += \
-"RTOSDemo.out" \
+"RTOSDemo_mod.out" \
 
 BIN_OUTPUTS += \
-RTOSDemo.bin \
+RTOSDemo_mod.bin \
 
 BIN_OUTPUTS__QUOTED += \
-"RTOSDemo.bin" \
+"RTOSDemo_mod.bin" \
 
 
 # All Target
-all: RTOSDemo.out
+all: RTOSDemo_mod.out
 
 # Tool invocations
-RTOSDemo.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+RTOSDemo_mod.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: MSP432 Linker'
-	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 --abi=eabi -me -O0 --opt_for_speed=2 -g --gcc --define=__MSP432P401R__ --define=__FPU_PRESENT --define=USE_CMSIS_REGISTER_FORMAT=1 --define=TARGET_IS_MSP432P4XX --define=ccs --diag_warning=225 --diag_wrap=off --display_error_number --verbose_diagnostics --gen_func_subsections=on -z -m"RTOSDemo.map" --stack_size=800 --heap_size=0 -i"C:/ti/ccsv8/ccs_base/arm/include" -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/lib" -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="RTOSDemo_linkInfo.xml" --rom_model --unused_section_elimination=on -o "RTOSDemo.out" $(ORDERED_OBJS)
+	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 --abi=eabi -me -O0 --opt_for_speed=2 -g --gcc --define=__MSP432P401R__ --define=USE_CMSIS_REGISTER_FORMAT=1 --define=TARGET_IS_MSP432P4XX --define=ccs --diag_warning=225 --diag_wrap=off --display_error_number --verbose_diagnostics --gen_func_subsections=on -z -m"RTOSDemo_mod.map" --stack_size=800 --heap_size=0 -i"C:/ti/ccsv8/ccs_base/arm/include" -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/lib" -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="RTOSDemo_mod_linkInfo.xml" --rom_model --unused_section_elimination=on -o "RTOSDemo_mod.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 	@$(MAKE) --no-print-directory post-build
 
-RTOSDemo.bin: $(EXE_OUTPUTS)
+RTOSDemo_mod.bin: $(EXE_OUTPUTS)
 	@echo 'Building files: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo 'Invoking: MSP432 Hex Utility'
-	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armhex"  -o "RTOSDemo.bin" $(EXE_OUTPUTS__QUOTED)
+	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armhex"  -o "RTOSDemo_mod.bin" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo ' '
 	@$(MAKE) --no-print-directory post-build
@@ -219,16 +221,16 @@ RTOSDemo.bin: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "main.obj" "trcKernelPort.obj" "trcSnapshotRecorder.obj" "trcStreamingRecorder.obj" "FreeRTOS_Source\croutine.obj" "FreeRTOS_Source\event_groups.obj" "FreeRTOS_Source\list.obj" "FreeRTOS_Source\queue.obj" "FreeRTOS_Source\stream_buffer.obj" "FreeRTOS_Source\tasks.obj" "FreeRTOS_Source\timers.obj" "FreeRTOS_Source\portable\CCS\ARM_CM4F\port.obj" "FreeRTOS_Source\portable\CCS\ARM_CM4F\portasm.obj" "FreeRTOS_Source\portable\MemMang\heap_4.obj" "Full_Demo\FreeRTOS+CLI\FreeRTOS_CLI.obj" "Full_Demo\IntQueueTimer.obj" "Full_Demo\RegTest.obj" "Full_Demo\RunTimeStatsTimer.obj" "Full_Demo\Sample-CLI-commands.obj" "Full_Demo\UARTCommandConsole.obj" "Full_Demo\main_full.obj" "Full_Demo\serial.obj" "Full_Demo\Standard_Demo_Tasks\EventGroupsDemo.obj" "Full_Demo\Standard_Demo_Tasks\GenQTest.obj" "Full_Demo\Standard_Demo_Tasks\IntQueue.obj" "Full_Demo\Standard_Demo_Tasks\IntSemTest.obj" "Full_Demo\Standard_Demo_Tasks\TaskNotify.obj" "Full_Demo\Standard_Demo_Tasks\TimerDemo.obj" "Full_Demo\Standard_Demo_Tasks\countsem.obj" 
-	-$(RM) "Full_Demo\Standard_Demo_Tasks\recmutex.obj" "Full_Demo\Standard_Demo_Tasks\semtest.obj" "Full_Demo\Standard_Demo_Tasks\sp_flop.obj" "SimplyBlinkyDemo\main_blinky.obj" "driverlib\cpu.obj" "driverlib\cs.obj" "driverlib\flash.obj" "driverlib\fpu.obj" "driverlib\gpio.obj" "driverlib\interrupt.obj" "driverlib\pcm.obj" "driverlib\sysctl.obj" "driverlib\timer32.obj" "driverlib\uart.obj" "driverlib\wdt_a.obj" "system\CCS\msp432_startup_ccs.obj" "system\CCS\printf-stdarg.obj" "system\CCS\system_msp432p401r.obj" 
-	-$(RM) "main.d" "trcKernelPort.d" "trcSnapshotRecorder.d" "trcStreamingRecorder.d" "FreeRTOS_Source\croutine.d" "FreeRTOS_Source\event_groups.d" "FreeRTOS_Source\list.d" "FreeRTOS_Source\queue.d" "FreeRTOS_Source\stream_buffer.d" "FreeRTOS_Source\tasks.d" "FreeRTOS_Source\timers.d" "FreeRTOS_Source\portable\CCS\ARM_CM4F\port.d" "FreeRTOS_Source\portable\MemMang\heap_4.d" "Full_Demo\FreeRTOS+CLI\FreeRTOS_CLI.d" "Full_Demo\IntQueueTimer.d" "Full_Demo\RunTimeStatsTimer.d" "Full_Demo\Sample-CLI-commands.d" "Full_Demo\UARTCommandConsole.d" "Full_Demo\main_full.d" "Full_Demo\serial.d" "Full_Demo\Standard_Demo_Tasks\EventGroupsDemo.d" "Full_Demo\Standard_Demo_Tasks\GenQTest.d" "Full_Demo\Standard_Demo_Tasks\IntQueue.d" "Full_Demo\Standard_Demo_Tasks\IntSemTest.d" "Full_Demo\Standard_Demo_Tasks\TaskNotify.d" "Full_Demo\Standard_Demo_Tasks\TimerDemo.d" "Full_Demo\Standard_Demo_Tasks\countsem.d" "Full_Demo\Standard_Demo_Tasks\recmutex.d" "Full_Demo\Standard_Demo_Tasks\semtest.d" "Full_Demo\Standard_Demo_Tasks\sp_flop.d" 
+	-$(RM) "MPU9250.obj" "blink.obj" "main.obj" "trcKernelPort.obj" "trcSnapshotRecorder.obj" "trcStreamingRecorder.obj" "FreeRTOS_Source\croutine.obj" "FreeRTOS_Source\event_groups.obj" "FreeRTOS_Source\list.obj" "FreeRTOS_Source\queue.obj" "FreeRTOS_Source\stream_buffer.obj" "FreeRTOS_Source\tasks.obj" "FreeRTOS_Source\timers.obj" "FreeRTOS_Source\portable\CCS\ARM_CM4F\port.obj" "FreeRTOS_Source\portable\CCS\ARM_CM4F\portasm.obj" "FreeRTOS_Source\portable\MemMang\heap_4.obj" "Full_Demo\FreeRTOS+CLI\FreeRTOS_CLI.obj" "Full_Demo\IntQueueTimer.obj" "Full_Demo\RegTest.obj" "Full_Demo\RunTimeStatsTimer.obj" "Full_Demo\Sample-CLI-commands.obj" "Full_Demo\UARTCommandConsole.obj" "Full_Demo\main_full.obj" "Full_Demo\serial.obj" "Full_Demo\Standard_Demo_Tasks\EventGroupsDemo.obj" "Full_Demo\Standard_Demo_Tasks\GenQTest.obj" "Full_Demo\Standard_Demo_Tasks\IntQueue.obj" "Full_Demo\Standard_Demo_Tasks\IntSemTest.obj" "Full_Demo\Standard_Demo_Tasks\TaskNotify.obj" "Full_Demo\Standard_Demo_Tasks\TimerDemo.obj" 
+	-$(RM) "Full_Demo\Standard_Demo_Tasks\countsem.obj" "Full_Demo\Standard_Demo_Tasks\recmutex.obj" "Full_Demo\Standard_Demo_Tasks\semtest.obj" "Full_Demo\Standard_Demo_Tasks\sp_flop.obj" "SimplyBlinkyDemo\main_blinky.obj" "driverlib\cpu.obj" "driverlib\cs.obj" "driverlib\flash.obj" "driverlib\fpu.obj" "driverlib\gpio.obj" "driverlib\interrupt.obj" "driverlib\pcm.obj" "driverlib\sysctl.obj" "driverlib\timer32.obj" "driverlib\uart.obj" "driverlib\wdt_a.obj" "system\CCS\msp432_startup_ccs.obj" "system\CCS\printf-stdarg.obj" "system\CCS\system_msp432p401r.obj" 
+	-$(RM) "MPU9250.d" "blink.d" "main.d" "trcKernelPort.d" "trcSnapshotRecorder.d" "trcStreamingRecorder.d" "FreeRTOS_Source\croutine.d" "FreeRTOS_Source\event_groups.d" "FreeRTOS_Source\list.d" "FreeRTOS_Source\queue.d" "FreeRTOS_Source\stream_buffer.d" "FreeRTOS_Source\tasks.d" "FreeRTOS_Source\timers.d" "FreeRTOS_Source\portable\CCS\ARM_CM4F\port.d" "FreeRTOS_Source\portable\MemMang\heap_4.d" "Full_Demo\FreeRTOS+CLI\FreeRTOS_CLI.d" "Full_Demo\IntQueueTimer.d" "Full_Demo\RunTimeStatsTimer.d" "Full_Demo\Sample-CLI-commands.d" "Full_Demo\UARTCommandConsole.d" "Full_Demo\main_full.d" "Full_Demo\serial.d" "Full_Demo\Standard_Demo_Tasks\EventGroupsDemo.d" "Full_Demo\Standard_Demo_Tasks\GenQTest.d" "Full_Demo\Standard_Demo_Tasks\IntQueue.d" "Full_Demo\Standard_Demo_Tasks\IntSemTest.d" "Full_Demo\Standard_Demo_Tasks\TaskNotify.d" "Full_Demo\Standard_Demo_Tasks\TimerDemo.d" "Full_Demo\Standard_Demo_Tasks\countsem.d" "Full_Demo\Standard_Demo_Tasks\recmutex.d" "Full_Demo\Standard_Demo_Tasks\semtest.d" "Full_Demo\Standard_Demo_Tasks\sp_flop.d" 
 	-$(RM) "SimplyBlinkyDemo\main_blinky.d" "driverlib\cpu.d" "driverlib\cs.d" "driverlib\flash.d" "driverlib\fpu.d" "driverlib\gpio.d" "driverlib\interrupt.d" "driverlib\pcm.d" "driverlib\sysctl.d" "driverlib\timer32.d" "driverlib\uart.d" "driverlib\wdt_a.d" "system\CCS\msp432_startup_ccs.d" "system\CCS\printf-stdarg.d" "system\CCS\system_msp432p401r.d" 
 	-$(RM) "FreeRTOS_Source\portable\CCS\ARM_CM4F\portasm.d" "Full_Demo\RegTest.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
 post-build:
-	-C:/ti/ccsv8/utils/tiobj2bin/tiobj2bin RTOSDemo.out RTOSDemo.bin C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armofd C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armhex C:/ti/ccsv8/utils/tiobj2bin/mkhex4bin
+	-C:/ti/ccsv8/utils/tiobj2bin/tiobj2bin RTOSDemo_mod.out RTOSDemo_mod.bin C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armofd C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armhex C:/ti/ccsv8/utils/tiobj2bin/mkhex4bin
 	-@echo ' '
 
 .PHONY: all clean dependents
