@@ -17,9 +17,9 @@ Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm
 Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/machine/_stdint.h
 Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/_stdint.h
 Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/FreeRTOSConfig.h
-Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/trcRecorder.h
-Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/trcConfig.h
-Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/trcPortDefines.h
+Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcRecorder.h
+Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcConfig.h
+Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcPortDefines.h
 Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/ti/ccsv8/ccs_base/arm/include/msp432.h
 Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/ti/ccsv8/ccs_base/arm/include/msp432p401r.h
 Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/ti/ccsv8/ccs_base/arm/include/msp_compatibility.h
@@ -28,9 +28,9 @@ Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/ti/ccsv8/ccs_base/arm/include/CMSI
 Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_compiler.h
 Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_ccs.h
 Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/ti/ccsv8/ccs_base/arm/include/system_msp432p401r.h
-Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/trcSnapshotConfig.h
-Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/trcHardwarePort.h
-Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/trcKernelPort.h
+Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcSnapshotConfig.h
+Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcHardwarePort.h
+Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcKernelPort.h
 Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/FreeRTOS.h
 Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/driverlib.h
 Full_Demo/Standard_Demo_Tasks/sp_flop.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/adc14.h
@@ -90,9 +90,9 @@ C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/stdint.h:
 C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/machine/_stdint.h: 
 C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/_stdint.h: 
 C:/Users/Guilherme/workspace_v8/RTOSDemo/FreeRTOSConfig.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/trcRecorder.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/trcConfig.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/trcPortDefines.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcRecorder.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcConfig.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcPortDefines.h: 
 C:/ti/ccsv8/ccs_base/arm/include/msp432.h: 
 C:/ti/ccsv8/ccs_base/arm/include/msp432p401r.h: 
 C:/ti/ccsv8/ccs_base/arm/include/msp_compatibility.h: 
@@ -101,9 +101,9 @@ C:/ti/ccsv8/ccs_base/arm/include/CMSIS/core_cm4.h:
 C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_compiler.h: 
 C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_ccs.h: 
 C:/ti/ccsv8/ccs_base/arm/include/system_msp432p401r.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/trcSnapshotConfig.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/trcHardwarePort.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/trcKernelPort.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcSnapshotConfig.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcHardwarePort.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcKernelPort.h: 
 C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/FreeRTOS.h: 
 C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/driverlib.h: 
 C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/adc14.h: 

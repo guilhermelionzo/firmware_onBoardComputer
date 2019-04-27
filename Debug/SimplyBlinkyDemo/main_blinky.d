@@ -15,9 +15,9 @@ SimplyBlinkyDemo/main_blinky.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.L
 SimplyBlinkyDemo/main_blinky.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/machine/_stdint.h
 SimplyBlinkyDemo/main_blinky.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/_stdint.h
 SimplyBlinkyDemo/main_blinky.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/FreeRTOSConfig.h
-SimplyBlinkyDemo/main_blinky.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/trcRecorder.h
-SimplyBlinkyDemo/main_blinky.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/trcConfig.h
-SimplyBlinkyDemo/main_blinky.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/trcPortDefines.h
+SimplyBlinkyDemo/main_blinky.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcRecorder.h
+SimplyBlinkyDemo/main_blinky.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcConfig.h
+SimplyBlinkyDemo/main_blinky.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcPortDefines.h
 SimplyBlinkyDemo/main_blinky.obj: C:/ti/ccsv8/ccs_base/arm/include/msp432.h
 SimplyBlinkyDemo/main_blinky.obj: C:/ti/ccsv8/ccs_base/arm/include/msp432p401r.h
 SimplyBlinkyDemo/main_blinky.obj: C:/ti/ccsv8/ccs_base/arm/include/msp_compatibility.h
@@ -26,9 +26,9 @@ SimplyBlinkyDemo/main_blinky.obj: C:/ti/ccsv8/ccs_base/arm/include/CMSIS/core_cm
 SimplyBlinkyDemo/main_blinky.obj: C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_compiler.h
 SimplyBlinkyDemo/main_blinky.obj: C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_ccs.h
 SimplyBlinkyDemo/main_blinky.obj: C:/ti/ccsv8/ccs_base/arm/include/system_msp432p401r.h
-SimplyBlinkyDemo/main_blinky.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/trcSnapshotConfig.h
-SimplyBlinkyDemo/main_blinky.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/trcHardwarePort.h
-SimplyBlinkyDemo/main_blinky.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/trcKernelPort.h
+SimplyBlinkyDemo/main_blinky.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcSnapshotConfig.h
+SimplyBlinkyDemo/main_blinky.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcHardwarePort.h
+SimplyBlinkyDemo/main_blinky.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcKernelPort.h
 SimplyBlinkyDemo/main_blinky.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/FreeRTOS.h
 SimplyBlinkyDemo/main_blinky.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/driverlib.h
 SimplyBlinkyDemo/main_blinky.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/adc14.h
@@ -87,9 +87,9 @@ C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/stdint.h:
 C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/machine/_stdint.h: 
 C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/_stdint.h: 
 C:/Users/Guilherme/workspace_v8/RTOSDemo/FreeRTOSConfig.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/trcRecorder.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/trcConfig.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/trcPortDefines.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcRecorder.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcConfig.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcPortDefines.h: 
 C:/ti/ccsv8/ccs_base/arm/include/msp432.h: 
 C:/ti/ccsv8/ccs_base/arm/include/msp432p401r.h: 
 C:/ti/ccsv8/ccs_base/arm/include/msp_compatibility.h: 
@@ -98,9 +98,9 @@ C:/ti/ccsv8/ccs_base/arm/include/CMSIS/core_cm4.h:
 C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_compiler.h: 
 C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_ccs.h: 
 C:/ti/ccsv8/ccs_base/arm/include/system_msp432p401r.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/trcSnapshotConfig.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/trcHardwarePort.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/trcKernelPort.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcSnapshotConfig.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcHardwarePort.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcKernelPort.h: 
 C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/FreeRTOS.h: 
 C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/driverlib.h: 
 C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/adc14.h: 

@@ -11,11 +11,7 @@ GEN_CMDS__FLAG :=
 
 ORDERED_OBJS += \
 "./MPU9250.obj" \
-"./blink.obj" \
 "./main.obj" \
-"./trcKernelPort.obj" \
-"./trcSnapshotRecorder.obj" \
-"./trcStreamingRecorder.obj" \
 "./FreeRTOS_Source/croutine.obj" \
 "./FreeRTOS_Source/event_groups.obj" \
 "./FreeRTOS_Source/list.obj" \
@@ -45,6 +41,9 @@ ORDERED_OBJS += \
 "./Full_Demo/Standard_Demo_Tasks/semtest.obj" \
 "./Full_Demo/Standard_Demo_Tasks/sp_flop.obj" \
 "./SimplyBlinkyDemo/main_blinky.obj" \
+"./Tracealyzer/trcKernelPort.obj" \
+"./Tracealyzer/trcSnapshotRecorder.obj" \
+"./Tracealyzer/trcStreamingRecorder.obj" \
 "./driverlib/cpu.obj" \
 "./driverlib/cs.obj" \
 "./driverlib/flash.obj" \
@@ -59,6 +58,17 @@ ORDERED_OBJS += \
 "./system/CCS/msp432_startup_ccs.obj" \
 "./system/CCS/printf-stdarg.obj" \
 "./system/CCS/system_msp432p401r.obj" \
+"./util/Devices/MSPIO.obj" \
+"./util/Hardware/CS_Driver.obj" \
+"./util/Hardware/GPIO_Driver.obj" \
+"./util/Hardware/SPI_Driver.obj" \
+"./util/Hardware/TIMERA_Driver.obj" \
+"./util/Hardware/UART_Driver.obj" \
+"./util/fatfs/diskio.obj" \
+"./util/fatfs/ff.obj" \
+"./util/fatfs/ffsystem.obj" \
+"./util/fatfs/ffunicode.obj" \
+"./util/fatfs/mmc_MSP432P401r.obj" \
 "../system/CCS/msp432p401r.cmd" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
@@ -78,8 +88,12 @@ RMDIR := RMDIR /S/Q
 -include Full_Demo/subdir_vars.mk
 -include Full_Demo/Standard_Demo_Tasks/subdir_vars.mk
 -include SimplyBlinkyDemo/subdir_vars.mk
+-include Tracealyzer/subdir_vars.mk
 -include driverlib/subdir_vars.mk
 -include system/CCS/subdir_vars.mk
+-include util/Devices/subdir_vars.mk
+-include util/Hardware/subdir_vars.mk
+-include util/fatfs/subdir_vars.mk
 -include subdir_rules.mk
 -include FreeRTOS_Source/subdir_rules.mk
 -include FreeRTOS_Source/portable/CCS/ARM_CM4F/subdir_rules.mk
@@ -88,8 +102,12 @@ RMDIR := RMDIR /S/Q
 -include Full_Demo/subdir_rules.mk
 -include Full_Demo/Standard_Demo_Tasks/subdir_rules.mk
 -include SimplyBlinkyDemo/subdir_rules.mk
+-include Tracealyzer/subdir_rules.mk
 -include driverlib/subdir_rules.mk
 -include system/CCS/subdir_rules.mk
+-include util/Devices/subdir_rules.mk
+-include util/Hardware/subdir_rules.mk
+-include util/fatfs/subdir_rules.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -221,10 +239,10 @@ RTOSDemo_mod.bin: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "MPU9250.obj" "blink.obj" "main.obj" "trcKernelPort.obj" "trcSnapshotRecorder.obj" "trcStreamingRecorder.obj" "FreeRTOS_Source\croutine.obj" "FreeRTOS_Source\event_groups.obj" "FreeRTOS_Source\list.obj" "FreeRTOS_Source\queue.obj" "FreeRTOS_Source\stream_buffer.obj" "FreeRTOS_Source\tasks.obj" "FreeRTOS_Source\timers.obj" "FreeRTOS_Source\portable\CCS\ARM_CM4F\port.obj" "FreeRTOS_Source\portable\CCS\ARM_CM4F\portasm.obj" "FreeRTOS_Source\portable\MemMang\heap_4.obj" "Full_Demo\FreeRTOS+CLI\FreeRTOS_CLI.obj" "Full_Demo\IntQueueTimer.obj" "Full_Demo\RegTest.obj" "Full_Demo\RunTimeStatsTimer.obj" "Full_Demo\Sample-CLI-commands.obj" "Full_Demo\UARTCommandConsole.obj" "Full_Demo\main_full.obj" "Full_Demo\serial.obj" "Full_Demo\Standard_Demo_Tasks\EventGroupsDemo.obj" "Full_Demo\Standard_Demo_Tasks\GenQTest.obj" "Full_Demo\Standard_Demo_Tasks\IntQueue.obj" "Full_Demo\Standard_Demo_Tasks\IntSemTest.obj" "Full_Demo\Standard_Demo_Tasks\TaskNotify.obj" "Full_Demo\Standard_Demo_Tasks\TimerDemo.obj" 
-	-$(RM) "Full_Demo\Standard_Demo_Tasks\countsem.obj" "Full_Demo\Standard_Demo_Tasks\recmutex.obj" "Full_Demo\Standard_Demo_Tasks\semtest.obj" "Full_Demo\Standard_Demo_Tasks\sp_flop.obj" "SimplyBlinkyDemo\main_blinky.obj" "driverlib\cpu.obj" "driverlib\cs.obj" "driverlib\flash.obj" "driverlib\fpu.obj" "driverlib\gpio.obj" "driverlib\interrupt.obj" "driverlib\pcm.obj" "driverlib\sysctl.obj" "driverlib\timer32.obj" "driverlib\uart.obj" "driverlib\wdt_a.obj" "system\CCS\msp432_startup_ccs.obj" "system\CCS\printf-stdarg.obj" "system\CCS\system_msp432p401r.obj" 
-	-$(RM) "MPU9250.d" "blink.d" "main.d" "trcKernelPort.d" "trcSnapshotRecorder.d" "trcStreamingRecorder.d" "FreeRTOS_Source\croutine.d" "FreeRTOS_Source\event_groups.d" "FreeRTOS_Source\list.d" "FreeRTOS_Source\queue.d" "FreeRTOS_Source\stream_buffer.d" "FreeRTOS_Source\tasks.d" "FreeRTOS_Source\timers.d" "FreeRTOS_Source\portable\CCS\ARM_CM4F\port.d" "FreeRTOS_Source\portable\MemMang\heap_4.d" "Full_Demo\FreeRTOS+CLI\FreeRTOS_CLI.d" "Full_Demo\IntQueueTimer.d" "Full_Demo\RunTimeStatsTimer.d" "Full_Demo\Sample-CLI-commands.d" "Full_Demo\UARTCommandConsole.d" "Full_Demo\main_full.d" "Full_Demo\serial.d" "Full_Demo\Standard_Demo_Tasks\EventGroupsDemo.d" "Full_Demo\Standard_Demo_Tasks\GenQTest.d" "Full_Demo\Standard_Demo_Tasks\IntQueue.d" "Full_Demo\Standard_Demo_Tasks\IntSemTest.d" "Full_Demo\Standard_Demo_Tasks\TaskNotify.d" "Full_Demo\Standard_Demo_Tasks\TimerDemo.d" "Full_Demo\Standard_Demo_Tasks\countsem.d" "Full_Demo\Standard_Demo_Tasks\recmutex.d" "Full_Demo\Standard_Demo_Tasks\semtest.d" "Full_Demo\Standard_Demo_Tasks\sp_flop.d" 
-	-$(RM) "SimplyBlinkyDemo\main_blinky.d" "driverlib\cpu.d" "driverlib\cs.d" "driverlib\flash.d" "driverlib\fpu.d" "driverlib\gpio.d" "driverlib\interrupt.d" "driverlib\pcm.d" "driverlib\sysctl.d" "driverlib\timer32.d" "driverlib\uart.d" "driverlib\wdt_a.d" "system\CCS\msp432_startup_ccs.d" "system\CCS\printf-stdarg.d" "system\CCS\system_msp432p401r.d" 
+	-$(RM) "MPU9250.obj" "main.obj" "FreeRTOS_Source\croutine.obj" "FreeRTOS_Source\event_groups.obj" "FreeRTOS_Source\list.obj" "FreeRTOS_Source\queue.obj" "FreeRTOS_Source\stream_buffer.obj" "FreeRTOS_Source\tasks.obj" "FreeRTOS_Source\timers.obj" "FreeRTOS_Source\portable\CCS\ARM_CM4F\port.obj" "FreeRTOS_Source\portable\CCS\ARM_CM4F\portasm.obj" "FreeRTOS_Source\portable\MemMang\heap_4.obj" "Full_Demo\FreeRTOS+CLI\FreeRTOS_CLI.obj" "Full_Demo\IntQueueTimer.obj" "Full_Demo\RegTest.obj" "Full_Demo\RunTimeStatsTimer.obj" "Full_Demo\Sample-CLI-commands.obj" "Full_Demo\UARTCommandConsole.obj" "Full_Demo\main_full.obj" "Full_Demo\serial.obj" "Full_Demo\Standard_Demo_Tasks\EventGroupsDemo.obj" "Full_Demo\Standard_Demo_Tasks\GenQTest.obj" "Full_Demo\Standard_Demo_Tasks\IntQueue.obj" "Full_Demo\Standard_Demo_Tasks\IntSemTest.obj" "Full_Demo\Standard_Demo_Tasks\TaskNotify.obj" "Full_Demo\Standard_Demo_Tasks\TimerDemo.obj" "Full_Demo\Standard_Demo_Tasks\countsem.obj" "Full_Demo\Standard_Demo_Tasks\recmutex.obj" 
+	-$(RM) "Full_Demo\Standard_Demo_Tasks\semtest.obj" "Full_Demo\Standard_Demo_Tasks\sp_flop.obj" "SimplyBlinkyDemo\main_blinky.obj" "Tracealyzer\trcKernelPort.obj" "Tracealyzer\trcSnapshotRecorder.obj" "Tracealyzer\trcStreamingRecorder.obj" "driverlib\cpu.obj" "driverlib\cs.obj" "driverlib\flash.obj" "driverlib\fpu.obj" "driverlib\gpio.obj" "driverlib\interrupt.obj" "driverlib\pcm.obj" "driverlib\sysctl.obj" "driverlib\timer32.obj" "driverlib\uart.obj" "driverlib\wdt_a.obj" "system\CCS\msp432_startup_ccs.obj" "system\CCS\printf-stdarg.obj" "system\CCS\system_msp432p401r.obj" "util\Devices\MSPIO.obj" "util\Hardware\CS_Driver.obj" "util\Hardware\GPIO_Driver.obj" "util\Hardware\SPI_Driver.obj" "util\Hardware\TIMERA_Driver.obj" "util\Hardware\UART_Driver.obj" "util\fatfs\diskio.obj" "util\fatfs\ff.obj" "util\fatfs\ffsystem.obj" "util\fatfs\ffunicode.obj" "util\fatfs\mmc_MSP432P401r.obj" 
+	-$(RM) "MPU9250.d" "main.d" "FreeRTOS_Source\croutine.d" "FreeRTOS_Source\event_groups.d" "FreeRTOS_Source\list.d" "FreeRTOS_Source\queue.d" "FreeRTOS_Source\stream_buffer.d" "FreeRTOS_Source\tasks.d" "FreeRTOS_Source\timers.d" "FreeRTOS_Source\portable\CCS\ARM_CM4F\port.d" "FreeRTOS_Source\portable\MemMang\heap_4.d" "Full_Demo\FreeRTOS+CLI\FreeRTOS_CLI.d" "Full_Demo\IntQueueTimer.d" "Full_Demo\RunTimeStatsTimer.d" "Full_Demo\Sample-CLI-commands.d" "Full_Demo\UARTCommandConsole.d" "Full_Demo\main_full.d" "Full_Demo\serial.d" "Full_Demo\Standard_Demo_Tasks\EventGroupsDemo.d" "Full_Demo\Standard_Demo_Tasks\GenQTest.d" "Full_Demo\Standard_Demo_Tasks\IntQueue.d" "Full_Demo\Standard_Demo_Tasks\IntSemTest.d" "Full_Demo\Standard_Demo_Tasks\TaskNotify.d" "Full_Demo\Standard_Demo_Tasks\TimerDemo.d" "Full_Demo\Standard_Demo_Tasks\countsem.d" "Full_Demo\Standard_Demo_Tasks\recmutex.d" "Full_Demo\Standard_Demo_Tasks\semtest.d" "Full_Demo\Standard_Demo_Tasks\sp_flop.d" "SimplyBlinkyDemo\main_blinky.d" "Tracealyzer\trcKernelPort.d" 
+	-$(RM) "Tracealyzer\trcSnapshotRecorder.d" "Tracealyzer\trcStreamingRecorder.d" "driverlib\cpu.d" "driverlib\cs.d" "driverlib\flash.d" "driverlib\fpu.d" "driverlib\gpio.d" "driverlib\interrupt.d" "driverlib\pcm.d" "driverlib\sysctl.d" "driverlib\timer32.d" "driverlib\uart.d" "driverlib\wdt_a.d" "system\CCS\msp432_startup_ccs.d" "system\CCS\printf-stdarg.d" "system\CCS\system_msp432p401r.d" "util\Devices\MSPIO.d" "util\Hardware\CS_Driver.d" "util\Hardware\GPIO_Driver.d" "util\Hardware\SPI_Driver.d" "util\Hardware\TIMERA_Driver.d" "util\Hardware\UART_Driver.d" "util\fatfs\diskio.d" "util\fatfs\ff.d" "util\fatfs\ffsystem.d" "util\fatfs\ffunicode.d" "util\fatfs\mmc_MSP432P401r.d" 
 	-$(RM) "FreeRTOS_Source\portable\CCS\ARM_CM4F\portasm.d" "Full_Demo\RegTest.d" 
 	-@echo 'Finished clean'
 	-@echo ' '

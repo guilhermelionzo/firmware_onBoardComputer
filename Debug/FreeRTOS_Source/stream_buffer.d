@@ -14,9 +14,9 @@ FreeRTOS_Source/stream_buffer.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.
 FreeRTOS_Source/stream_buffer.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/FreeRTOS.h
 FreeRTOS_Source/stream_buffer.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stddef.h
 FreeRTOS_Source/stream_buffer.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/FreeRTOSConfig.h
-FreeRTOS_Source/stream_buffer.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/trcRecorder.h
-FreeRTOS_Source/stream_buffer.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/trcConfig.h
-FreeRTOS_Source/stream_buffer.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/trcPortDefines.h
+FreeRTOS_Source/stream_buffer.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcRecorder.h
+FreeRTOS_Source/stream_buffer.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcConfig.h
+FreeRTOS_Source/stream_buffer.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcPortDefines.h
 FreeRTOS_Source/stream_buffer.obj: C:/ti/ccsv8/ccs_base/arm/include/msp432.h
 FreeRTOS_Source/stream_buffer.obj: C:/ti/ccsv8/ccs_base/arm/include/msp432p401r.h
 FreeRTOS_Source/stream_buffer.obj: C:/ti/ccsv8/ccs_base/arm/include/msp_compatibility.h
@@ -25,9 +25,9 @@ FreeRTOS_Source/stream_buffer.obj: C:/ti/ccsv8/ccs_base/arm/include/CMSIS/core_c
 FreeRTOS_Source/stream_buffer.obj: C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_compiler.h
 FreeRTOS_Source/stream_buffer.obj: C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_ccs.h
 FreeRTOS_Source/stream_buffer.obj: C:/ti/ccsv8/ccs_base/arm/include/system_msp432p401r.h
-FreeRTOS_Source/stream_buffer.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/trcSnapshotConfig.h
-FreeRTOS_Source/stream_buffer.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/trcHardwarePort.h
-FreeRTOS_Source/stream_buffer.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/trcKernelPort.h
+FreeRTOS_Source/stream_buffer.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcSnapshotConfig.h
+FreeRTOS_Source/stream_buffer.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcHardwarePort.h
+FreeRTOS_Source/stream_buffer.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcKernelPort.h
 FreeRTOS_Source/stream_buffer.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/FreeRTOS.h
 FreeRTOS_Source/stream_buffer.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/driverlib.h
 FreeRTOS_Source/stream_buffer.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/adc14.h
@@ -84,9 +84,9 @@ C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/linkage.h:
 C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/FreeRTOS.h: 
 C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stddef.h: 
 C:/Users/Guilherme/workspace_v8/RTOSDemo/FreeRTOSConfig.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/trcRecorder.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/trcConfig.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/trcPortDefines.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcRecorder.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcConfig.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcPortDefines.h: 
 C:/ti/ccsv8/ccs_base/arm/include/msp432.h: 
 C:/ti/ccsv8/ccs_base/arm/include/msp432p401r.h: 
 C:/ti/ccsv8/ccs_base/arm/include/msp_compatibility.h: 
@@ -95,9 +95,9 @@ C:/ti/ccsv8/ccs_base/arm/include/CMSIS/core_cm4.h:
 C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_compiler.h: 
 C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_ccs.h: 
 C:/ti/ccsv8/ccs_base/arm/include/system_msp432p401r.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/trcSnapshotConfig.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/trcHardwarePort.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/trcKernelPort.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcSnapshotConfig.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcHardwarePort.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcKernelPort.h: 
 C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/FreeRTOS.h: 
 C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/driverlib.h: 
 C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/adc14.h: 

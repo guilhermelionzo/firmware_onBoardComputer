@@ -119,6 +119,10 @@ Full_Demo/FreeRTOS+CLI \
 Full_Demo \
 Full_Demo/Standard_Demo_Tasks \
 SimplyBlinkyDemo \
+Tracealyzer \
 driverlib \
 system/CCS \
+util/Devices \
+util/Hardware \
+util/fatfs \
 

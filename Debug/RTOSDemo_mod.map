@@ -1,7 +1,7 @@
 ******************************************************************************
                   TI ARM Linker PC v18.1.1                     
 ******************************************************************************
->> Linked Sat Apr 27 20:08:27 2019
+>> Linked Sat Apr 27 20:38:11 2019
 
 OUTPUT FILE NAME:   <RTOSDemo_mod.out>
 ENTRY POINT SYMBOL: "_c_int00_noargs"  address: 0000517d
@@ -374,11 +374,9 @@ MODULE SUMMARY
        Module                       code    ro data   rw data
        ------                       ----    -------   -------
     .\
-       trcSnapshotRecorder.obj      5948    0         6638   
-       trcKernelPort.obj            1494    0         5      
        main.obj                     100     0         0      
     +--+----------------------------+-------+---------+---------+
-       Total:                       7542    0         6643   
+       Total:                       100     0         0      
                                                              
     .\FreeRTOS_Source\
        tasks.obj                    4008    0         260    
@@ -414,6 +412,12 @@ MODULE SUMMARY
        main_blinky.obj              384     0         8      
     +--+----------------------------+-------+---------+---------+
        Total:                       384     0         8      
+                                                             
+    .\Tracealyzer\
+       trcSnapshotRecorder.obj      5948    0         6638   
+       trcKernelPort.obj            1494    0         5      
+    +--+----------------------------+-------+---------+---------+
+       Total:                       7442    0         6643   
                                                              
     .\driverlib\
        cs.obj                       1154    0         8      

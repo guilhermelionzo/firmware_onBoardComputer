@@ -15,9 +15,9 @@ main.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/stdint.h
 main.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/machine/_stdint.h
 main.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/_stdint.h
 main.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/FreeRTOSConfig.h
-main.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/trcRecorder.h
-main.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/trcConfig.h
-main.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/trcPortDefines.h
+main.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcRecorder.h
+main.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcConfig.h
+main.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcPortDefines.h
 main.obj: C:/ti/ccsv8/ccs_base/arm/include/msp432.h
 main.obj: C:/ti/ccsv8/ccs_base/arm/include/msp432p401r.h
 main.obj: C:/ti/ccsv8/ccs_base/arm/include/msp_compatibility.h
@@ -26,9 +26,9 @@ main.obj: C:/ti/ccsv8/ccs_base/arm/include/CMSIS/core_cm4.h
 main.obj: C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_compiler.h
 main.obj: C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_ccs.h
 main.obj: C:/ti/ccsv8/ccs_base/arm/include/system_msp432p401r.h
-main.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/trcSnapshotConfig.h
-main.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/trcHardwarePort.h
-main.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/trcKernelPort.h
+main.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcSnapshotConfig.h
+main.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcHardwarePort.h
+main.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcKernelPort.h
 main.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/FreeRTOS.h
 main.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/driverlib.h
 main.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/adc14.h
@@ -85,9 +85,9 @@ C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/stdint.h:
 C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/machine/_stdint.h: 
 C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/_stdint.h: 
 C:/Users/Guilherme/workspace_v8/RTOSDemo/FreeRTOSConfig.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/trcRecorder.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/trcConfig.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/trcPortDefines.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcRecorder.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcConfig.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcPortDefines.h: 
 C:/ti/ccsv8/ccs_base/arm/include/msp432.h: 
 C:/ti/ccsv8/ccs_base/arm/include/msp432p401r.h: 
 C:/ti/ccsv8/ccs_base/arm/include/msp_compatibility.h: 
@@ -96,9 +96,9 @@ C:/ti/ccsv8/ccs_base/arm/include/CMSIS/core_cm4.h:
 C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_compiler.h: 
 C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_ccs.h: 
 C:/ti/ccsv8/ccs_base/arm/include/system_msp432p401r.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/trcSnapshotConfig.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/trcHardwarePort.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/trcKernelPort.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcSnapshotConfig.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcHardwarePort.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcKernelPort.h: 
 C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/FreeRTOS.h: 
 C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/driverlib.h: 
 C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/adc14.h: 
