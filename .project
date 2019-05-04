@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>RTOSDemo_mod</name>
+	<name>Firmware_OBC</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -58,7 +58,7 @@
 	</linkedResources>
 	<filteredResources>
 		<filter>
-			<id>1556406464716</id>
+			<id>0</id>
 			<name></name>
 			<type>10</type>
 			<matcher>
@@ -67,7 +67,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1556406464724</id>
+			<id>0</id>
 			<name></name>
 			<type>10</type>
 			<matcher>
@@ -76,7 +76,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1556406464729</id>
+			<id>0</id>
 			<name></name>
 			<type>10</type>
 			<matcher>
@@ -85,7 +85,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1556406464735</id>
+			<id>0</id>
 			<name></name>
 			<type>6</type>
 			<matcher>
@@ -94,7 +94,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1556406464740</id>
+			<id>0</id>
 			<name></name>
 			<type>6</type>
 			<matcher>
@@ -103,7 +103,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1556406464745</id>
+			<id>0</id>
 			<name></name>
 			<type>6</type>
 			<matcher>
@@ -112,7 +112,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1556406464750</id>
+			<id>0</id>
 			<name></name>
 			<type>6</type>
 			<matcher>
@@ -121,7 +121,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1556406464756</id>
+			<id>0</id>
 			<name></name>
 			<type>6</type>
 			<matcher>
@@ -130,7 +130,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1556406464762</id>
+			<id>0</id>
 			<name></name>
 			<type>6</type>
 			<matcher>
@@ -139,7 +139,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1556406464767</id>
+			<id>0</id>
 			<name></name>
 			<type>6</type>
 			<matcher>

@@ -121,6 +121,8 @@ Full_Demo/Standard_Demo_Tasks \
 SimplyBlinkyDemo \
 Tracealyzer \
 driverlib \
+interface \
+src \
 system/CCS \
 util/Devices \
 util/Hardware \

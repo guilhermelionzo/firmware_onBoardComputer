@@ -1,50 +1,31 @@
 /*
- * FreeRTOS Kernel V10.0.1
- * Copyright (C) 2017 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * main.c
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
+ * Copyright (C) 2019, Universidade de Brasilia - FGA
  *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
+ * This file is part of Firmware_OBC.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * Firmware_OBC is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * http://www.FreeRTOS.org
- * http://aws.amazon.com/freertos
+ * Firmware_OBC is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * 1 tab == 4 spaces!
+ * You should have received a copy of the GNU General Public License
+ * along with FloripaSat-OBDH.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
-/******************************************************************************
- * This project provides two demo applications.  A simple blinky style project,
- * and a more comprehensive test and demo application.  The
- * configCREATE_SIMPLE_TICKLESS_DEMO setting (defined in FreeRTOSConfig.h) is
- * used to select between the two.  The simply blinky demo is implemented and
- * described in main_blinky.c.  The more comprehensive test and demo application
- * is implemented and described in main_full.c.
+ /**
+ * \file main.c
  *
- * The comprehensive demo uses FreeRTOS+CLI to create a simple command line
- * interface through a UART.
+ * \brief Main file
  *
- * The blinky demo uses FreeRTOS's tickless idle mode to reduce power
- * consumption.  See the notes on the web page below regarding the difference
- * in power saving that can be achieved between using the generic tickless
- * implementation (as used by the blinky demo) and a tickless implementation
- * that is tailored specifically to the MSP432.
- *
- * This file implements the code that is not demo specific.
- *
- * See http://www.FreeRTOS.org/TI_MSP432_Free_RTOS_Demo.html for instructions.
+ * \author Guilherme Lionço
  *
  */
 
@@ -57,12 +38,6 @@
 
 /*-----------------------------------------------------------*/
 
-/* NOTE: If an IAR build results in an undefined "reference to __write" linker
-error then set the printf formatter project option to "tiny" and the scanf
-formatter project option to "small". */
-
-
-
 /*
  * Set up the hardware ready to run this demo.
  */
@@ -74,7 +49,7 @@ static void prvSetupHardware( void );
  * main_full() is used when configCREATE_SIMPLE_TICKLESS_DEMO is set to 0.
  */
 extern void main_blinky( void );
-
+extern void dataStorage(void);
 /*-----------------------------------------------------------*/
 
 int main( void )
@@ -84,19 +59,15 @@ int main( void )
 	/* Prepare the hardware to run this demo. */
 	prvSetupHardware();
 
-	/* The configCREATE_SIMPLE_TICKLESS_DEMO setting is described at the top
-	of this file. */
-	//#if( configCREATE_SIMPLE_TICKLESS_DEMO == 1 )
-	//{
-		main_blinky();
-	//}
-	//#else
-	//{
-	//	main_full();
-	//}
-	//#endif
+	//main_blinky();
+	vTraceEnable(TRC_START);
+	xTaskCreate(dataStorage, "Data Storage", 1024, NULL, 1, NULL);
+    /* Start the tasks and timer running. */
 
-	return 0;
+	vTaskStartScheduler();
+
+	while(1);
+
 }
 /*-----------------------------------------------------------*/
 

@@ -18,17 +18,17 @@
 
 void initI2C(void);
 void setSleepEnabled(bool enabled);
-void setFullScaleGyroRange(uint8_t range);
-void setFullScaleAccelRange(uint8_t range);
-void MPU9250_setClockSource(uint8_t source);
-void writeBit(uint8_t regAddr, uint8_t bitNum, uint8_t data);
-void writeBits(uint8_t regAddr, uint8_t bitStart, uint8_t length, uint8_t data);
-bool readI2C(uint8_t ui8Addr, uint8_t ui8Reg, uint8_t *Data, uint8_t ui8ByteCount);
-bool writeI2C(uint8_t ui8Addr, uint8_t ui8Reg, uint8_t *Data, uint8_t ui8ByteCount);
+void setFullScaleGyroRange(uint16_t range);
+void setFullScaleAccelRange(uint16_t range);
+void MPU9250_setClockSource(uint16_t source);
+void writeBit(uint16_t regAddr, uint16_t bitNum, uint16_t data);
+void writeBits(uint16_t regAddr, uint16_t bitStart, uint16_t length, uint16_t data);
+bool readI2C(uint16_t ui8Addr, uint16_t ui8Reg, uint16_t *Data, uint16_t ui8ByteCount);
+bool writeI2C(uint16_t ui8Addr, uint16_t ui8Reg, uint16_t *Data, uint16_t ui8ByteCount);
 void getMotion6(int16_t* ax, int16_t* ay, int16_t* az, int16_t* gx, int16_t* gy, int16_t* gz);
 void MPU9250_getMotion9(int16_t* ax, int16_t* ay, int16_t* az, int16_t* gx, int16_t* gy, int16_t* gz, int16_t* mx, int16_t* my, int16_t* mz);
 
-uint8_t MPU9250_devAddr = 0x68;
+uint16_t MPU9250_devAddr = 0x68;
 
 /* I2C Master Configuration Parameter */
 const eUSCI_I2C_MasterConfig i2cConfig =
@@ -53,7 +53,7 @@ void MPU9250_initialize(){
 //check whether MPU9250//6050 is available on the I2C BUS
 bool checkConnection(){
 
-    uint8_t data;
+    uint16_t data;
 
     readI2C(MPU9250_devAddr,0x75, &data, 1);
 
@@ -110,7 +110,7 @@ void setSleepEnabled(bool enabled) {
  * @param range New full-scale accelerometer range setting
  * @see getFullScaleAccelRange()
  */
-void setFullScaleAccelRange(uint8_t range) {
+void setFullScaleAccelRange(uint16_t range) {
     writeBits(MPU6050_RA_ACCEL_CONFIG, MPU6050_ACONFIG_AFS_SEL_BIT, MPU6050_ACONFIG_AFS_SEL_LENGTH, range);
 }
 
@@ -122,7 +122,7 @@ void setFullScaleAccelRange(uint8_t range) {
  * @see MPU6050_GCONFIG_FS_SEL_BIT
  * @see MPU6050_GCONFIG_FS_SEL_LENGTH
  */
-void setFullScaleGyroRange(uint8_t range) {
+void setFullScaleGyroRange(uint16_t range) {
     writeBits(MPU6050_RA_GYRO_CONFIG, MPU6050_GCONFIG_FS_SEL_BIT, MPU6050_GCONFIG_FS_SEL_LENGTH, range);
 }
 
@@ -156,15 +156,15 @@ void setFullScaleGyroRange(uint8_t range) {
  * @see MPU9250_PWR1_CLKSEL_BIT
  * @see MPU9250_PWR1_CLKSEL_LENGTH
 */
-void MPU9250_setClockSource(uint8_t source) {
+void MPU9250_setClockSource(uint16_t source) {
 
     writeBits(MPU6050_RA_PWR_MGMT_1, MPU6050_PWR1_CLKSEL_BIT, MPU6050_PWR1_CLKSEL_LENGTH, source);
 
 }
 
-void writeBit(uint8_t regAddr, uint8_t bitNum, uint8_t data) {
+void writeBit(uint16_t regAddr, uint16_t bitNum, uint16_t data) {
 
-    uint8_t b;
+    uint16_t b;
 
     readI2C(MPU9250_devAddr,regAddr, &b, 1);
 
@@ -174,13 +174,13 @@ void writeBit(uint8_t regAddr, uint8_t bitNum, uint8_t data) {
 
 
 }
-void writeBits(uint8_t regAddr, uint8_t bitStart, uint8_t length, uint8_t data){
+void writeBits(uint16_t regAddr, uint16_t bitStart, uint16_t length, uint16_t data){
 
-    uint8_t b=0;
+    uint16_t b=0;
 
     readI2C(MPU9250_devAddr,regAddr, &b, 1);
 
-    uint8_t mask = ((1 << length) - 1) << (bitStart - length + 1);
+    uint16_t mask = ((1 << length) - 1) << (bitStart - length + 1);
 
     data <<= (bitStart - length + 1); // shift data into correct position
     data &= mask; // zero all non-important bits in data
@@ -212,7 +212,7 @@ void initI2C(void)
 /***********************************************************
   Function:
 */
-bool writeI2C(uint8_t ui8Addr, uint8_t ui8Reg, uint8_t *Data, uint8_t ui8ByteCount)
+bool writeI2C(uint16_t ui8Addr, uint16_t ui8Reg, uint16_t *Data, uint16_t ui8ByteCount)
 {
     /* Todo: Implement a delay */
     /* Wait until ready to write */
@@ -263,7 +263,7 @@ bool writeI2C(uint8_t ui8Addr, uint8_t ui8Reg, uint8_t *Data, uint8_t ui8ByteCou
 /***********************************************************
   Function:
 */
-bool readI2C(uint8_t ui8Addr, uint8_t ui8Reg, uint8_t *Data, uint8_t ui8ByteCount)
+bool readI2C(uint16_t ui8Addr, uint16_t ui8Reg, uint16_t *Data, uint16_t ui8ByteCount)
 {
     /* Todo: Implement a delay */
     /* Wait until ready */
