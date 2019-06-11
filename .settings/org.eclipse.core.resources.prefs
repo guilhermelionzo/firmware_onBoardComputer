@@ -36,3 +36,5 @@ encoding//Debug/util/Hardware/subdir_rules.mk=UTF-8
 encoding//Debug/util/Hardware/subdir_vars.mk=UTF-8
 encoding//Debug/util/fatfs/subdir_rules.mk=UTF-8
 encoding//Debug/util/fatfs/subdir_vars.mk=UTF-8
+encoding//Debug/util/subdir_rules.mk=UTF-8
+encoding//Debug/util/subdir_vars.mk=UTF-8

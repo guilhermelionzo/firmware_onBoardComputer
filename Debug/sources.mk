@@ -126,5 +126,6 @@ src \
 system/CCS \
 util/Devices \
 util/Hardware \
+util \
 util/fatfs \
 

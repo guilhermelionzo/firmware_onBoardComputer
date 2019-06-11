@@ -32,37 +32,43 @@
 /* Standard includes. */
 #include <stdio.h>
 
-/* Kernel includes. */
-#include "FreeRTOS.h"
-#include "task.h"
-
 /*-----------------------------------------------------------*/
+
+#include <src/systemDef.h>
+#include <src/taskManager.h>
 
 /*
  * Set up the hardware ready to run this demo.
  */
 
 static void prvSetupHardware( void );
+static void prvConfigureClocks( void );
 
 /*
  * main_blinky() is used when configCREATE_SIMPLE_TICKLESS_DEMO is set to 1.
  * main_full() is used when configCREATE_SIMPLE_TICKLESS_DEMO is set to 0.
  */
-extern void main_blinky( void );
-extern void dataStorage(void);
+
 /*-----------------------------------------------------------*/
+
+/* The queue used by both tasks. */
+
 
 int main( void )
 {
-	/* See http://www.FreeRTOS.org/TI_MSP432_Free_RTOS_Demo.html for instructions. */
 
-	/* Prepare the hardware to run this demo. */
+	/* Prepare the hardware */
 	prvSetupHardware();
+
+	prvConfigureClocks();
 
 	//main_blinky();
 	vTraceEnable(TRC_START);
-	xTaskCreate(dataStorage, "Data Storage", 1024, NULL, 1, NULL);
-    /* Start the tasks and timer running. */
+
+	/*Start the creation of tasks*/
+	taskCreate();
+
+	/* Start the tasks and timer running. */
 
 	vTaskStartScheduler();
 
@@ -85,10 +91,10 @@ extern void FPU_enableModule( void );
 	/* Ensure the FPU is enabled. */
 	FPU_enableModule();
 
-	/* Selecting P1.2 and P1.3 in UART mode and P1.0 as output (LED) */
+	/* Selecting P1.2 and P1.3 in UART mode and P1.0 as output (LED)
 	MAP_GPIO_setAsPeripheralModuleFunctionInputPin( GPIO_PORT_P1, GPIO_PIN2 | GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION );
 	MAP_GPIO_setOutputLowOnPin( GPIO_PORT_P1, GPIO_PIN0 );
-	MAP_GPIO_setAsOutputPin( GPIO_PORT_P1, GPIO_PIN0 );
+	MAP_GPIO_setAsOutputPin( GPIO_PORT_P1, GPIO_PIN0 );*/
 }
 /*-----------------------------------------------------------*/
 
@@ -145,4 +151,22 @@ void *malloc( size_t xSize )
 }
 /*-----------------------------------------------------------*/
 
+static void prvConfigureClocks( void )
+{
+    /* The full demo configures the clocks for maximum frequency, wheras this
+    blinky demo uses a slower clock as it also uses low power features.
 
+    From the datasheet:  For AM_LDO_VCORE0 and AM_DCDC_VCORE0 modes, the maximum
+    CPU operating frequency is 24 MHz and maximum input clock frequency for
+    peripherals is 12 MHz. */
+    FlashCtl_setWaitState( FLASH_BANK0, 2 );
+    FlashCtl_setWaitState( FLASH_BANK1, 2 );
+    CS_setDCOCenteredFrequency( CS_DCO_FREQUENCY_3 );
+    CS_initClockSignal( CS_HSMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1 );
+    CS_initClockSignal( CS_SMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1 );
+    CS_initClockSignal( CS_MCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1 );
+    CS_initClockSignal( CS_ACLK, CS_REFOCLK_SELECT, CS_CLOCK_DIVIDER_1 );
+
+    /* The lower frequency allows the use of CVORE level 0. */
+    PCM_setCoreVoltageLevel( PCM_VCORE0 );
+}

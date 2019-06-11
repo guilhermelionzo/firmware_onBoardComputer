@@ -130,7 +130,7 @@ static void prvConfigureButton( void );
 /*-----------------------------------------------------------*/
 
 /* The queue used by both tasks. */
-static QueueHandle_t xQueue = NULL;
+extern QueueHandle_t xQueue = NULL;
 
 /*-----------------------------------------------------------*/
 

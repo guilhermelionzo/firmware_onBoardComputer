@@ -29,21 +29,29 @@
  *
  */
 #include "dataStorage.h"
+#include "stdlib.h"
 
-//------- VARIABLES --------------//
+//------- SD VARIABLES --------------//
 FATFS   sdDriver;           /*sd driver pointer*/
 DIR     DI;
 FILINFO FI;                 /**/
 FIL     file;               /*file pointer*/
-char    buffer[100];        /*buffer*/
+FIL     fileBin;
+char    buffer[SIZE_OF_IMU_DATA];        /*buffer*/
 UINT    br, bw;             /* File read/write count */
 FRESULT fResult;            /*message handle*/
 FILINFO FI;
 
-#define DATA_STORAGE_TICK_PERIOD 1000       //1 second
+#define DATA_STORAGE_TICK_PERIOD 100       //1 second
 
 uint_fast8_t time;
+char buffer_timer[10]="";
 char CTime;
+
+extern QueueHandle_t xQueueIMU;
+extern SemaphoreHandle_t semaphoreIMU;
+
+ImuData imuData;
 
 void *dataStorage(void *pvParameters){
 
@@ -54,18 +62,9 @@ void *dataStorage(void *pvParameters){
     RTC_C_startClock();
 
     //try to open the telemetry file
-    fResult = f_open(&file, "t_data.txt","a");
+    fResult = f_open(&file, "T_DATA.TXT",FA_OPEN_APPEND | FA_WRITE | FA_READ);
 
-    while(fResult!=FR_OK){//TODO: do the error handling
-
-        fResult = f_open(&file, "FILE.TXT","a");
-
-        f_close(&file);
-
-        f_rename("FILE.TXT", "t_data.txt");
-
-        fResult = f_open(&file, "t_data.txt","a");
-    }
+    //TODO: error handling
 
     while(1){
 
@@ -73,25 +72,58 @@ void *dataStorage(void *pvParameters){
 
         //TODO: queue control
         time = RTC_C_getCalendarTime().seconds;
+        time=RTC_C_getCalendarTime().dayOfmonth;
+        itoa(time,&buffer_timer,10);
+        fResult=f_write(&file, buffer_timer, sizeof(buffer), NULL);
 
-        //memcpy(CTime,(char*)&time, sizeof(time));
+        fResult=f_write(&file, "IMU:", sizeof("IMU:"), NULL);
 
-        fResult=f_write(&file, "teste:", sizeof("teste:"), NULL);
+       if(xSemaphoreTake(semaphoreIMU,2000)){
 
-        fResult=f_write(&file, time, sizeof(time), &bw);
+            xQueueReceive(xQueueIMU,&imuData,200);
 
-        fResult=f_write(&file, "|", sizeof("|"), &bw);
+            xSemaphoreGive(semaphoreIMU);
+       }
+        /*double str = 123.14;
 
-        //if(fResult!=FR_OK){while(1);}
+        fResult=f_write(&file, "Time:", sizeof("Time:"), NULL);
 
+        fResult = f_write(&file,strCnv, sizeof(strCnv), &bw);
+
+        fResult=f_write(&file, "; Value:", sizeof("; Value:"), NULL);
+        char strT[10]="";
+        dtoa(&strT, str);
+        fResult = f_write(&file,strT, sizeof(strT), &bw);
+*/
+
+        fResult = f_write(&file, imuData.ax, sizeof(imuData.az), &bw);
+        fResult = f_write(&file, imuData.ay, sizeof(imuData.az), &bw);
+        fResult = f_write(&file, imuData.az, sizeof(imuData.az), &bw);
+        fResult = f_write(&file, imuData.gx, sizeof(imuData.az), &bw);
+        fResult = f_write(&file, imuData.gy, sizeof(imuData.az), &bw);
+        fResult = f_write(&file, imuData.gz, sizeof(imuData.az), &bw);
+        fResult = f_write(&file, imuData.mx, sizeof(imuData.az), &bw);
+        fResult = f_write(&file, imuData.my, sizeof(imuData.az), &bw);
+        fResult = f_write(&file, imuData.mz, sizeof(imuData.az), &bw);
+
+        fResult = f_write(&file,";", sizeof(";"), &bw);
         f_sync(&file);
 
         vTaskDelay(DATA_STORAGE_TICK_PERIOD);
 
     }
 
+    vTaskDelete( NULL );
 
+}
 
+dataPacket readPacket(void){
+
+    dataPacket data ={0};
+
+    data = obcData;
+
+    return data;
 }
 
 int initSD(){
@@ -100,7 +132,7 @@ int initSD(){
 
     SPI_Init(EUSCI_B0_BASE, SPI0MasterConfig);
 
-    GPIO_Init(GPIO_PORT_P5, GPIO_PIN0);
+    GPIO_Init(GPIO_PORT_P4, GPIO_PIN6);
 
     Interrupt_enableMaster();
 

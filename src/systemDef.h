@@ -8,12 +8,34 @@
 #ifndef SYSTEMDEF_H_
 #define SYSTEMDEF_H_
 
+/* Kernel includes. */
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "semphr.h"
+
+
+#define SIZE_OF_IMU_DATA 7
+
+typedef struct {
+   char  ax[SIZE_OF_IMU_DATA];
+   char  ay[SIZE_OF_IMU_DATA];
+   char  az[SIZE_OF_IMU_DATA];
+   char  gx[SIZE_OF_IMU_DATA];
+   char  gy[SIZE_OF_IMU_DATA];
+   char  gz[SIZE_OF_IMU_DATA];
+   char  mx[SIZE_OF_IMU_DATA];
+   char  my[SIZE_OF_IMU_DATA];
+   char  mz[SIZE_OF_IMU_DATA];
+} ImuData;
+
 typedef struct {
     uint16_t package_flags;
     //obdh
     uint8_t system_status      [6];
-    uint8_t imu                [24];
-    uint8_t obc_sensors        [6];
+    ImuData imuData;
+    uint8_t obc_sensors        [5];
+    uint8_t internalTemperature;
     uint8_t systick            [4];
     uint8_t solar_panels       [12];
     uint8_t transceiver        [85];
@@ -26,9 +48,16 @@ typedef struct {
     //payloads
     uint8_t payload1           [7];
     uint8_t payload2           [100];
-} data_packet_t;
+} dataPacket;
 
 
 
+/* The queue used by both tasks. */
+static QueueHandle_t xQueueMPU = NULL;
+
+volatile dataPacket obcData;
+
+#define SUCCESS 1
+#define FAILURE 0
 
 #endif /* SYSTEMDEF_H_ */

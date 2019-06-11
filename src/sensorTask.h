@@ -1,5 +1,5 @@
 /*
- * dataStorage.h
+ * sensorTask.h
  *
  * Copyright (C) 2019, Universidade de Brasilia - FGA
  *
@@ -21,52 +21,30 @@
  */
 
  /**
- * \file dataStorage.h
+ * \file sensorTask.h
  *
- * \brief dataStorage file
+ * \brief sensorTask file
  *
  * \author Guilherme Lionço
  *
  */
-#ifndef SRC_DATASTORAGE_H_
-#define SRC_DATASTORAGE_H_
+#ifndef SRC_SENSORTASK_H_
+#define SRC_SENSORTASK_H_
 
 //------- RTOS --------------//
 #include <FreeRTOS.h>
 #include <task.h>
 #include <queue.h>
 
-//------- SD --------------//
-#include <util/Hardware/SPI_Driver.h>
-#include <util/Hardware/GPIO_Driver.h>
-#include <util/Hardware/CS_Driver.h>
-#include <util/fatfs/ff.h>
-#include <util/fatfs/diskio.h>
-#include <util/Devices/MSPIO.h>
-
 //------- SYSTEM --------------//
 #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 #include <src/systemDef.h>
 
-#define SUCCESS 1
-#define FAILURE 0
 
-//------- PROTOCOL CONFIGURATION --------------//
-eUSCI_SPI_MasterConfig SPI0MasterConfig =
-{
-     EUSCI_B_SPI_CLOCKSOURCE_SMCLK,
-     3000000,
-     500000,
-     EUSCI_B_SPI_MSB_FIRST,
-     EUSCI_B_SPI_PHASE_DATA_CHANGED_ONFIRST_CAPTURED_ON_NEXT,
-     EUSCI_B_SPI_CLOCKPOLARITY_INACTIVITY_HIGH,
-     EUSCI_B_SPI_3PIN
-};
 
-int initSD();
+#define SENSOR_TASK_TICK_PERIOD 100
 
-void *dataStorage(void *pvParameters);
+void *sensorTask(void *pvParameters);
 
-dataPacket readPacket(void);
 
-#endif /* SRC_DATASTORAGE_H_ */
+#endif /* SRC_SENSORTASK_H_ */

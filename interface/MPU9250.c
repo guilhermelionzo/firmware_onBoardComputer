@@ -87,13 +87,13 @@ void MPU9250_getMotion9(int16_t* ax, int16_t* ay, int16_t* az, int16_t* gx, int1
 }
 
 void getMotion6(int16_t* ax, int16_t* ay, int16_t* az, int16_t* gx, int16_t* gy, int16_t* gz) {
-    readI2C(MPU9250_devAddr,MPU6050_RA_ACCEL_XOUT_H,&buffer,14);
-    *ax = (((int16_t)buffer[0]) << 8) | buffer[1];
-    *ay = (((int16_t)buffer[2]) << 8) | buffer[3];
-    *az = (((int16_t)buffer[4]) << 8) | buffer[5];
-    *gx = (((int16_t)buffer[8]) << 8) | buffer[9];
-    *gy = (((int16_t)buffer[10]) << 8) | buffer[11];
-    *gz = (((int16_t)buffer[12]) << 8) | buffer[13];
+    readI2C(MPU9250_devAddr,MPU6050_RA_ACCEL_XOUT_H,&bufferIMU,14);
+    *ax = (((int16_t)bufferIMU[0]) << 8) | bufferIMU[1];
+    *ay = (((int16_t)bufferIMU[2]) << 8) | bufferIMU[3];
+    *az = (((int16_t)bufferIMU[4]) << 8) | bufferIMU[5];
+    *gx = (((int16_t)bufferIMU[8]) << 8) | bufferIMU[9];
+    *gy = (((int16_t)bufferIMU[10]) << 8) | bufferIMU[11];
+    *gz = (((int16_t)bufferIMU[12]) << 8) | bufferIMU[13];
 }
 
 /** Set sleep mode status.

@@ -8,6 +8,7 @@ main.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdarg.h
 main.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/_types.h
 main.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/cdefs.h
 main.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/machine/_types.h
+main.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/src/systemDef.h
 main.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/FreeRTOS.h
 main.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stddef.h
 main.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdint.h
@@ -69,6 +70,9 @@ main.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/portable/CCS/ARM_CM4F/portmacro.
 main.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/mpu_wrappers.h
 main.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/task.h
 main.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/list.h
+main.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/queue.h
+main.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/semphr.h
+main.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/src/taskManager.h
 
 ../main.c: 
 C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdio.h: 
@@ -78,6 +82,7 @@ C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdarg.h:
 C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/_types.h: 
 C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/cdefs.h: 
 C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/machine/_types.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/src/systemDef.h: 
 C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/FreeRTOS.h: 
 C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stddef.h: 
 C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdint.h: 
@@ -139,3 +144,6 @@ C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/portable/CCS/ARM_CM4F/portmacro.h:
 C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/mpu_wrappers.h: 
 C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/task.h: 
 C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/list.h: 
+C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/queue.h: 
+C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/semphr.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/src/taskManager.h: 
