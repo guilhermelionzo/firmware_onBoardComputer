@@ -72,6 +72,9 @@ main.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/task.h
 main.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/list.h
 main.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/queue.h
 main.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/semphr.h
+main.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/util/stringUtil.h
+main.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/util/itoa.h
+main.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/util/dtoa.h
 main.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/src/taskManager.h
 
 ../main.c: 
@@ -146,4 +149,7 @@ C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/task.h:
 C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/list.h: 
 C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/queue.h: 
 C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/semphr.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/util/stringUtil.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/util/itoa.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/util/dtoa.h: 
 C:/Users/Guilherme/workspace_v8/RTOSDemo/src/taskManager.h: 

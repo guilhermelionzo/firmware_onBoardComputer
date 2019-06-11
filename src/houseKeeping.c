@@ -70,10 +70,10 @@ void *houseKeeping(void *pvParameters){
         itoa(mx, &imuData.mx, DECIMAL);
         itoa(my, &imuData.my, DECIMAL);
         itoa(mz, &imuData.mz, DECIMAL);
-        itoa(gx, &imuData.gx, DECIMAL);
+        /*itoa(gx, &imuData.gx, DECIMAL);
         itoa(gy, &imuData.gy, DECIMAL);
         itoa(gz, &imuData.gz, DECIMAL);
-
+*/
         obcData.imuData =imuData;
 
         getTemperature(&temperatureValue);
@@ -95,7 +95,7 @@ void *houseKeeping(void *pvParameters){
         vTaskDelay(100);
     }
 
-    vTaskDelete( NULL );
+    //vTaskDelete( NULL );
 
 }
 

@@ -43,8 +43,8 @@ FRESULT fResult;            /*message handle*/
 FILINFO FI;
 
 #define DATA_STORAGE_TICK_PERIOD 100       //1 second
+//------- LOCAL VARIABLES --------------//
 
-uint_fast8_t time;
 char buffer_timer[10]="";
 char CTime;
 
@@ -52,6 +52,9 @@ extern QueueHandle_t xQueueIMU;
 extern SemaphoreHandle_t semaphoreIMU;
 
 ImuData imuData;
+LocalTime localTime;
+
+void getLocalTime(void);
 
 void *dataStorage(void *pvParameters){
 
@@ -71,49 +74,52 @@ void *dataStorage(void *pvParameters){
         //TODO: control of SPI interface
 
         //TODO: queue control
-        time = RTC_C_getCalendarTime().seconds;
-        time=RTC_C_getCalendarTime().dayOfmonth;
-        itoa(time,&buffer_timer,10);
-        fResult=f_write(&file, buffer_timer, sizeof(buffer), NULL);
 
-        fResult=f_write(&file, "IMU:", sizeof("IMU:"), NULL);
+        //TIME STAMP
+        getLocalTime();
+        fResult=f_write(&file, localTime.hour, sizeof(localTime.hour), NULL);
+        fResult=f_write(&file, ":", sizeof(":"), NULL);
+        fResult=f_write(&file, localTime.minutes, sizeof(localTime.minutes), NULL);
+        fResult=f_write(&file, ":", sizeof(":"), NULL);
+        fResult=f_write(&file, localTime.seconds, sizeof(localTime.seconds), NULL);
 
-       if(xSemaphoreTake(semaphoreIMU,2000)){
+        //MSP STATUS
+
+        //SUBSYSTEM STATUS
+
+        //DATA
+
+        if(xSemaphoreTake(semaphoreIMU,2000)){
 
             xQueueReceive(xQueueIMU,&imuData,200);
 
             xSemaphoreGive(semaphoreIMU);
-       }
-        /*double str = 123.14;
-
-        fResult=f_write(&file, "Time:", sizeof("Time:"), NULL);
-
-        fResult = f_write(&file,strCnv, sizeof(strCnv), &bw);
-
-        fResult=f_write(&file, "; Value:", sizeof("; Value:"), NULL);
-        char strT[10]="";
-        dtoa(&strT, str);
-        fResult = f_write(&file,strT, sizeof(strT), &bw);
-*/
+        }
 
         fResult = f_write(&file, imuData.ax, sizeof(imuData.az), &bw);
         fResult = f_write(&file, imuData.ay, sizeof(imuData.az), &bw);
         fResult = f_write(&file, imuData.az, sizeof(imuData.az), &bw);
-        fResult = f_write(&file, imuData.gx, sizeof(imuData.az), &bw);
+        /*fResult = f_write(&file, imuData.gx, sizeof(imuData.az), &bw);
         fResult = f_write(&file, imuData.gy, sizeof(imuData.az), &bw);
         fResult = f_write(&file, imuData.gz, sizeof(imuData.az), &bw);
         fResult = f_write(&file, imuData.mx, sizeof(imuData.az), &bw);
         fResult = f_write(&file, imuData.my, sizeof(imuData.az), &bw);
         fResult = f_write(&file, imuData.mz, sizeof(imuData.az), &bw);
+         */
 
-        fResult = f_write(&file,";", sizeof(";"), &bw);
+        //PAYLOAD
+
+
+        fResult=f_write(&file, " IMU:", sizeof(" IMU:"), NULL);
+
+        fResult = f_write(&file,";\n", sizeof(";\n"), &bw);
         f_sync(&file);
 
         vTaskDelay(DATA_STORAGE_TICK_PERIOD);
 
     }
 
-    vTaskDelete( NULL );
+    //vTaskDelete( NULL );
 
 }
 
@@ -125,6 +131,18 @@ dataPacket readPacket(void){
 
     return data;
 }
+
+/*get the current time on MSP432*/
+void getLocalTime(void){
+
+    itoa(RTC_C_getCalendarTime().hours, &localTime.hour, 10);
+    itoa(RTC_C_getCalendarTime().minutes, &localTime.minutes, 10);
+    itoa(RTC_C_getCalendarTime().seconds, &localTime.seconds, 10);
+
+}
+
+
+/*initialize the SD CARD*/
 
 int initSD(){
 
@@ -143,3 +161,5 @@ int initSD(){
 
     return SUCCESS;
 }
+
+

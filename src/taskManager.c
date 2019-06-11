@@ -40,9 +40,6 @@ void queueCreate(){
 
     semaphoreIMU = xSemaphoreCreateMutex();
 
-
 }
-
-
 
 #endif /* SRC_TASKMANAGER_C_ */

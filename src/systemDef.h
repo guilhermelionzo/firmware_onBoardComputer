@@ -13,7 +13,7 @@
 #include "task.h"
 #include "queue.h"
 #include "semphr.h"
-
+#include "util/stringUtil.h"
 
 #define SIZE_OF_IMU_DATA 7
 
@@ -28,6 +28,12 @@ typedef struct {
    char  my[SIZE_OF_IMU_DATA];
    char  mz[SIZE_OF_IMU_DATA];
 } ImuData;
+
+typedef struct {
+    char seconds[2];
+    char minutes[2];
+    char hour[2];
+}LocalTime;
 
 typedef struct {
     uint16_t package_flags;
@@ -50,7 +56,8 @@ typedef struct {
     uint8_t payload2           [100];
 } dataPacket;
 
-
+/* calendar struct. */
+static RTC_C_Calendar calendarConfig;
 
 /* The queue used by both tasks. */
 static QueueHandle_t xQueueMPU = NULL;

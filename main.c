@@ -43,6 +43,7 @@
 
 static void prvSetupHardware( void );
 static void prvConfigureClocks( void );
+void calendarConfiguration(void);
 
 /*
  * main_blinky() is used when configCREATE_SIMPLE_TICKLESS_DEMO is set to 1.
@@ -64,6 +65,9 @@ int main( void )
 
 	//main_blinky();
 	vTraceEnable(TRC_START);
+
+	/*init the calendar*/
+	calendarConfiguration();
 
 	/*Start the creation of tasks*/
 	taskCreate();
@@ -169,4 +173,19 @@ static void prvConfigureClocks( void )
 
     /* The lower frequency allows the use of CVORE level 0. */
     PCM_setCoreVoltageLevel( PCM_VCORE0 );
+}
+
+/*TODO: configure calendar with some trigger on TTC*/
+void calendarConfiguration(void){
+
+   calendarConfig.seconds = 0;
+   calendarConfig.minutes = 0;
+   calendarConfig.hours = 0;
+   calendarConfig.dayOfWeek = 0;
+   calendarConfig.dayOfmonth = 11;
+   calendarConfig.month = 6;
+   calendarConfig.year = 0;
+
+   //setup the calendar
+   RTC_C_initCalendar(&calendarConfig,RTC_C_FORMAT_BINARY);
 }
