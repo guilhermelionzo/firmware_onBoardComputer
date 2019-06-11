@@ -38,7 +38,9 @@ volatile uint16_t cal85;
 volatile float calDifference;
 volatile float tempC;
 volatile float tempF;
+
 //internal temperature sensor P5.5 (A0)
+//low battery simulation P5.0 (A5)
 static uint16_t resultsBuffer[8];
 ////////////////////////////////////
 
@@ -47,6 +49,7 @@ extern SemaphoreHandle_t semaphoreIMU;
 
 void adcInit(void);
 void getTemperature(int16_t *temperatureBuffer);
+void isLowBattery(void);
 
 void *houseKeeping(void *pvParameters){
 
@@ -85,6 +88,9 @@ void *houseKeeping(void *pvParameters){
         obcData.obc_sensors[3] = resultsBuffer[3];
         obcData.obc_sensors[4] = resultsBuffer[4];
         /**/
+
+        isLowBattery();
+
         if(xSemaphoreTake(semaphoreIMU,200)){
 
             while(!xQueueSend( xQueueIMU, &imuData, 100)) ;
@@ -92,11 +98,21 @@ void *houseKeeping(void *pvParameters){
             xSemaphoreGive(semaphoreIMU);
         }
 
-        vTaskDelay(100);
+        (flag_lowBattery) ? vTaskDelay(HOUSE_KEEPING_TICK_PERIOD_LOW_BATTERY): vTaskDelay(HOUSE_KEEPING_TICK_PERIOD);
+
     }
 
     //vTaskDelete( NULL );
 
+}
+
+void isLowBattery(void){
+
+    if(resultsBuffer[5]<4000){
+        flag_lowBattery=0;
+    }
+    else
+        flag_lowBattery=1;
 }
 
 void getTemperature(int16_t *temperatureBuffer){

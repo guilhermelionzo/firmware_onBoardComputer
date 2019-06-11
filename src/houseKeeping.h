@@ -21,4 +21,8 @@
 #include <interface/MPU9250.h>
 #include "src/sensorTask.h"
 
+#define HOUSE_KEEPING_TICK_PERIOD 100       //1 second
+#define HOUSE_KEEPING_TICK_PERIOD_LOW_BATTERY HOUSE_KEEPING_TICK_PERIOD*3
+
+
 #endif /* SRC_HOUSEKEEPING_H_ */

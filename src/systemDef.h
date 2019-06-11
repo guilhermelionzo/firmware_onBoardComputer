@@ -16,6 +16,7 @@
 #include "util/stringUtil.h"
 
 #define SIZE_OF_IMU_DATA 7
+#define LOW_BATTERY_STATUS 1
 
 typedef struct {
    char  ax[SIZE_OF_IMU_DATA];
@@ -63,6 +64,8 @@ static RTC_C_Calendar calendarConfig;
 static QueueHandle_t xQueueMPU = NULL;
 
 volatile dataPacket obcData;
+
+volatile int flag_lowBattery;
 
 #define SUCCESS 1
 #define FAILURE 0

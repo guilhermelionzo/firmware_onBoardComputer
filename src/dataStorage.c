@@ -42,7 +42,7 @@ UINT    br, bw;             /* File read/write count */
 FRESULT fResult;            /*message handle*/
 FILINFO FI;
 
-#define DATA_STORAGE_TICK_PERIOD 100       //1 second
+
 //------- LOCAL VARIABLES --------------//
 
 char buffer_timer[10]="";
@@ -115,7 +115,8 @@ void *dataStorage(void *pvParameters){
         fResult = f_write(&file,";\n", sizeof(";\n"), &bw);
         f_sync(&file);
 
-        vTaskDelay(DATA_STORAGE_TICK_PERIOD);
+        (flag_lowBattery) ? vTaskDelay(DATA_STORAGE_TICK_PERIOD_LOW_BATTERY): vTaskDelay(DATA_STORAGE_TICK_PERIOD);
+
 
     }
 

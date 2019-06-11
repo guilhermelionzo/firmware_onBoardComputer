@@ -42,6 +42,7 @@ ORDERED_OBJS += \
 "./SimplyBlinkyDemo/main_blinky.obj" \
 "./Tracealyzer/trcKernelPort.obj" \
 "./Tracealyzer/trcSnapshotRecorder.obj" \
+"./Tracealyzer/trcStreamingPort.obj" \
 "./Tracealyzer/trcStreamingRecorder.obj" \
 "./driverlib/cpu.obj" \
 "./driverlib/cs.obj" \
@@ -55,9 +56,13 @@ ORDERED_OBJS += \
 "./driverlib/uart.obj" \
 "./driverlib/wdt_a.obj" \
 "./interface/MPU9250.obj" \
+"./src/aodcsTask.obj" \
+"./src/cameraTask.obj" \
 "./src/dataStorage.obj" \
 "./src/houseKeeping.obj" \
+"./src/pptTask.obj" \
 "./src/taskManager.obj" \
+"./src/ttcTask.obj" \
 "./system/CCS/msp432_startup_ccs.obj" \
 "./system/CCS/printf-stdarg.obj" \
 "./system/CCS/system_msp432p401r.obj" \
@@ -235,7 +240,7 @@ all: Firmware_OBC.out
 Firmware_OBC.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: MSP432 Linker'
-	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 --abi=eabi -me -O0 --opt_for_speed=2 -g --gcc --define=__MSP432P401R__ --define=USE_CMSIS_REGISTER_FORMAT=1 --define=TARGET_IS_MSP432P4XX --define=ccs --diag_warning=225 --diag_wrap=off --display_error_number --verbose_diagnostics --gen_func_subsections=on -z -m"Firmware_OBC.map" --stack_size=800 --heap_size=0 -i"C:/ti/ccsv8/ccs_base/arm/include" -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/lib" -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="Firmware_OBC_linkInfo.xml" --rom_model --unused_section_elimination=on -o "Firmware_OBC.out" $(ORDERED_OBJS)
+	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 --abi=eabi -me -O0 --opt_for_speed=2 -g --gcc --define=__MSP432P401R__ --define=USE_CMSIS_REGISTER_FORMAT=1 --define=TARGET_IS_MSP432P4XX --define=ccs --diag_warning=225 --diag_wrap=off --display_error_number --verbose_diagnostics --gen_func_subsections=on -z -m"Firmware_OBC.map" --stack_size=800 --heap_size=0 -i"C:/ti/ccsv8/ccs_base/arm/include" -i"C:/Program Files (x86)/Percepio/Tracealyzer 4/FreeRTOS/TraceRecorder/streamports/File/include" -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/lib" -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="Firmware_OBC_linkInfo.xml" --rom_model --unused_section_elimination=on -o "Firmware_OBC.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 	@$(MAKE) --no-print-directory post-build
@@ -252,9 +257,10 @@ Firmware_OBC.bin: $(EXE_OUTPUTS)
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
 	-$(RM) "main.obj" "FreeRTOS_Source\croutine.obj" "FreeRTOS_Source\event_groups.obj" "FreeRTOS_Source\list.obj" "FreeRTOS_Source\queue.obj" "FreeRTOS_Source\stream_buffer.obj" "FreeRTOS_Source\tasks.obj" "FreeRTOS_Source\timers.obj" "FreeRTOS_Source\portable\CCS\ARM_CM4F\port.obj" "FreeRTOS_Source\portable\CCS\ARM_CM4F\portasm.obj" "FreeRTOS_Source\portable\MemMang\heap_4.obj" "Full_Demo\FreeRTOS+CLI\FreeRTOS_CLI.obj" "Full_Demo\IntQueueTimer.obj" "Full_Demo\RegTest.obj" "Full_Demo\RunTimeStatsTimer.obj" "Full_Demo\Sample-CLI-commands.obj" "Full_Demo\UARTCommandConsole.obj" "Full_Demo\main_full.obj" "Full_Demo\serial.obj" "Full_Demo\Standard_Demo_Tasks\EventGroupsDemo.obj" "Full_Demo\Standard_Demo_Tasks\GenQTest.obj" "Full_Demo\Standard_Demo_Tasks\IntQueue.obj" "Full_Demo\Standard_Demo_Tasks\IntSemTest.obj" "Full_Demo\Standard_Demo_Tasks\TaskNotify.obj" "Full_Demo\Standard_Demo_Tasks\TimerDemo.obj" "Full_Demo\Standard_Demo_Tasks\countsem.obj" "Full_Demo\Standard_Demo_Tasks\recmutex.obj" "Full_Demo\Standard_Demo_Tasks\semtest.obj" 
-	-$(RM) "Full_Demo\Standard_Demo_Tasks\sp_flop.obj" "SimplyBlinkyDemo\main_blinky.obj" "Tracealyzer\trcKernelPort.obj" "Tracealyzer\trcSnapshotRecorder.obj" "Tracealyzer\trcStreamingRecorder.obj" "driverlib\cpu.obj" "driverlib\cs.obj" "driverlib\flash.obj" "driverlib\fpu.obj" "driverlib\gpio.obj" "driverlib\interrupt.obj" "driverlib\pcm.obj" "driverlib\sysctl.obj" "driverlib\timer32.obj" "driverlib\uart.obj" "driverlib\wdt_a.obj" "interface\MPU9250.obj" "src\dataStorage.obj" "src\houseKeeping.obj" "src\taskManager.obj" "system\CCS\msp432_startup_ccs.obj" "system\CCS\printf-stdarg.obj" "system\CCS\system_msp432p401r.obj" "util\Devices\MSPIO.obj" "util\Hardware\CS_Driver.obj" "util\Hardware\GPIO_Driver.obj" "util\Hardware\SPI_Driver.obj" "util\Hardware\TIMERA_Driver.obj" "util\Hardware\UART_Driver.obj" "util\dtoa.obj" "util\itoa.obj" "util\fatfs\diskio.obj" "util\fatfs\ff.obj" "util\fatfs\ffsystem.obj" "util\fatfs\ffunicode.obj" "util\fatfs\mmc_MSP432P401r.obj" 
+	-$(RM) "Full_Demo\Standard_Demo_Tasks\sp_flop.obj" "SimplyBlinkyDemo\main_blinky.obj" "Tracealyzer\trcKernelPort.obj" "Tracealyzer\trcSnapshotRecorder.obj" "Tracealyzer\trcStreamingPort.obj" "Tracealyzer\trcStreamingRecorder.obj" "driverlib\cpu.obj" "driverlib\cs.obj" "driverlib\flash.obj" "driverlib\fpu.obj" "driverlib\gpio.obj" "driverlib\interrupt.obj" "driverlib\pcm.obj" "driverlib\sysctl.obj" "driverlib\timer32.obj" "driverlib\uart.obj" "driverlib\wdt_a.obj" "interface\MPU9250.obj" "src\aodcsTask.obj" "src\cameraTask.obj" "src\dataStorage.obj" "src\houseKeeping.obj" "src\pptTask.obj" "src\taskManager.obj" "src\ttcTask.obj" "system\CCS\msp432_startup_ccs.obj" "system\CCS\printf-stdarg.obj" "system\CCS\system_msp432p401r.obj" "util\Devices\MSPIO.obj" "util\Hardware\CS_Driver.obj" "util\Hardware\GPIO_Driver.obj" "util\Hardware\SPI_Driver.obj" "util\Hardware\TIMERA_Driver.obj" "util\Hardware\UART_Driver.obj" "util\dtoa.obj" "util\itoa.obj" "util\fatfs\diskio.obj" "util\fatfs\ff.obj" "util\fatfs\ffsystem.obj" 
+	-$(RM) "util\fatfs\ffunicode.obj" "util\fatfs\mmc_MSP432P401r.obj" 
 	-$(RM) "main.d" "FreeRTOS_Source\croutine.d" "FreeRTOS_Source\event_groups.d" "FreeRTOS_Source\list.d" "FreeRTOS_Source\queue.d" "FreeRTOS_Source\stream_buffer.d" "FreeRTOS_Source\tasks.d" "FreeRTOS_Source\timers.d" "FreeRTOS_Source\portable\CCS\ARM_CM4F\port.d" "FreeRTOS_Source\portable\MemMang\heap_4.d" "Full_Demo\FreeRTOS+CLI\FreeRTOS_CLI.d" "Full_Demo\IntQueueTimer.d" "Full_Demo\RunTimeStatsTimer.d" "Full_Demo\Sample-CLI-commands.d" "Full_Demo\UARTCommandConsole.d" "Full_Demo\main_full.d" "Full_Demo\serial.d" "Full_Demo\Standard_Demo_Tasks\EventGroupsDemo.d" "Full_Demo\Standard_Demo_Tasks\GenQTest.d" "Full_Demo\Standard_Demo_Tasks\IntQueue.d" "Full_Demo\Standard_Demo_Tasks\IntSemTest.d" "Full_Demo\Standard_Demo_Tasks\TaskNotify.d" "Full_Demo\Standard_Demo_Tasks\TimerDemo.d" "Full_Demo\Standard_Demo_Tasks\countsem.d" "Full_Demo\Standard_Demo_Tasks\recmutex.d" "Full_Demo\Standard_Demo_Tasks\semtest.d" "Full_Demo\Standard_Demo_Tasks\sp_flop.d" "SimplyBlinkyDemo\main_blinky.d" "Tracealyzer\trcKernelPort.d" 
-	-$(RM) "Tracealyzer\trcSnapshotRecorder.d" "Tracealyzer\trcStreamingRecorder.d" "driverlib\cpu.d" "driverlib\cs.d" "driverlib\flash.d" "driverlib\fpu.d" "driverlib\gpio.d" "driverlib\interrupt.d" "driverlib\pcm.d" "driverlib\sysctl.d" "driverlib\timer32.d" "driverlib\uart.d" "driverlib\wdt_a.d" "interface\MPU9250.d" "src\dataStorage.d" "src\houseKeeping.d" "src\taskManager.d" "system\CCS\msp432_startup_ccs.d" "system\CCS\printf-stdarg.d" "system\CCS\system_msp432p401r.d" "util\Devices\MSPIO.d" "util\Hardware\CS_Driver.d" "util\Hardware\GPIO_Driver.d" "util\Hardware\SPI_Driver.d" "util\Hardware\TIMERA_Driver.d" "util\Hardware\UART_Driver.d" "util\dtoa.d" "util\itoa.d" "util\fatfs\diskio.d" "util\fatfs\ff.d" "util\fatfs\ffsystem.d" "util\fatfs\ffunicode.d" "util\fatfs\mmc_MSP432P401r.d" 
+	-$(RM) "Tracealyzer\trcSnapshotRecorder.d" "Tracealyzer\trcStreamingPort.d" "Tracealyzer\trcStreamingRecorder.d" "driverlib\cpu.d" "driverlib\cs.d" "driverlib\flash.d" "driverlib\fpu.d" "driverlib\gpio.d" "driverlib\interrupt.d" "driverlib\pcm.d" "driverlib\sysctl.d" "driverlib\timer32.d" "driverlib\uart.d" "driverlib\wdt_a.d" "interface\MPU9250.d" "src\aodcsTask.d" "src\cameraTask.d" "src\dataStorage.d" "src\houseKeeping.d" "src\pptTask.d" "src\taskManager.d" "src\ttcTask.d" "system\CCS\msp432_startup_ccs.d" "system\CCS\printf-stdarg.d" "system\CCS\system_msp432p401r.d" "util\Devices\MSPIO.d" "util\Hardware\CS_Driver.d" "util\Hardware\GPIO_Driver.d" "util\Hardware\SPI_Driver.d" "util\Hardware\TIMERA_Driver.d" "util\Hardware\UART_Driver.d" "util\dtoa.d" "util\itoa.d" "util\fatfs\diskio.d" "util\fatfs\ff.d" "util\fatfs\ffsystem.d" "util\fatfs\ffunicode.d" "util\fatfs\mmc_MSP432P401r.d" 
 	-$(RM) "FreeRTOS_Source\portable\CCS\ARM_CM4F\portasm.d" "Full_Demo\RegTest.d" 
 	-@echo 'Finished clean'
 	-@echo ' '

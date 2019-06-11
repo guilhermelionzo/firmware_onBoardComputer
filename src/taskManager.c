@@ -10,8 +10,13 @@
 
 #include "taskManager.h"
 
-extern void *houseKeeping(void *pvParameters);
+extern void *aodcsTask(void *pvParameters);
+extern void *cameraTask(void *pvParameters);
 extern void *dataStorage(void *pvParameters);
+extern void *houseKeeping(void *pvParameters);
+extern void *pptTask(void *pvParameters);
+extern void *ttcTask(void *pvParameters);
+
 //extern void *sensorTask(void *pvParameters);
 
 QueueHandle_t xQueueIMU=NULL;
@@ -23,9 +28,12 @@ void taskCreate(){
 
     queueCreate();
 
+    xTaskCreate(aodcsTask   , "AODCS Task"   , 1024, NULL, 1, NULL);
+    xTaskCreate(cameraTask  , "CAMERA Task"  , 1024, NULL, 1, NULL);
+    xTaskCreate(dataStorage , "Data Storage" , 1024, NULL, 1, NULL);
     xTaskCreate(houseKeeping, "House Keeping", 1024, NULL, 1, NULL);
-
-    xTaskCreate(dataStorage, "Data Storage", 1024, NULL, 1, NULL);
+    xTaskCreate(pptTask     , "PPT Task"     , 1024, NULL, 1, NULL);
+    xTaskCreate(ttcTask     , "TT&C Task"    , 1024, NULL, 1, NULL);
 
     //xTaskCreate(sensorTask, "Sensor", 1024, NULL, 1, NULL);
 

@@ -61,9 +61,12 @@ int main( void )
 	/* Prepare the hardware */
 	prvSetupHardware();
 
+	//ITM->PORT[0].u32=mydata;
+
 	prvConfigureClocks();
 
 	//main_blinky();
+	//chose between TRC_START_AWAIT_HOST or TRC_START
 	vTraceEnable(TRC_START);
 
 	/*init the calendar*/
@@ -71,6 +74,7 @@ int main( void )
 
 	/*Start the creation of tasks*/
 	taskCreate();
+	flag_lowBattery=0;
 
 	/* Start the tasks and timer running. */
 
