@@ -8,6 +8,9 @@
 
 #include "ttcTask.h"
 
+
+void setWatchDogBit_TTC(void);
+
 void *ttcTask(void *pvParameters){
 
     while (1)
@@ -26,9 +29,15 @@ void *ttcTask(void *pvParameters){
         GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN2); // LED BLUE
         #endif
 
-
+        setWatchDogBit_TTC();
         //TODO: the TT&C task
         (flag_lowBattery) ? vTaskDelay(TTC_TASK_TICK_PERIOD_LOW_BATTERY): vTaskDelay(TTC_TASK_TICK_PERIOD);
 
     }
+}
+
+void setWatchDogBit_TTC(void){
+
+    xEventGroupSetBits(WATCHDOG_EVENT_GROUP, TTC_TASK_ID);
+
 }

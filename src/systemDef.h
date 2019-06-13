@@ -13,6 +13,7 @@
 #include "task.h"
 #include "queue.h"
 #include "semphr.h"
+#include "event_groups.h"
 #include "util/stringUtil.h"
 
 #define SIZE_OF_IMU_DATA 7
@@ -36,7 +37,10 @@
 #define TTC_TASK_TICK_PERIOD 100       //1 second
 #define TTC_TASK_TICK_PERIOD_LOW_BATTERY TTC_TASK_TICK_PERIOD*3
 
-#define DEBUG_SESSION 1
+#define WATCHDOG_TASK_TICK_PERIOD 20       //1 second
+#define WATCHDOG_TASK_TICK_PERIOD_LOW_BATTERY WATCHDOG_TASK_TICK_PERIOD*3
+
+#define DEBUG_SESSION 0
 
 typedef struct {
    char  ax[SIZE_OF_IMU_DATA];
@@ -82,6 +86,19 @@ static RTC_C_Calendar calendarConfig;
 
 /* The queue used by both tasks. */
 static QueueHandle_t xQueueMPU = NULL;
+
+/*Event Handler*/
+//Watchdog
+EventGroupHandle_t WATCHDOG_EVENT_GROUP;
+
+//task ID
+#define AODCS_TASK_ID         (1<<0)
+#define CAMERA_TASK_ID        (1<<1)
+#define DATASTORAGE_TASK_ID   (1<<2)
+#define HOUSEKEEPING_TASK_ID  (1<<3)
+#define PPT_TASK_ID           (1<<4)
+#define TTC_TASK_ID           (1<<5)
+#define ALL_TASK_IDS  (AODCS_TASK_ID|CAMERA_TASK_ID|DATASTORAGE_TASK_ID|HOUSEKEEPING_TASK_ID|PPT_TASK_ID|TTC_TASK_ID)
 
 volatile dataPacket obcData;
 

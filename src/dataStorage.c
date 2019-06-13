@@ -127,6 +127,7 @@ void *dataStorage(void *pvParameters){
         GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN1);
         #endif
 
+        setWatchDogBit_DATASTORAGE();
         // IF THE SYSTEM HAS LOW BATTERY THE TASK WILL USE A LONGER DELAY, OTHERWISE IT WILL USE A SHOETTER PERIOD
         (flag_lowBattery) ? vTaskDelay(DATA_STORAGE_TICK_PERIOD_LOW_BATTERY): vTaskDelay(DATA_STORAGE_TICK_PERIOD);
 
@@ -176,4 +177,8 @@ int initSD(){
     return SUCCESS;
 }
 
+void setWatchDogBit_DATASTORAGE(void){
 
+    xEventGroupSetBits(WATCHDOG_EVENT_GROUP, DATASTORAGE_TASK_ID);
+
+}

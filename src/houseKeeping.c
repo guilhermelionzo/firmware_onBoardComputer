@@ -104,6 +104,8 @@ void *houseKeeping(void *pvParameters){
             xSemaphoreGive(semaphoreIMU);
         }
 
+        setWatchDogBit_HOUSEKEEPING();
+
         (flag_lowBattery) ? vTaskDelay(HOUSE_KEEPING_TICK_PERIOD_LOW_BATTERY): vTaskDelay(HOUSE_KEEPING_TICK_PERIOD);
 
     }
@@ -198,4 +200,10 @@ void adcInit(void){
     /* Triggering the start of the sample */
     ADC14_enableConversion();
     ADC14_toggleConversionTrigger();
+}
+
+void setWatchDogBit_HOUSEKEEPING(void){
+
+    xEventGroupSetBits(WATCHDOG_EVENT_GROUP, HOUSEKEEPING_TASK_ID);
+
 }
