@@ -51,8 +51,6 @@
 #define SUCCESS 1
 #define FAILURE 0
 
-#define DATA_STORAGE_TICK_PERIOD 100       //1 second
-#define DATA_STORAGE_TICK_PERIOD_LOW_BATTERY DATA_STORAGE_TICK_PERIOD*3
 
 //------- PROTOCOL CONFIGURATION --------------//
 eUSCI_SPI_MasterConfig SPI0MasterConfig =

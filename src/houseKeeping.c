@@ -61,6 +61,12 @@ void *houseKeeping(void *pvParameters){
     memset(resultsBuffer, 0x00, 5 * sizeof(uint8_t));
     int16_t temperatureValue;
 
+    memset(imuData.ax, 0x00, sizeof(char)*7);
+    memset(imuData.ay, 0x00, sizeof(char)*7);
+    memset(imuData.az, 0x00, sizeof(char)*7);
+    memset(imuData.gx, 0x00, sizeof(char)*7);
+    memset(imuData.gy, 0x00, sizeof(char)*7);
+    memset(imuData.gz, 0x00, sizeof(char)*7);
 
     while(1){
 
@@ -70,13 +76,13 @@ void *houseKeeping(void *pvParameters){
         itoa(ax, &imuData.ax, DECIMAL);
         itoa(ay, &imuData.ay, DECIMAL);
         itoa(az, &imuData.az, DECIMAL);
-        itoa(mx, &imuData.mx, DECIMAL);
-        itoa(my, &imuData.my, DECIMAL);
-        itoa(mz, &imuData.mz, DECIMAL);
-        /*itoa(gx, &imuData.gx, DECIMAL);
+        itoa(gx, &imuData.gx, DECIMAL);
         itoa(gy, &imuData.gy, DECIMAL);
         itoa(gz, &imuData.gz, DECIMAL);
-*/
+        /*itoa(mx, &imuData.mx, DECIMAL);
+        itoa(my, &imuData.my, DECIMAL);
+        itoa(mz, &imuData.mz, DECIMAL);*/
+
         obcData.imuData =imuData;
 
         getTemperature(&temperatureValue);
@@ -109,10 +115,25 @@ void *houseKeeping(void *pvParameters){
 void isLowBattery(void){
 
     if(resultsBuffer[5]<4000){
+
+        //DEBUG SESSION
+        #if DEBUG_SESSION
+        GPIO_Low(GPIO_PORT_P2, GPIO_PIN0); // PIN RED
+        #endif
         flag_lowBattery=0;
     }
-    else
+    else{
+
+        //DEBUG SESSION
+        #if DEBUG_SESSION
+        GPIO_High(GPIO_PORT_P2, GPIO_PIN0); // PIN RED
+        #endif
         flag_lowBattery=1;
+    }
+
+
+    (flag_lowBattery) ? PCM_setPowerState(PCM_LPM3): PCM_setPowerState(PCM_AM_LDO_VCORE0);
+
 }
 
 void getTemperature(int16_t *temperatureBuffer){

@@ -44,7 +44,7 @@
 static void prvSetupHardware( void );
 static void prvConfigureClocks( void );
 void calendarConfiguration(void);
-
+void configSWOPins(void);
 /*
  * main_blinky() is used when configCREATE_SIMPLE_TICKLESS_DEMO is set to 1.
  * main_full() is used when configCREATE_SIMPLE_TICKLESS_DEMO is set to 0.
@@ -66,6 +66,9 @@ int main( void )
 	prvConfigureClocks();
 
 	//main_blinky();
+
+	//configSWOPins();
+
 	//chose between TRC_START_AWAIT_HOST or TRC_START
 	vTraceEnable(TRC_START);
 
@@ -77,13 +80,21 @@ int main( void )
 	flag_lowBattery=0;
 
 	/* Start the tasks and timer running. */
-
 	vTaskStartScheduler();
 
-	while(1);
+	while(1){
+
+
+	}
 
 }
 /*-----------------------------------------------------------*/
+
+void configSWOPins(){
+
+    /*SELECT P1.2 AND P1.3 IN UART MODE*/
+    GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P1, GPIO_PIN2|GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
+}
 
 static void prvSetupHardware( void )
 {
@@ -99,10 +110,12 @@ extern void FPU_enableModule( void );
 	/* Ensure the FPU is enabled. */
 	FPU_enableModule();
 
-	/* Selecting P1.2 and P1.3 in UART mode and P1.0 as output (LED)
-	MAP_GPIO_setAsPeripheralModuleFunctionInputPin( GPIO_PORT_P1, GPIO_PIN2 | GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION );
-	MAP_GPIO_setOutputLowOnPin( GPIO_PORT_P1, GPIO_PIN0 );
-	MAP_GPIO_setAsOutputPin( GPIO_PORT_P1, GPIO_PIN0 );*/
+	//SET THE 3V3 TO MPU2950, DURING THE PROTOYIPY
+	GPIO_setAsOutputPin(GPIO_PORT_P4, GPIO_PIN1);
+
+	/* Selecting P2.0(RED->LOW BATTERY), P2.1(GREEN->DATA STORAGE) and P2.2 (BLUE->TT&C)*/
+	GPIO_setAsOutputPin( GPIO_PORT_P2, GPIO_PIN0|GPIO_PIN1|GPIO_PIN2);
+	GPIO_Low(GPIO_PORT_P2, GPIO_PIN0|GPIO_PIN1|GPIO_PIN2);
 }
 /*-----------------------------------------------------------*/
 
@@ -167,19 +180,27 @@ static void prvConfigureClocks( void )
     From the datasheet:  For AM_LDO_VCORE0 and AM_DCDC_VCORE0 modes, the maximum
     CPU operating frequency is 24 MHz and maximum input clock frequency for
     peripherals is 12 MHz. */
+
+    /* Set the core voltage level to VCORE1 */
+    PCM_setCoreVoltageLevel(PCM_VCORE1);
+
+
+    /* Set 2 flash wait states for Flash bank 0 and 1*/
     FlashCtl_setWaitState( FLASH_BANK0, 2 );
     FlashCtl_setWaitState( FLASH_BANK1, 2 );
-    CS_setDCOCenteredFrequency( CS_DCO_FREQUENCY_3 );
+
+    /* Initializes Clock System */
+    CS_setDCOCenteredFrequency( CS_DCO_FREQUENCY_48);                       //48MHZ
     CS_initClockSignal( CS_HSMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1 );
     CS_initClockSignal( CS_SMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1 );
     CS_initClockSignal( CS_MCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1 );
     CS_initClockSignal( CS_ACLK, CS_REFOCLK_SELECT, CS_CLOCK_DIVIDER_1 );
 
     /* The lower frequency allows the use of CVORE level 0. */
-    PCM_setCoreVoltageLevel( PCM_VCORE0 );
+    //PCM_setCoreVoltageLevel( PCM_VCORE0 );
 }
 
-/*TODO: configure calendar with some trigger on TTC*/
+/*TODO: configure calendar with some trigger on TTC and storage the information on Flash memory'*/
 void calendarConfiguration(void){
 
    calendarConfig.seconds = 0;
@@ -192,4 +213,6 @@ void calendarConfiguration(void){
 
    //setup the calendar
    RTC_C_initCalendar(&calendarConfig,RTC_C_FORMAT_BINARY);
+
+   RTC_C_startClock();
 }

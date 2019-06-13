@@ -62,7 +62,11 @@ void *dataStorage(void *pvParameters){
     //initializing the SPI protocol and mounting the SD card
     while(!initSD());
 
-    RTC_C_startClock();
+    memset(localTime.hour, 0x00, sizeof(localTime.hour));
+    memset(localTime.minutes, 0x00, sizeof(localTime.hour));
+    memset(localTime.seconds, 0x00, sizeof(localTime.hour));
+
+    TickType_t tick;
 
     //try to open the telemetry file
     fResult = f_open(&file, "T_DATA.TXT",FA_OPEN_APPEND | FA_WRITE | FA_READ);
@@ -70,6 +74,11 @@ void *dataStorage(void *pvParameters){
     //TODO: error handling
 
     while(1){
+
+        //DEBUG SESSION
+        #if DEBUG_SESSION
+        GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN1); // PIN GREEN
+        #endif
 
         //TODO: control of SPI interface
 
@@ -82,39 +91,43 @@ void *dataStorage(void *pvParameters){
         fResult=f_write(&file, localTime.minutes, sizeof(localTime.minutes), NULL);
         fResult=f_write(&file, ":", sizeof(":"), NULL);
         fResult=f_write(&file, localTime.seconds, sizeof(localTime.seconds), NULL);
-
+        //xTaskGetTickCount();
         //MSP STATUS
+
+        tick=xTaskGetTickCount();
 
         //SUBSYSTEM STATUS
 
         //DATA
-
         if(xSemaphoreTake(semaphoreIMU,2000)){
 
             xQueueReceive(xQueueIMU,&imuData,200);
 
             xSemaphoreGive(semaphoreIMU);
         }
-
+        fResult=f_write(&file, " IMU:", sizeof(" IMU:"), NULL);
         fResult = f_write(&file, imuData.ax, sizeof(imuData.az), &bw);
         fResult = f_write(&file, imuData.ay, sizeof(imuData.az), &bw);
         fResult = f_write(&file, imuData.az, sizeof(imuData.az), &bw);
-        /*fResult = f_write(&file, imuData.gx, sizeof(imuData.az), &bw);
+        fResult = f_write(&file, imuData.gx, sizeof(imuData.az), &bw);
         fResult = f_write(&file, imuData.gy, sizeof(imuData.az), &bw);
         fResult = f_write(&file, imuData.gz, sizeof(imuData.az), &bw);
-        fResult = f_write(&file, imuData.mx, sizeof(imuData.az), &bw);
+        /* fResult = f_write(&file, imuData.mx, sizeof(imuData.az), &bw);
         fResult = f_write(&file, imuData.my, sizeof(imuData.az), &bw);
         fResult = f_write(&file, imuData.mz, sizeof(imuData.az), &bw);
          */
 
         //PAYLOAD
 
-
-        fResult=f_write(&file, " IMU:", sizeof(" IMU:"), NULL);
-
-        fResult = f_write(&file,";\n", sizeof(";\n"), &bw);
+        fResult = f_write(&file,"\n", sizeof("\n"), &bw);
         f_sync(&file);
 
+        //DEBUG SESSION
+        #if DEBUG_SESSION
+        GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN1);
+        #endif
+
+        // IF THE SYSTEM HAS LOW BATTERY THE TASK WILL USE A LONGER DELAY, OTHERWISE IT WILL USE A SHOETTER PERIOD
         (flag_lowBattery) ? vTaskDelay(DATA_STORAGE_TICK_PERIOD_LOW_BATTERY): vTaskDelay(DATA_STORAGE_TICK_PERIOD);
 
 

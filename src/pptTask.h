@@ -13,8 +13,6 @@
 #include <src/systemDef.h>
 
 
-#define PPT_TASK_TICK_PERIOD 300       //1 second
-#define PPT_TASK_TICK_PERIOD_LOW_BATTERY PPT_TASK_TICK_PERIOD*3
 
 
 void *pptTask(void *pvParameters);

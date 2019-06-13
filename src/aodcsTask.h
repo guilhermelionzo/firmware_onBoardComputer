@@ -14,10 +14,6 @@
 #include <src/systemDef.h>
 
 
-#define AODCS_TASK_TICK_PERIOD 300       //1 second
-#define AODCS_TASK_TICK_PERIOD_LOW_BATTERY AODCS_TASK_TICK_PERIOD*3
-
-
 void *aodcsTask(void *pvParameters);
 
 

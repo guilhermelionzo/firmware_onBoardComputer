@@ -13,8 +13,6 @@
 #include <src/systemDef.h>
 
 
-#define TTC_TASK_TICK_PERIOD 100       //1 second
-#define TTC_TASK_TICK_PERIOD_LOW_BATTERY TTC_TASK_TICK_PERIOD*3
 
 
 void *ttcTask(void *pvParameters);

@@ -14,9 +14,6 @@
 #include <src/systemDef.h>
 
 
-#define CAMERA_TASK_TICK_PERIOD 100       //1 second
-#define CAMERA_TASK_TICK_PERIOD_LOW_BATTERY CAMERA_TASK_TICK_PERIOD*3
-
 
 void *cameraTask(void *pvParameters);
 
