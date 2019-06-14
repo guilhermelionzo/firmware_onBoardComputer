@@ -41,7 +41,7 @@ volatile float tempF;
 
 //internal temperature sensor P5.5 (A0)
 //low battery simulation P5.0 (A5)
-static uint16_t resultsBuffer[8];
+static uint16_t resultsBuffer[6];
 ////////////////////////////////////
 
 extern QueueHandle_t xQueueIMU;
@@ -51,6 +51,8 @@ void adcInit(void);
 void getTemperature(int16_t *temperatureBuffer);
 void isLowBattery(void);
 
+void setWatchDogBit_HOUSEKEEPING(void);
+
 void *houseKeeping(void *pvParameters){
 
     ImuData imuData;
@@ -58,7 +60,7 @@ void *houseKeeping(void *pvParameters){
     int16_t ax,ay,az,gx,gy,gz,mx,my,mz;
 
     adcInit();
-    memset(resultsBuffer, 0x00, 5 * sizeof(uint8_t));
+    memset(resultsBuffer, 0x00, 6 * sizeof(uint16_t));
     int16_t temperatureValue;
 
     memset(imuData.ax, 0x00, sizeof(char)*7);
@@ -67,6 +69,12 @@ void *houseKeeping(void *pvParameters){
     memset(imuData.gx, 0x00, sizeof(char)*7);
     memset(imuData.gy, 0x00, sizeof(char)*7);
     memset(imuData.gz, 0x00, sizeof(char)*7);
+
+    /* The xLastWakeTime variable needs to be initialized with the current tick
+     count. Note that this is the only time the variable is written to explicitly.
+     After this xLastWakeTime is updated automatically internally within
+     vTaskDelayUntil(). */
+    portTickType xLastWakeTimeHouseKeeping = xTaskGetTickCount();
 
     while(1){
 
@@ -106,7 +114,11 @@ void *houseKeeping(void *pvParameters){
 
         setWatchDogBit_HOUSEKEEPING();
 
-        (flag_lowBattery) ? vTaskDelay(HOUSE_KEEPING_TICK_PERIOD_LOW_BATTERY): vTaskDelay(HOUSE_KEEPING_TICK_PERIOD);
+
+        (flag_lowBattery) ?
+                vTaskDelayUntil(&xLastWakeTimeHouseKeeping,HOUSE_KEEPING_TICK_PERIOD_LOW_BATTERY) :
+                vTaskDelayUntil(&xLastWakeTimeHouseKeeping, HOUSE_KEEPING_TICK_PERIOD);            //
+
 
     }
 
@@ -120,7 +132,7 @@ void isLowBattery(void){
 
         //DEBUG SESSION
         #if DEBUG_SESSION
-        GPIO_Low(GPIO_PORT_P2, GPIO_PIN0); // PIN RED
+        MAP_GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN0); // PIN RED
         #endif
         flag_lowBattery=0;
     }
@@ -128,13 +140,13 @@ void isLowBattery(void){
 
         //DEBUG SESSION
         #if DEBUG_SESSION
-        GPIO_High(GPIO_PORT_P2, GPIO_PIN0); // PIN RED
+        MAP_GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN0); // PIN RED
         #endif
         flag_lowBattery=1;
     }
 
 
-    (flag_lowBattery) ? PCM_setPowerState(PCM_LPM3): PCM_setPowerState(PCM_AM_LDO_VCORE0);
+    (flag_lowBattery) ? PCM_setPowerState(PCM_LPM0_LF_VCORE1): PCM_setPowerState(PCM_AM_LDO_VCORE1);
 
 }
 

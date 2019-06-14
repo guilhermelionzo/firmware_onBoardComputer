@@ -61,8 +61,6 @@ int main( void )
 	/* Prepare the hardware */
 	prvSetupHardware();
 
-	//ITM->PORT[0].u32=mydata;
-
 	prvConfigureClocks();
 
 	//main_blinky();
@@ -73,7 +71,7 @@ int main( void )
 	vTraceEnable(TRC_START);
 
 	/*init the calendar*/
-	calendarConfiguration();
+	//calendarConfiguration();
 
 	/*Start the creation of tasks*/
 	taskCreate();
@@ -98,7 +96,7 @@ void configSWOPins(){
 
 static void prvSetupHardware( void )
 {
-extern void FPU_enableModule( void );
+    extern void FPU_enableModule( void );
 
 	/* The clocks are not configured here, but inside main_full() and
 	main_blinky() as the full demo uses a fast clock and the blinky demo uses
@@ -110,12 +108,18 @@ extern void FPU_enableModule( void );
 	/* Ensure the FPU is enabled. */
 	FPU_enableModule();
 
-	//SET THE 3V3 TO MPU2950, DURING THE PROTOYIPY
-	GPIO_setAsOutputPin(GPIO_PORT_P4, GPIO_PIN1);
+	//selecting P1.0(RED->WDT reset)
+	GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN0);
+
+    /* Configuring P1.4(receiving a TT&C comand) as an input and enabling interrupts */
+    MAP_GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P1, GPIO_PIN4);
+    MAP_GPIO_clearInterruptFlag(GPIO_PORT_P1, GPIO_PIN4);
+    MAP_GPIO_enableInterrupt(GPIO_PORT_P1, GPIO_PIN4);
+    //MAP_Interrupt_enableInterrupt(INT_PORT4);
 
 	/* Selecting P2.0(RED->LOW BATTERY), P2.1(GREEN->DATA STORAGE) and P2.2 (BLUE->TT&C)*/
-	GPIO_setAsOutputPin( GPIO_PORT_P2, GPIO_PIN0|GPIO_PIN1|GPIO_PIN2);
-	GPIO_Low(GPIO_PORT_P2, GPIO_PIN0|GPIO_PIN1|GPIO_PIN2);
+	MAP_GPIO_setAsOutputPin( GPIO_PORT_P2, GPIO_PIN0|GPIO_PIN1|GPIO_PIN2);
+	MAP_GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN0|GPIO_PIN1|GPIO_PIN2);
 }
 /*-----------------------------------------------------------*/
 
@@ -183,7 +187,7 @@ static void prvConfigureClocks( void )
 
     /* Set the core voltage level to VCORE1 */
     PCM_setCoreVoltageLevel(PCM_VCORE1);
-
+    MAP_Interrupt_disableMaster();
 
     /* Set 2 flash wait states for Flash bank 0 and 1*/
     FlashCtl_setWaitState( FLASH_BANK0, 2 );

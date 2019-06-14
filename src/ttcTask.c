@@ -13,6 +13,14 @@ void setWatchDogBit_TTC(void);
 
 void *ttcTask(void *pvParameters){
 
+
+    /* The xLastWakeTime variable needs to be initialized with the current tick
+     count. Note that this is the only time the variable is written to explicitly.
+     After this xLastWakeTime is updated automatically internally within
+     vTaskDelayUntil(). */
+    portTickType xLastWakeTimeTTC = xTaskGetTickCount();
+
+
     while (1)
     {
 
@@ -22,6 +30,15 @@ void *ttcTask(void *pvParameters){
         GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN2); // LED BLUE
         #endif
 
+        uint8_t ttcComand;
+        ttcComand = GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN4);
+
+        if(ttcComand==GPIO_INPUT_PIN_LOW){
+            //don't set the bit in watchdog bits
+        }else{
+            setWatchDogBit_TTC();
+        }
+
         vTaskDelay(10);
 
         //DEBUG SESSION
@@ -29,10 +46,11 @@ void *ttcTask(void *pvParameters){
         GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN2); // LED BLUE
         #endif
 
-        setWatchDogBit_TTC();
-        //TODO: the TT&C task
-        (flag_lowBattery) ? vTaskDelay(TTC_TASK_TICK_PERIOD_LOW_BATTERY): vTaskDelay(TTC_TASK_TICK_PERIOD);
 
+        //TODO: the TT&C task
+       (flag_lowBattery) ?
+                vTaskDelayUntil(&xLastWakeTimeTTC,TTC_TASK_TICK_PERIOD_LOW_BATTERY) :
+                vTaskDelayUntil(&xLastWakeTimeTTC,TTC_TASK_TICK_PERIOD);            //
     }
 }
 

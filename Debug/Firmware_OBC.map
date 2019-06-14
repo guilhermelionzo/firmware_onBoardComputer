@@ -1,34 +1,34 @@
 ******************************************************************************
                   TI ARM Linker PC v18.1.1                     
 ******************************************************************************
->> Linked Thu Jun 13 15:44:54 2019
+>> Linked Fri Jun 14 00:17:39 2019
 
 OUTPUT FILE NAME:   <Firmware_OBC.out>
-ENTRY POINT SYMBOL: "_c_int00_noargs"  address: 0000831d
+ENTRY POINT SYMBOL: "_c_int00_noargs"  address: 00008485
 
 
 MEMORY CONFIGURATION
 
          name            origin    length      used     unused   attr    fill
 ----------------------  --------  ---------  --------  --------  ----  --------
-  MAIN                  00000000   00040000  0000951a  00036ae6  R  X
+  MAIN                  00000000   00040000  00009692  0003696e  R  X
   INFO                  00200000   00004000  00000000  00004000  R  X
   SRAM_CODE             01000000   00010000  00000000  00010000  RW X
-  SRAM_DATA             20000000   00010000  0000ef27  000010d9  RW  
+  SRAM_DATA             20000000   00010000  0000ef07  000010f9  RW  
 
 
 SEGMENT ALLOCATION MAP
 
 run origin  load origin   length   init length attrs members
 ----------  ----------- ---------- ----------- ----- -------
-00000000    00000000    00009520   00009520    r-x
+00000000    00000000    00009698   00009698    r-x
   00000000    00000000    00000144   00000144    r-- .intvecs
-  00000148    00000148    00009292   00009292    r-x .text
-  000093dc    000093dc    000000ac   000000ac    r-- .const
-  00009488    00009488    00000098   00000098    r-- .cinit
-20000000    20000000    0000ec07   00000000    rw-
-  20000000    20000000    0000e894   00000000    rw- .bss
-  2000e894    2000e894    00000373   00000000    rw- .data
+  00000148    00000148    0000940a   0000940a    r-x .text
+  00009554    00009554    000000ac   000000ac    r-- .const
+  00009600    00009600    00000098   00000098    r-- .cinit
+20000000    20000000    0000ebe7   00000000    rw-
+  20000000    20000000    0000e874   00000000    rw- .bss
+  2000e874    2000e874    00000373   00000000    rw- .data
 2000fce0    2000fce0    00000320   00000000    rw-
   2000fce0    2000fce0    00000320   00000000    rw- .stack
 
@@ -41,7 +41,7 @@ section   page    origin      length       input sections
 .intvecs   0    00000000    00000144     
                   00000000    00000144     msp432_startup_ccs.obj (.intvecs:retain)
 
-.text      0    00000148    00009292     
+.text      0    00000148    0000940a     
                   00000148    0000035e     trcKernelPort.obj (.text:pszTraceGetErrorNotEnoughHandles)
                   000004a6    00000002     --HOLE-- [fill = 0]
                   000004a8    00000334     queue.obj (.text:xQueueSemaphoreTake)
@@ -54,517 +54,526 @@ section   page    origin      length       input sections
                   000010e4    00000004     --HOLE-- [fill = 0]
                   000010e8    00000216     pcm.obj (.text:__PCM_setPowerStateAdvanced)
                   000012fe    00000002     --HOLE-- [fill = 0]
-                  00001300    000001d2     ff.obj (.text:f_write)
-                  000014d2    00000006     --HOLE-- [fill = 0]
-                  000014d8    000001c8     trcSnapshotRecorder.obj (.text:prvTraceStoreKernelCallWithParam)
-                  000016a0    000001c6     ff.obj (.text:f_open)
-                  00001866    00000002     --HOLE-- [fill = 0]
-                  00001868    000001c0     IntQueue.obj (.text:xSecondTimerHandler)
-                  00001a28    000001b8     dataStorage.obj (.text:dataStorage)
-                  00001be0    000001b0     trcSnapshotRecorder.obj (.text:prvTraceInitTraceData)
-                  00001d90    000001a0     trcSnapshotRecorder.obj (.text:prvTraceStoreKernelCall)
-                  00001f30    0000019c     mmc_MSP432P401r.obj (.text:MMC_disk_ioctl)
-                  000020cc    00000004     --HOLE-- [fill = 0]
-                  000020d0    0000019c     houseKeeping.obj (.text:houseKeeping)
-                  0000226c    00000004     --HOLE-- [fill = 0]
-                  00002270    00000198     tasks.obj (.text:xTaskIncrementTick)
-                  00002408    00000188     queue.obj (.text:xQueueGenericSendFromISR)
-                  00002590    00000184     trcSnapshotRecorder.obj (.text:prvTraceGetDTS)
-                  00002714    00000160     msp432p4xx_driverlib.lib : adc14.o (.text:_getIndexForMemRegister)
-                  00002874    00000004     --HOLE-- [fill = 0]
-                  00002878    0000015c     mmc_MSP432P401r.obj (.text:MMC_disk_initialize)
-                  000029d4    00000004     --HOLE-- [fill = 0]
-                  000029d8    0000014c     trcSnapshotRecorder.obj (.text:prvTraceGetObjectHandle)
-                  00002b24    00000004     --HOLE-- [fill = 0]
-                  00002b28    00000148     cs.obj (.text:CS_getDCOFrequency)
-                  00002c70    00000148     trcSnapshotRecorder.obj (.text:prvCheckDataToBeOverwrittenForMultiEntryEvents)
-                  00002db8    00000148     queue.obj (.text:xQueueReceiveFromISR)
-                  00002f00    00000144     heap_4.obj (.text:pvPortMalloc)
-                  00003044    00000004     --HOLE-- [fill = 0]
-                  00003048    00000140     tasks.obj (.text:prvAddNewTaskToReadyList)
-                  00003188    00000134     port.obj (.text:vPortSuppressTicksAndSleep)
-                  000032bc    00000004     --HOLE-- [fill = 0]
-                  000032c0    00000130     trcSnapshotRecorder.obj (.text:uiIndexOfObject)
-                  000033f0    00000130     IntQueue.obj (.text:xFirstTimerHandler)
-                  00003520    0000012c     tasks.obj (.text:vTaskPriorityDisinheritAfterTimeout)
-                  0000364c    00000004     --HOLE-- [fill = 0]
-                  00003650    0000012c     event_groups.obj (.text:xEventGroupWaitBits)
-                  0000377c    00000004     --HOLE-- [fill = 0]
-                  00003780    00000128     tasks.obj (.text:xTaskResumeAll)
-                  000038a8    00000124     tasks.obj (.text:vTaskNotifyGiveFromISR)
-                  000039cc    00000004     --HOLE-- [fill = 0]
-                  000039d0    00000120     tasks.obj (.text:xTaskPriorityDisinherit)
-                  00003af0    0000011c     cs.obj (.text:CS_initClockSignal)
-                  00003c0c    00000004     --HOLE-- [fill = 0]
-                  00003c10    00000118     trcKernelPort.obj (.text:vTraceInitObjectPropertyTable)
-                  00003d28    00000114     cs.obj (.text:_CSComputeCLKFrequency)
-                  00003e3c    00000004     --HOLE-- [fill = 0]
-                  00003e40    00000110     trcSnapshotRecorder.obj (.text:prvTraceStoreKernelCallWithNumericParamOnly)
-                  00003f50    00000110     tasks.obj (.text:xTaskPriorityInherit)
-                  00004060    0000010c     trcSnapshotRecorder.obj (.text:prvTraceSetObjectName)
-                  0000416c    00000004     --HOLE-- [fill = 0]
-                  00004170    0000010c     MPU9250.obj (.text:readI2C)
-                  0000427c    00000004     --HOLE-- [fill = 0]
-                  00004280    0000010c     taskManager.obj (.text:taskCreate)
-                  0000438c    00000004     --HOLE-- [fill = 0]
-                  00004390    00000108     pcm.obj (.text:__PCM_setPowerModeAdvanced)
-                  00004498    00000104     ff.obj (.text:create_chain)
-                  0000459c    00000004     --HOLE-- [fill = 0]
-                  000045a0    00000103     ff.obj (.text:create_name)
-                  000046a3    00000005     --HOLE-- [fill = 0]
-                  000046a8    00000100     timers.obj (.text:prvProcessReceivedCommands)
-                  000047a8    000000fa     ff.obj (.text:put_fat)
-                  000048a2    00000006     --HOLE-- [fill = 0]
-                  000048a8    000000f4     trcSnapshotRecorder.obj (.text:prvTraceStoreTaskReady)
-                  0000499c    00000004     --HOLE-- [fill = 0]
-                  000049a0    000000e8     trcSnapshotRecorder.obj (.text:uiTraceStart)
-                  00004a88    000000e6     ff.obj (.text:dir_next)
-                  00004b6e    00000002     --HOLE-- [fill = 0]
-                  00004b70    000000e4     trcSnapshotRecorder.obj (.text:prvTraceStoreTaskswitch)
-                  00004c54    00000004     --HOLE-- [fill = 0]
-                  00004c58    000000e0     houseKeeping.obj (.text:adcInit)
-                  00004d38    000000dc     trcSnapshotRecorder.obj (.text:prvTraceGetPriorityProperty)
-                  00004e14    00000004     --HOLE-- [fill = 0]
-                  00004e18    000000dc     port.obj (.text:xPortStartScheduler)
-                  00004ef4    000000da     portasm.obj (.text)
-                  00004fce    00000002     --HOLE-- [fill = 0]
-                  00004fd0    000000d8     trcSnapshotRecorder.obj (.text:prvTraceSetPriorityProperty)
-                  000050a8    000000d4     tasks.obj (.text:vTaskSwitchContext)
-                  0000517c    00000004     --HOLE-- [fill = 0]
-                  00005180    000000d0     pcm.obj (.text:__PCM_setCoreVoltageLevelAdvanced)
-                  00005250    000000d0     trcSnapshotRecorder.obj (.text:prvTraceGetObjectState)
-                  00005320    000000cc     trcSnapshotRecorder.obj (.text:prvTraceSetObjectState)
-                  000053ec    00000004     --HOLE-- [fill = 0]
-                  000053f0    000000cc     trcKernelPort.obj (.text:vTraceInitObjectHandleStack)
-                  000054bc    00000004     --HOLE-- [fill = 0]
-                  000054c0    000000ca     ff.obj (.text:get_fat)
-                  0000558a    00000006     --HOLE-- [fill = 0]
-                  00005590    000000c0     tasks.obj (.text:xTaskRemoveFromEventList)
-                  00005650    000000bc     mmc_MSP432P401r.obj (.text:MMC_disk_write)
-                  0000570c    00000004     --HOLE-- [fill = 0]
-                  00005710    000000bc     queue.obj (.text:prvInitialiseNewQueue)
-                  000057cc    00000004     --HOLE-- [fill = 0]
-                  000057d0    000000bc     trcSnapshotRecorder.obj (.text:vTraceStoreMemMangEvent)
-                  0000588c    00000004     --HOLE-- [fill = 0]
-                  00005890    000000b4     tasks.obj (.text:vTaskRemoveFromUnorderedEventList)
-                  00005944    00000004     --HOLE-- [fill = 0]
-                  00005948    000000b4     serial.obj (.text:vUART_Handler)
-                  000059fc    00000004     --HOLE-- [fill = 0]
-                  00005a00    000000b4     MPU9250.obj (.text:writeI2C)
-                  00005ab4    000000b0     msp432p4xx_driverlib.lib : spi.o (.text:SPI_initMaster)
-                  00005b64    00000004     --HOLE-- [fill = 0]
-                  00005b68    000000ae     tasks.obj (.text:prvInitialiseNewTask)
-                  00005c16    00000002     --HOLE-- [fill = 0]
-                  00005c18    000000ae     event_groups.obj (.text:xEventGroupSetBits)
-                  00005cc6    00000002     --HOLE-- [fill = 0]
-                  00005cc8    000000a8     msp432p4xx_driverlib.lib : adc14.o (.text:ADC14_configureMultiSequenceMode)
-                  00005d70    000000a8     trcSnapshotRecorder.obj (.text:prvTraceInitCortexM)
-                  00005e18    000000a4     msp432p4xx_driverlib.lib : adc14.o (.text:ADC14_configureConversionMemory)
-                  00005ebc    00000004     --HOLE-- [fill = 0]
-                  00005ec0    000000a4     itoa.obj (.text:itoa)
-                  00005f64    00000004     --HOLE-- [fill = 0]
-                  00005f68    000000a4     trcSnapshotRecorder.obj (.text:vTraceEnable)
-                  0000600c    00000004     --HOLE-- [fill = 0]
-                  00006010    000000a0     ff.obj (.text:dir_sdi)
-                  000060b0    0000009c     rtsv7M4_T_le_v4SPD16_eabi.lib : memcpy_t2.asm.obj (.text)
-                  0000614c    00000004     --HOLE-- [fill = 0]
-                  00006150    0000009c     tasks.obj (.text:vTaskDelay)
-                  000061ec    00000004     --HOLE-- [fill = 0]
-                  000061f0    00000098     ff.obj (.text:f_sync)
-                  00006288    00000094     mmc_MSP432P401r.obj (.text:MMC_disk_read)
-                  0000631c    00000094     msp432p4xx_driverlib.lib : rtc_c.o (.text:RTC_C_initCalendar)
-                  000063b0    00000094     timers.obj (.text:prvSwitchTimerLists)
+                  00001300    000001d8     dataStorage.obj (.text:dataStorage)
+                  000014d8    000001d2     ff.obj (.text:f_write)
+                  000016aa    00000006     --HOLE-- [fill = 0]
+                  000016b0    000001c8     trcSnapshotRecorder.obj (.text:prvTraceStoreKernelCallWithParam)
+                  00001878    000001c6     ff.obj (.text:f_open)
+                  00001a3e    00000002     --HOLE-- [fill = 0]
+                  00001a40    000001c0     IntQueue.obj (.text:xSecondTimerHandler)
+                  00001c00    000001b0     trcSnapshotRecorder.obj (.text:prvTraceInitTraceData)
+                  00001db0    000001a8     houseKeeping.obj (.text:houseKeeping)
+                  00001f58    000001a0     trcSnapshotRecorder.obj (.text:prvTraceStoreKernelCall)
+                  000020f8    0000019c     mmc_MSP432P401r.obj (.text:MMC_disk_ioctl)
+                  00002294    00000004     --HOLE-- [fill = 0]
+                  00002298    00000198     tasks.obj (.text:xTaskIncrementTick)
+                  00002430    00000188     queue.obj (.text:xQueueGenericSendFromISR)
+                  000025b8    00000184     trcSnapshotRecorder.obj (.text:prvTraceGetDTS)
+                  0000273c    00000160     msp432p4xx_driverlib.lib : adc14.o (.text:_getIndexForMemRegister)
+                  0000289c    00000004     --HOLE-- [fill = 0]
+                  000028a0    0000015c     mmc_MSP432P401r.obj (.text:MMC_disk_initialize)
+                  000029fc    00000004     --HOLE-- [fill = 0]
+                  00002a00    0000014c     trcSnapshotRecorder.obj (.text:prvTraceGetObjectHandle)
+                  00002b4c    00000004     --HOLE-- [fill = 0]
+                  00002b50    00000148     cs.obj (.text:CS_getDCOFrequency)
+                  00002c98    00000148     trcSnapshotRecorder.obj (.text:prvCheckDataToBeOverwrittenForMultiEntryEvents)
+                  00002de0    00000148     queue.obj (.text:xQueueReceiveFromISR)
+                  00002f28    00000144     heap_4.obj (.text:pvPortMalloc)
+                  0000306c    00000004     --HOLE-- [fill = 0]
+                  00003070    00000140     tasks.obj (.text:prvAddNewTaskToReadyList)
+                  000031b0    00000134     port.obj (.text:vPortSuppressTicksAndSleep)
+                  000032e4    00000004     --HOLE-- [fill = 0]
+                  000032e8    00000130     trcSnapshotRecorder.obj (.text:uiIndexOfObject)
+                  00003418    00000130     IntQueue.obj (.text:xFirstTimerHandler)
+                  00003548    0000012c     tasks.obj (.text:vTaskPriorityDisinheritAfterTimeout)
+                  00003674    00000004     --HOLE-- [fill = 0]
+                  00003678    0000012c     event_groups.obj (.text:xEventGroupWaitBits)
+                  000037a4    00000004     --HOLE-- [fill = 0]
+                  000037a8    00000128     tasks.obj (.text:xTaskResumeAll)
+                  000038d0    00000124     tasks.obj (.text:vTaskNotifyGiveFromISR)
+                  000039f4    00000004     --HOLE-- [fill = 0]
+                  000039f8    00000120     tasks.obj (.text:xTaskPriorityDisinherit)
+                  00003b18    0000011c     cs.obj (.text:CS_initClockSignal)
+                  00003c34    00000004     --HOLE-- [fill = 0]
+                  00003c38    00000118     trcKernelPort.obj (.text:vTraceInitObjectPropertyTable)
+                  00003d50    00000114     cs.obj (.text:_CSComputeCLKFrequency)
+                  00003e64    00000004     --HOLE-- [fill = 0]
+                  00003e68    00000110     trcSnapshotRecorder.obj (.text:prvTraceStoreKernelCallWithNumericParamOnly)
+                  00003f78    00000110     tasks.obj (.text:xTaskPriorityInherit)
+                  00004088    0000010c     trcSnapshotRecorder.obj (.text:prvTraceSetObjectName)
+                  00004194    00000004     --HOLE-- [fill = 0]
+                  00004198    0000010c     MPU9250.obj (.text:readI2C)
+                  000042a4    00000004     --HOLE-- [fill = 0]
+                  000042a8    0000010c     taskManager.obj (.text:taskCreate)
+                  000043b4    00000004     --HOLE-- [fill = 0]
+                  000043b8    00000108     pcm.obj (.text:__PCM_setPowerModeAdvanced)
+                  000044c0    00000104     ff.obj (.text:create_chain)
+                  000045c4    00000004     --HOLE-- [fill = 0]
+                  000045c8    00000103     ff.obj (.text:create_name)
+                  000046cb    00000005     --HOLE-- [fill = 0]
+                  000046d0    00000100     timers.obj (.text:prvProcessReceivedCommands)
+                  000047d0    00000100     tasks.obj (.text:vTaskDelayUntil)
+                  000048d0    000000fa     ff.obj (.text:put_fat)
+                  000049ca    00000006     --HOLE-- [fill = 0]
+                  000049d0    000000f4     trcSnapshotRecorder.obj (.text:prvTraceStoreTaskReady)
+                  00004ac4    00000004     --HOLE-- [fill = 0]
+                  00004ac8    000000e8     trcSnapshotRecorder.obj (.text:uiTraceStart)
+                  00004bb0    000000e6     ff.obj (.text:dir_next)
+                  00004c96    00000002     --HOLE-- [fill = 0]
+                  00004c98    000000e4     trcSnapshotRecorder.obj (.text:prvTraceStoreTaskswitch)
+                  00004d7c    00000004     --HOLE-- [fill = 0]
+                  00004d80    000000e0     houseKeeping.obj (.text:adcInit)
+                  00004e60    000000dc     trcSnapshotRecorder.obj (.text:prvTraceGetPriorityProperty)
+                  00004f3c    00000004     --HOLE-- [fill = 0]
+                  00004f40    000000dc     port.obj (.text:xPortStartScheduler)
+                  0000501c    000000da     portasm.obj (.text)
+                  000050f6    00000002     --HOLE-- [fill = 0]
+                  000050f8    000000d8     trcSnapshotRecorder.obj (.text:prvTraceSetPriorityProperty)
+                  000051d0    000000d4     tasks.obj (.text:vTaskSwitchContext)
+                  000052a4    00000004     --HOLE-- [fill = 0]
+                  000052a8    000000d0     pcm.obj (.text:__PCM_setCoreVoltageLevelAdvanced)
+                  00005378    000000d0     trcSnapshotRecorder.obj (.text:prvTraceGetObjectState)
+                  00005448    000000cc     trcSnapshotRecorder.obj (.text:prvTraceSetObjectState)
+                  00005514    00000004     --HOLE-- [fill = 0]
+                  00005518    000000cc     trcKernelPort.obj (.text:vTraceInitObjectHandleStack)
+                  000055e4    00000004     --HOLE-- [fill = 0]
+                  000055e8    000000ca     ff.obj (.text:get_fat)
+                  000056b2    00000006     --HOLE-- [fill = 0]
+                  000056b8    000000c0     tasks.obj (.text:xTaskRemoveFromEventList)
+                  00005778    000000bc     mmc_MSP432P401r.obj (.text:MMC_disk_write)
+                  00005834    00000004     --HOLE-- [fill = 0]
+                  00005838    000000bc     queue.obj (.text:prvInitialiseNewQueue)
+                  000058f4    00000004     --HOLE-- [fill = 0]
+                  000058f8    000000bc     trcSnapshotRecorder.obj (.text:vTraceStoreMemMangEvent)
+                  000059b4    00000004     --HOLE-- [fill = 0]
+                  000059b8    000000b4     tasks.obj (.text:vTaskRemoveFromUnorderedEventList)
+                  00005a6c    00000004     --HOLE-- [fill = 0]
+                  00005a70    000000b4     serial.obj (.text:vUART_Handler)
+                  00005b24    00000004     --HOLE-- [fill = 0]
+                  00005b28    000000b4     MPU9250.obj (.text:writeI2C)
+                  00005bdc    000000b0     msp432p4xx_driverlib.lib : spi.o (.text:SPI_initMaster)
+                  00005c8c    00000004     --HOLE-- [fill = 0]
+                  00005c90    000000ae     tasks.obj (.text:prvInitialiseNewTask)
+                  00005d3e    00000002     --HOLE-- [fill = 0]
+                  00005d40    000000ae     event_groups.obj (.text:xEventGroupSetBits)
+                  00005dee    00000002     --HOLE-- [fill = 0]
+                  00005df0    000000a8     msp432p4xx_driverlib.lib : adc14.o (.text:ADC14_configureMultiSequenceMode)
+                  00005e98    000000a8     trcSnapshotRecorder.obj (.text:prvTraceInitCortexM)
+                  00005f40    000000a4     msp432p4xx_driverlib.lib : adc14.o (.text:ADC14_configureConversionMemory)
+                  00005fe4    00000004     --HOLE-- [fill = 0]
+                  00005fe8    000000a4     itoa.obj (.text:itoa)
+                  0000608c    00000004     --HOLE-- [fill = 0]
+                  00006090    000000a4     trcSnapshotRecorder.obj (.text:vTraceEnable)
+                  00006134    00000004     --HOLE-- [fill = 0]
+                  00006138    000000a0     ff.obj (.text:dir_sdi)
+                  000061d8    0000009c     rtsv7M4_T_le_v4SPD16_eabi.lib : memcpy_t2.asm.obj (.text)
+                  00006274    00000004     --HOLE-- [fill = 0]
+                  00006278    0000009c     tasks.obj (.text:vTaskDelay)
+                  00006314    00000004     --HOLE-- [fill = 0]
+                  00006318    00000098     ff.obj (.text:f_sync)
+                  000063b0    00000094     mmc_MSP432P401r.obj (.text:MMC_disk_read)
                   00006444    00000004     --HOLE-- [fill = 0]
-                  00006448    00000094     trcSnapshotRecorder.obj (.text:prvTraceGetParam)
+                  00006448    00000094     timers.obj (.text:prvSwitchTimerLists)
                   000064dc    00000004     --HOLE-- [fill = 0]
-                  000064e0    00000094     tasks.obj (.text:xTaskCheckForTimeOut)
+                  000064e0    00000094     trcSnapshotRecorder.obj (.text:prvTraceGetParam)
                   00006574    00000004     --HOLE-- [fill = 0]
-                  00006578    00000090     queue.obj (.text:xQueueGenericReset)
-                  00006608    0000008c     MPU9250.obj (.text:getMotion6)
-                  00006694    00000004     --HOLE-- [fill = 0]
-                  00006698    0000008c     ff.obj (.text:sync_fs)
-                  00006724    00000004     --HOLE-- [fill = 0]
-                  00006728    0000008c     heap_4.obj (.text:vPortFree)
-                  000067b4    00000004     --HOLE-- [fill = 0]
-                  000067b8    0000008a     ff.obj (.text:check_fs)
-                  00006842    00000006     --HOLE-- [fill = 0]
-                  00006848    00000088     pcm.obj (.text:PCM_gotoLPM3)
-                  000068d0    00000088     tasks.obj (.text:prvAddCurrentTaskToDelayedList)
-                  00006958    00000088     tasks.obj (.text:vTaskPlaceOnEventListRestricted)
-                  000069e0    00000086     ff.obj (.text:follow_path)
-                  00006a66    00000002     --HOLE-- [fill = 0]
-                  00006a68    00000084     tasks.obj (.text:vTaskStartScheduler)
-                  00006aec    00000004     --HOLE-- [fill = 0]
-                  00006af0    00000080     ff.obj (.text:remove_chain)
-                  00006b70    0000007c     msp432p4xx_driverlib.lib : rtc_c.o (.text:RTC_C_getCalendarTime)
-                  00006bec    00000004     --HOLE-- [fill = 0]
-                  00006bf0    0000007c     tasks.obj (.text:prvIdleTask)
-                  00006c6c    00000004     --HOLE-- [fill = 0]
-                  00006c70    0000007c     trcSnapshotRecorder.obj (.text:prvTraceSetTaskInstanceFinished)
-                  00006cec    0000007a     rtsv7M4_T_le_v4SPD16_eabi.lib : memset_t2.asm.obj (.text)
-                  00006d66    00000002     --HOLE-- [fill = 0]
-                  00006d68    00000078     msp432p4xx_driverlib.lib : adc14.o (.text:ADC14_getMultiSequenceResult)
-                  00006de0    00000074     queue.obj (.text:xQueueGenericCreate)
-                  00006e54    00000004     --HOLE-- [fill = 0]
-                  00006e58    00000074     timers.obj (.text:xTimerGenericCommand)
-                  00006ecc    00000004     --HOLE-- [fill = 0]
-                  00006ed0    00000070     queue.obj (.text:prvCopyDataToQueue)
-                  00006f40    00000070     heap_4.obj (.text:prvHeapInit)
-                  00006fb0    00000070     tasks.obj (.text:prvInitialiseTaskLists)
-                  00007020    00000070     timers.obj (.text:prvProcessTimerOrBlockTask)
-                  00007090    00000070     mmc_MSP432P401r.obj (.text:send_cmd)
-                  00007100    0000006c     queue.obj (.text:prvUnlockQueue)
-                  0000716c    00000068     msp432p4xx_driverlib.lib : i2c.o (.text:I2C_masterSendMultiByteStart)
-                  000071d4    00000004     --HOLE-- [fill = 0]
-                  000071d8    00000068     system_msp432p401r.obj (.text:SystemInit)
-                  00007240    00000068     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_decompress_lzss.c.obj (.text:decompress:lzss:__TI_decompress_lzss)
-                  000072a8    00000068     heap_4.obj (.text:prvInsertBlockIntoFreeList)
-                  00007310    00000068     port.obj (.text:vPortSetupTimerInterrupt)
-                  00007378    00000068     tasks.obj (.text:xTaskCreate)
-                  000073e0    00000066     ff.obj (.text:dir_clear)
-                  00007446    00000002     --HOLE-- [fill = 0]
-                  00007448    00000064     dataStorage.obj (.text:initSD)
-                  000074ac    00000004     --HOLE-- [fill = 0]
-                  000074b0    00000064     trcSnapshotRecorder.obj (.text:prvTraceNextFreeEventBufferSlot)
-                  00007514    00000004     --HOLE-- [fill = 0]
-                  00007518    00000064     port.obj (.text:vPortValidateInterruptPriority)
-                  0000757c    00000004     --HOLE-- [fill = 0]
-                  00007580    00000060     timers.obj (.text:prvProcessExpiredTimer)
-                  000075e0    00000060     MPU9250.obj (.text:writeBits)
-                  00007640    00000060     mmc_MSP432P401r.obj (.text:xmit_datablock)
-                  000076a0    0000005c     tasks.obj (.text:vTaskPlaceOnUnorderedEventList)
-                  000076fc    00000004     --HOLE-- [fill = 0]
-                  00007700    00000058     timers.obj (.text:xTimerCreateTimerTask)
-                  00007758    00000056     ff.obj (.text:dir_find)
-                  000077ae    00000002     --HOLE-- [fill = 0]
-                  000077b0    00000054     msp432p4xx_driverlib.lib : adc14.o (.text:ADC14_initModule)
-                  00007804    00000004     --HOLE-- [fill = 0]
-                  00007808    00000054     gpio.obj (.text:GPIO_setAsPeripheralModuleFunctionInputPin)
-                  0000785c    00000004     --HOLE-- [fill = 0]
-                  00007860    00000054     gpio.obj (.text:GPIO_setAsPeripheralModuleFunctionOutputPin)
-                  000078b4    00000004     --HOLE-- [fill = 0]
-                  000078b8    00000054     sysctl.obj (.text:SysCtl_getTLVInfo)
-                  0000790c    00000004     --HOLE-- [fill = 0]
-                  00007910    00000054     tasks.obj (.text:prvCheckTasksWaitingTermination)
-                  00007964    00000004     --HOLE-- [fill = 0]
-                  00007968    00000054     timers.obj (.text:prvInsertTimerInActiveList)
-                  000079bc    00000004     --HOLE-- [fill = 0]
-                  000079c0    00000054     trcSnapshotRecorder.obj (.text:prvTracePortGetTimeStamp)
-                  00007a14    00000004     --HOLE-- [fill = 0]
-                  00007a18    00000052     cs.obj (.text:_CSGetDividerValue)
-                  00007a6a    00000006     --HOLE-- [fill = 0]
-                  00007a70    00000050     pcm.obj (.text:PCM_getCoreVoltageLevel)
-                  00007ac0    00000050     SPI_Driver.obj (.text:SPI_Init)
-                  00007b10    00000050     cs.obj (.text:_CSGetDOCFrequency)
-                  00007b60    00000050     ff.obj (.text:dbc_2nd)
-                  00007bb0    00000050     tasks.obj (.text:prvGetExpectedIdleTime)
-                  00007c00    00000050     MPU9250.obj (.text:writeBit)
-                  00007c50    0000004e     ff.obj (.text:dir_alloc)
-                  00007c9e    00000002     --HOLE-- [fill = 0]
-                  00007ca0    0000004c     pcm.obj (.text:PCM_shutdownDevice)
-                  00007cec    00000004     --HOLE-- [fill = 0]
-                  00007cf0    0000004c     ff.obj (.text:f_mount)
-                  00007d3c    00000004     --HOLE-- [fill = 0]
-                  00007d40    0000004c     timers.obj (.text:prvCheckForValidListAndQueue)
-                  00007d8c    00000004     --HOLE-- [fill = 0]
-                  00007d90    0000004c     mmc_MSP432P401r.obj (.text:rcvr_datablock)
-                  00007ddc    00000004     --HOLE-- [fill = 0]
-                  00007de0    0000004a     main.obj (.text:prvConfigureClocks)
-                  00007e2a    00000006     --HOLE-- [fill = 0]
-                  00007e30    00000048     ff.obj (.text:get_ldnumber)
-                  00007e78    00000048     ff.obj (.text:sync_window)
-                  00007ec0    00000048     queue.obj (.text:vQueueWaitForMessageRestricted)
-                  00007f08    00000044     rtsv7M4_T_le_v4SPD16_eabi.lib : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit:__TI_auto_init_nobinit_nopinit)
-                  00007f4c    00000004     --HOLE-- [fill = 0]
-                  00007f50    00000044     dataStorage.obj (.text:getLocalTime)
-                  00007f94    00000004     --HOLE-- [fill = 0]
-                  00007f98    00000044     houseKeeping.obj (.text:getTemperature)
-                  00007fdc    00000004     --HOLE-- [fill = 0]
-                  00007fe0    00000040     MPU9250.obj (.text:initI2C)
-                  00008020    00000040     msp432p4xx_driverlib.lib : spi.o (.text:is_A_Module)
-                  00008060    0000003e     mmc_MSP432P401r.obj (.text:send_cmd12)
-                  0000809e    00000002     --HOLE-- [fill = 0]
-                  000080a0    0000003c     main.obj (.text:calendarConfiguration)
-                  000080dc    00000004     --HOLE-- [fill = 0]
-                  000080e0    0000003c     tasks.obj (.text:eTaskConfirmSleepModeStatus)
-                  0000811c    00000004     --HOLE-- [fill = 0]
-                  00008120    0000003c     trcSnapshotRecorder.obj (.text:prvTraceError)
-                  0000815c    00000004     --HOLE-- [fill = 0]
-                  00008160    0000003c     trcSnapshotRecorder.obj (.text:prvTraceUpdateCounters)
-                  0000819c    00000004     --HOLE-- [fill = 0]
-                  000081a0    0000003c     mmc_MSP432P401r.obj (.text:send_initial_clock_train)
-                  000081dc    00000004     --HOLE-- [fill = 0]
-                  000081e0    0000003c     port.obj (.text:vPortEnterCritical)
-                  0000821c    00000004     --HOLE-- [fill = 0]
-                  00008220    0000003c     watchDogTask.obj (.text:watchDogTask)
-                  0000825c    00000004     --HOLE-- [fill = 0]
-                  00008260    0000003a     pcm.obj (.text:PCM_getPowerMode)
-                  0000829a    00000006     --HOLE-- [fill = 0]
-                  000082a0    0000003a     ff.obj (.text:dir_register)
-                  000082da    00000006     --HOLE-- [fill = 0]
-                  000082e0    0000003a     ff.obj (.text:validate)
-                  0000831a    00000002     --HOLE-- [fill = 0]
-                  0000831c    00000038     rtsv7M4_T_le_v4SPD16_eabi.lib : boot_cortex_m.c.obj (.text:_c_int00_noargs:_c_int00_noargs)
-                  00008354    00000004     --HOLE-- [fill = 0]
-                  00008358    00000038     port.obj (.text:prvTaskExitError)
-                  00008390    00000038     tasks.obj (.text:vTaskPlaceOnEventList)
-                  000083c8    00000034     msp432p4xx_driverlib.lib : adc14.o (.text:ADC14_enableSampleTimer)
-                  000083fc    00000004     --HOLE-- [fill = 0]
-                  00008400    00000034     SPI_Driver.obj (.text:SPI_Read)
-                  00008434    00000004     --HOLE-- [fill = 0]
-                  00008438    00000034     SPI_Driver.obj (.text:SPI_Write)
-                  0000846c    00000004     --HOLE-- [fill = 0]
-                  00008470    00000034     ff.obj (.text:dbc_1st)
-                  000084a4    00000004     --HOLE-- [fill = 0]
-                  000084a8    00000034     ff.obj (.text:move_window)
-                  000084dc    00000004     --HOLE-- [fill = 0]
-                  000084e0    00000034     list.obj (.text:vListInsert)
-                  00008514    00000004     --HOLE-- [fill = 0]
-                  00008518    00000034     IntQueueTimer.obj (.text:vT32_0_Handler)
-                  0000854c    00000004     --HOLE-- [fill = 0]
-                  00008550    00000034     IntQueueTimer.obj (.text:vT32_1_Handler)
-                  00008584    00000004     --HOLE-- [fill = 0]
-                  00008588    00000034     tasks.obj (.text:vTaskStepTick)
-                  000085bc    00000030     msp432p4xx_driverlib.lib : adc14.o (.text:ADC14_setSampleHoldTime)
-                  000085ec    00000004     --HOLE-- [fill = 0]
-                  000085f0    00000030     flash.obj (.text:FlashCtl_setWaitState)
-                  00008620    00000030     houseKeeping.obj (.text:isLowBattery)
-                  00008650    00000030     main.obj (.text:main)
-                  00008680    00000030     tasks.obj (.text:prvResetNextTaskUnblockTime)
-                  000086b0    00000030     port.obj (.text:vPortExitCritical)
-                  000086e0    0000002c     msp432p4xx_driverlib.lib : adc14.o (.text:ADC14_toggleConversionTrigger)
-                  0000870c    00000004     --HOLE-- [fill = 0]
-                  00008710    0000002c     cs.obj (.text:CS_setDCOCenteredFrequency)
-                  0000873c    00000004     --HOLE-- [fill = 0]
-                  00008740    0000002c     pcm.obj (.text:PCM_gotoLPM0)
-                  0000876c    0000002c     msp432p4xx_driverlib.lib : rtc_c.o (.text:RTC_C_holdClock)
-                  00008798    0000002c                              : rtc_c.o (.text:RTC_C_startClock)
-                  000087c4    00000004     --HOLE-- [fill = 0]
-                  000087c8    0000002c     timers.obj (.text:prvSampleTimeNow)
-                  000087f4    00000004     --HOLE-- [fill = 0]
-                  000087f8    0000002c     main.obj (.text:prvSetupHardware)
-                  00008824    00000004     --HOLE-- [fill = 0]
-                  00008828    0000002c     port.obj (.text:pxPortInitialiseStack)
-                  00008854    00000004     --HOLE-- [fill = 0]
-                  00008858    0000002c     mmc_MSP432P401r.obj (.text:rcvr_spi)
-                  00008884    00000004     --HOLE-- [fill = 0]
-                  00008888    0000002c     ttcTask.obj (.text:ttcTask)
-                  000088b4    00000004     --HOLE-- [fill = 0]
-                  000088b8    0000002c     port.obj (.text:xPortSysTickHandler)
-                  000088e4    00000004     --HOLE-- [fill = 0]
-                  000088e8    0000002c     queue.obj (.text:xQueueIsQueueFullFromISR)
-                  00008914    00000028     msp432p4xx_driverlib.lib : adc14.o (.text:ADC14_enableConversion)
-                  0000893c    00000004     --HOLE-- [fill = 0]
-                  00008940    00000028     GPIO_Driver.obj (.text:GPIO_Init)
-                  00008968    00000028     aodcsTask.obj (.text:aodcsTask)
-                  00008990    00000028     cameraTask.obj (.text:cameraTask)
-                  000089b8    00000028     pptTask.obj (.text:pptTask)
-                  000089e0    00000028     queue.obj (.text:prvCopyDataFromQueue)
-                  00008a08    00000028     mmc_MSP432P401r.obj (.text:xmit_spi)
-                  00008a30    00000026     ff.obj (.text:ld_clust)
-                  00008a56    00000002     --HOLE-- [fill = 0]
-                  00008a58    00000026     list.obj (.text:uxListRemove)
-                  00008a7e    00000002     --HOLE-- [fill = 0]
-                  00008a80    00000024     cs.obj (.text:CS_clearInterruptFlag)
-                  00008aa4    00000004     --HOLE-- [fill = 0]
-                  00008aa8    00000024     timers.obj (.text:prvGetNextExpireTime)
-                  00008acc    00000004     --HOLE-- [fill = 0]
-                  00008ad0    00000024     taskManager.obj (.text:queueCreate)
-                  00008af4    00000004     --HOLE-- [fill = 0]
-                  00008af8    00000024     trcSnapshotRecorder.obj (.text:vTraceStop)
-                  00008b1c    00000004     --HOLE-- [fill = 0]
-                  00008b20    00000024     mmc_MSP432P401r.obj (.text:wait_ready)
-                  00008b44    00000004     --HOLE-- [fill = 0]
-                  00008b48    00000022     CS_Driver.obj (.text:CS_Init)
-                  00008b6a    00000006     --HOLE-- [fill = 0]
-                  00008b70    00000022     diskio.obj (.text:disk_read)
-                  00008b92    00000006     --HOLE-- [fill = 0]
-                  00008b98    00000022     diskio.obj (.text:disk_write)
-                  00008bba    00000006     --HOLE-- [fill = 0]
-                  00008bc0    00000022     ff.obj (.text:st_clust)
-                  00008be2    00000006     --HOLE-- [fill = 0]
-                  00008be8    00000020     gpio.obj (.text:GPIO_setAsOutputPin)
-                  00008c08    00000020     MPU9250.obj (.text:MPU9250_initialize)
-                  00008c28    00000020     msp432p4xx_driverlib.lib : ref_a.o (.text:REF_A_setReferenceVoltage)
-                  00008c48    00000020     diskio.obj (.text:disk_ioctl)
-                  00008c68    00000020     trcSnapshotRecorder.obj (.text:prvMarkObjectAsUsed)
-                  00008c88    00000020     IntQueue.obj (.text:prvRecordValue_NormallyEmpty)
-                  00008ca8    00000020     IntQueue.obj (.text:prvRecordValue_NormallyFull)
-                  00008cc8    00000020     trcSnapshotRecorder.obj (.text:prvStrncpy)
-                  00008ce8    00000020     tasks.obj (.text:xTaskGetSchedulerState)
-                  00008d08    0000001e     queue.obj (.text:prvIsQueueFull)
-                  00008d26    00000002     --HOLE-- [fill = 0]
-                  00008d28    0000001e     list.obj (.text:vListInitialise)
-                  00008d46    00000002     --HOLE-- [fill = 0]
-                  00008d48    0000001c     msp432p4xx_driverlib.lib : adc14.o (.text:ADC14_getResult)
-                  00008d64    00000004     --HOLE-- [fill = 0]
-                  00008d68    0000001c     ff.obj (.text:mem_cmp)
-                  00008d84    00000004     --HOLE-- [fill = 0]
-                  00008d88    0000001c     event_groups.obj (.text:prvTestWaitCondition)
-                  00008da4    00000004     --HOLE-- [fill = 0]
-                  00008da8    0000001a     ff.obj (.text:clst2sect)
-                  00008dc2    00000006     --HOLE-- [fill = 0]
-                  00008dc8    0000001a     queue.obj (.text:prvGetDisinheritPriorityAfterTimeout)
-                  00008de2    00000006     --HOLE-- [fill = 0]
-                  00008de8    0000001a     queue.obj (.text:prvIsQueueEmpty)
-                  00008e02    00000006     --HOLE-- [fill = 0]
-                  00008e08    0000001a     timers.obj (.text:prvTimerTask)
-                  00008e22    00000006     --HOLE-- [fill = 0]
-                  00008e28    0000001a     trcKernelPort.obj (.text:prvTraceSetQueueNumberHigh16)
-                  00008e42    00000006     --HOLE-- [fill = 0]
-                  00008e48    0000001a     trcKernelPort.obj (.text:prvTraceSetQueueNumberLow16)
-                  00008e62    00000006     --HOLE-- [fill = 0]
-                  00008e68    0000001a     trcKernelPort.obj (.text:prvTraceSetTaskNumberHigh16)
-                  00008e82    00000006     --HOLE-- [fill = 0]
-                  00008e88    0000001a     trcKernelPort.obj (.text:prvTraceSetTaskNumberLow16)
-                  00008ea2    00000006     --HOLE-- [fill = 0]
-                  00008ea8    0000001a     event_groups.obj (.text:xEventGroupCreate)
+                  00006578    00000094     tasks.obj (.text:xTaskCheckForTimeOut)
+                  0000660c    00000004     --HOLE-- [fill = 0]
+                  00006610    00000090     queue.obj (.text:xQueueGenericReset)
+                  000066a0    0000008c     MPU9250.obj (.text:getMotion6)
+                  0000672c    00000004     --HOLE-- [fill = 0]
+                  00006730    0000008c     ff.obj (.text:sync_fs)
+                  000067bc    00000004     --HOLE-- [fill = 0]
+                  000067c0    0000008c     heap_4.obj (.text:vPortFree)
+                  0000684c    00000004     --HOLE-- [fill = 0]
+                  00006850    0000008a     ff.obj (.text:check_fs)
+                  000068da    00000006     --HOLE-- [fill = 0]
+                  000068e0    00000088     pcm.obj (.text:PCM_gotoLPM3)
+                  00006968    00000088     tasks.obj (.text:prvAddCurrentTaskToDelayedList)
+                  000069f0    00000088     tasks.obj (.text:vTaskPlaceOnEventListRestricted)
+                  00006a78    00000086     ff.obj (.text:follow_path)
+                  00006afe    00000002     --HOLE-- [fill = 0]
+                  00006b00    00000084     tasks.obj (.text:vTaskStartScheduler)
+                  00006b84    00000004     --HOLE-- [fill = 0]
+                  00006b88    00000080     ff.obj (.text:remove_chain)
+                  00006c08    0000007c     msp432p4xx_driverlib.lib : rtc_c.o (.text:RTC_C_getCalendarTime)
+                  00006c84    00000004     --HOLE-- [fill = 0]
+                  00006c88    0000007c     tasks.obj (.text:prvIdleTask)
+                  00006d04    00000004     --HOLE-- [fill = 0]
+                  00006d08    0000007c     trcSnapshotRecorder.obj (.text:prvTraceSetTaskInstanceFinished)
+                  00006d84    0000007a     rtsv7M4_T_le_v4SPD16_eabi.lib : memset_t2.asm.obj (.text)
+                  00006dfe    00000002     --HOLE-- [fill = 0]
+                  00006e00    00000078     msp432p4xx_driverlib.lib : adc14.o (.text:ADC14_getMultiSequenceResult)
+                  00006e78    00000074     queue.obj (.text:xQueueGenericCreate)
+                  00006eec    00000004     --HOLE-- [fill = 0]
+                  00006ef0    00000074     timers.obj (.text:xTimerGenericCommand)
+                  00006f64    00000004     --HOLE-- [fill = 0]
+                  00006f68    00000070     queue.obj (.text:prvCopyDataToQueue)
+                  00006fd8    00000070     heap_4.obj (.text:prvHeapInit)
+                  00007048    00000070     tasks.obj (.text:prvInitialiseTaskLists)
+                  000070b8    00000070     timers.obj (.text:prvProcessTimerOrBlockTask)
+                  00007128    00000070     mmc_MSP432P401r.obj (.text:send_cmd)
+                  00007198    0000006c     queue.obj (.text:prvUnlockQueue)
+                  00007204    00000068     msp432p4xx_driverlib.lib : i2c.o (.text:I2C_masterSendMultiByteStart)
+                  0000726c    00000004     --HOLE-- [fill = 0]
+                  00007270    00000068     system_msp432p401r.obj (.text:SystemInit)
+                  000072d8    00000068     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_decompress_lzss.c.obj (.text:decompress:lzss:__TI_decompress_lzss)
+                  00007340    00000068     heap_4.obj (.text:prvInsertBlockIntoFreeList)
+                  000073a8    00000068     port.obj (.text:vPortSetupTimerInterrupt)
+                  00007410    00000068     tasks.obj (.text:xTaskCreate)
+                  00007478    00000066     ff.obj (.text:dir_clear)
+                  000074de    00000002     --HOLE-- [fill = 0]
+                  000074e0    00000064     dataStorage.obj (.text:initSD)
+                  00007544    00000004     --HOLE-- [fill = 0]
+                  00007548    00000064     trcSnapshotRecorder.obj (.text:prvTraceNextFreeEventBufferSlot)
+                  000075ac    00000004     --HOLE-- [fill = 0]
+                  000075b0    00000064     port.obj (.text:vPortValidateInterruptPriority)
+                  00007614    00000004     --HOLE-- [fill = 0]
+                  00007618    00000060     timers.obj (.text:prvProcessExpiredTimer)
+                  00007678    00000060     MPU9250.obj (.text:writeBits)
+                  000076d8    00000060     mmc_MSP432P401r.obj (.text:xmit_datablock)
+                  00007738    0000005c     tasks.obj (.text:vTaskPlaceOnUnorderedEventList)
+                  00007794    00000004     --HOLE-- [fill = 0]
+                  00007798    0000005c     watchDogTask.obj (.text:watchDogTask)
+                  000077f4    00000004     --HOLE-- [fill = 0]
+                  000077f8    00000058     main.obj (.text:prvConfigureClocks)
+                  00007850    00000058     timers.obj (.text:xTimerCreateTimerTask)
+                  000078a8    00000056     ff.obj (.text:dir_find)
+                  000078fe    00000002     --HOLE-- [fill = 0]
+                  00007900    00000054     msp432p4xx_driverlib.lib : adc14.o (.text:ADC14_initModule)
+                  00007954    00000004     --HOLE-- [fill = 0]
+                  00007958    00000054     gpio.obj (.text:GPIO_setAsPeripheralModuleFunctionInputPin)
+                  000079ac    00000004     --HOLE-- [fill = 0]
+                  000079b0    00000054     gpio.obj (.text:GPIO_setAsPeripheralModuleFunctionOutputPin)
+                  00007a04    00000004     --HOLE-- [fill = 0]
+                  00007a08    00000054     sysctl.obj (.text:SysCtl_getTLVInfo)
+                  00007a5c    00000004     --HOLE-- [fill = 0]
+                  00007a60    00000054     tasks.obj (.text:prvCheckTasksWaitingTermination)
+                  00007ab4    00000004     --HOLE-- [fill = 0]
+                  00007ab8    00000054     timers.obj (.text:prvInsertTimerInActiveList)
+                  00007b0c    00000004     --HOLE-- [fill = 0]
+                  00007b10    00000054     trcSnapshotRecorder.obj (.text:prvTracePortGetTimeStamp)
+                  00007b64    00000004     --HOLE-- [fill = 0]
+                  00007b68    00000054     ttcTask.obj (.text:ttcTask)
+                  00007bbc    00000004     --HOLE-- [fill = 0]
+                  00007bc0    00000052     cs.obj (.text:_CSGetDividerValue)
+                  00007c12    00000006     --HOLE-- [fill = 0]
+                  00007c18    00000050     pcm.obj (.text:PCM_getCoreVoltageLevel)
+                  00007c68    00000050     SPI_Driver.obj (.text:SPI_Init)
+                  00007cb8    00000050     cs.obj (.text:_CSGetDOCFrequency)
+                  00007d08    00000050     ff.obj (.text:dbc_2nd)
+                  00007d58    00000050     tasks.obj (.text:prvGetExpectedIdleTime)
+                  00007da8    00000050     MPU9250.obj (.text:writeBit)
+                  00007df8    0000004e     ff.obj (.text:dir_alloc)
+                  00007e46    00000002     --HOLE-- [fill = 0]
+                  00007e48    0000004c     pcm.obj (.text:PCM_shutdownDevice)
+                  00007e94    00000004     --HOLE-- [fill = 0]
+                  00007e98    0000004c     ff.obj (.text:f_mount)
+                  00007ee4    00000004     --HOLE-- [fill = 0]
+                  00007ee8    0000004c     timers.obj (.text:prvCheckForValidListAndQueue)
+                  00007f34    00000004     --HOLE-- [fill = 0]
+                  00007f38    0000004c     mmc_MSP432P401r.obj (.text:rcvr_datablock)
+                  00007f84    00000004     --HOLE-- [fill = 0]
+                  00007f88    00000048     ff.obj (.text:get_ldnumber)
+                  00007fd0    00000048     houseKeeping.obj (.text:isLowBattery)
+                  00008018    00000048     ff.obj (.text:sync_window)
+                  00008060    00000048     queue.obj (.text:vQueueWaitForMessageRestricted)
+                  000080a8    00000044     rtsv7M4_T_le_v4SPD16_eabi.lib : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit:__TI_auto_init_nobinit_nopinit)
+                  000080ec    00000004     --HOLE-- [fill = 0]
+                  000080f0    00000044     dataStorage.obj (.text:getLocalTime)
+                  00008134    00000004     --HOLE-- [fill = 0]
+                  00008138    00000044     houseKeeping.obj (.text:getTemperature)
+                  0000817c    00000004     --HOLE-- [fill = 0]
+                  00008180    00000044     main.obj (.text:prvSetupHardware)
+                  000081c4    00000004     --HOLE-- [fill = 0]
+                  000081c8    00000040     MPU9250.obj (.text:initI2C)
+                  00008208    00000040     msp432p4xx_driverlib.lib : spi.o (.text:is_A_Module)
+                  00008248    0000003e     mmc_MSP432P401r.obj (.text:send_cmd12)
+                  00008286    00000002     --HOLE-- [fill = 0]
+                  00008288    0000003c     tasks.obj (.text:eTaskConfirmSleepModeStatus)
+                  000082c4    00000004     --HOLE-- [fill = 0]
+                  000082c8    0000003c     trcSnapshotRecorder.obj (.text:prvTraceError)
+                  00008304    00000004     --HOLE-- [fill = 0]
+                  00008308    0000003c     trcSnapshotRecorder.obj (.text:prvTraceUpdateCounters)
+                  00008344    00000004     --HOLE-- [fill = 0]
+                  00008348    0000003c     mmc_MSP432P401r.obj (.text:send_initial_clock_train)
+                  00008384    00000004     --HOLE-- [fill = 0]
+                  00008388    0000003c     port.obj (.text:vPortEnterCritical)
+                  000083c4    00000004     --HOLE-- [fill = 0]
+                  000083c8    0000003a     pcm.obj (.text:PCM_getPowerMode)
+                  00008402    00000006     --HOLE-- [fill = 0]
+                  00008408    0000003a     ff.obj (.text:dir_register)
+                  00008442    00000006     --HOLE-- [fill = 0]
+                  00008448    0000003a     ff.obj (.text:validate)
+                  00008482    00000002     --HOLE-- [fill = 0]
+                  00008484    00000038     rtsv7M4_T_le_v4SPD16_eabi.lib : boot_cortex_m.c.obj (.text:_c_int00_noargs:_c_int00_noargs)
+                  000084bc    00000004     --HOLE-- [fill = 0]
+                  000084c0    00000038     port.obj (.text:prvTaskExitError)
+                  000084f8    00000038     tasks.obj (.text:vTaskPlaceOnEventList)
+                  00008530    00000034     msp432p4xx_driverlib.lib : adc14.o (.text:ADC14_enableSampleTimer)
+                  00008564    00000004     --HOLE-- [fill = 0]
+                  00008568    00000034     SPI_Driver.obj (.text:SPI_Read)
+                  0000859c    00000004     --HOLE-- [fill = 0]
+                  000085a0    00000034     SPI_Driver.obj (.text:SPI_Write)
+                  000085d4    00000004     --HOLE-- [fill = 0]
+                  000085d8    00000034     aodcsTask.obj (.text:aodcsTask)
+                  0000860c    00000004     --HOLE-- [fill = 0]
+                  00008610    00000034     cameraTask.obj (.text:cameraTask)
+                  00008644    00000004     --HOLE-- [fill = 0]
+                  00008648    00000034     ff.obj (.text:dbc_1st)
+                  0000867c    00000004     --HOLE-- [fill = 0]
+                  00008680    00000034     ff.obj (.text:move_window)
+                  000086b4    00000004     --HOLE-- [fill = 0]
+                  000086b8    00000034     pptTask.obj (.text:pptTask)
+                  000086ec    00000004     --HOLE-- [fill = 0]
+                  000086f0    00000034     list.obj (.text:vListInsert)
+                  00008724    00000004     --HOLE-- [fill = 0]
+                  00008728    00000034     IntQueueTimer.obj (.text:vT32_0_Handler)
+                  0000875c    00000004     --HOLE-- [fill = 0]
+                  00008760    00000034     IntQueueTimer.obj (.text:vT32_1_Handler)
+                  00008794    00000004     --HOLE-- [fill = 0]
+                  00008798    00000034     tasks.obj (.text:vTaskStepTick)
+                  000087cc    00000030     msp432p4xx_driverlib.lib : adc14.o (.text:ADC14_setSampleHoldTime)
+                  000087fc    00000004     --HOLE-- [fill = 0]
+                  00008800    00000030     flash.obj (.text:FlashCtl_setWaitState)
+                  00008830    00000030     tasks.obj (.text:prvResetNextTaskUnblockTime)
+                  00008860    00000030     port.obj (.text:vPortExitCritical)
+                  00008890    0000002c     msp432p4xx_driverlib.lib : adc14.o (.text:ADC14_toggleConversionTrigger)
+                  000088bc    00000004     --HOLE-- [fill = 0]
+                  000088c0    0000002c     cs.obj (.text:CS_setDCOCenteredFrequency)
+                  000088ec    00000004     --HOLE-- [fill = 0]
+                  000088f0    0000002c     gpio.obj (.text:GPIO_setAsInputPinWithPullUpResistor)
+                  0000891c    00000004     --HOLE-- [fill = 0]
+                  00008920    0000002c     pcm.obj (.text:PCM_gotoLPM0)
+                  0000894c    0000002c     msp432p4xx_driverlib.lib : rtc_c.o (.text:RTC_C_holdClock)
+                  00008978    0000002c     timers.obj (.text:prvSampleTimeNow)
+                  000089a4    00000004     --HOLE-- [fill = 0]
+                  000089a8    0000002c     port.obj (.text:pxPortInitialiseStack)
+                  000089d4    00000004     --HOLE-- [fill = 0]
+                  000089d8    0000002c     mmc_MSP432P401r.obj (.text:rcvr_spi)
+                  00008a04    00000004     --HOLE-- [fill = 0]
+                  00008a08    0000002c     port.obj (.text:xPortSysTickHandler)
+                  00008a34    00000004     --HOLE-- [fill = 0]
+                  00008a38    0000002c     queue.obj (.text:xQueueIsQueueFullFromISR)
+                  00008a64    00000028     msp432p4xx_driverlib.lib : adc14.o (.text:ADC14_enableConversion)
+                  00008a8c    00000004     --HOLE-- [fill = 0]
+                  00008a90    00000028     GPIO_Driver.obj (.text:GPIO_Init)
+                  00008ab8    00000028     main.obj (.text:main)
+                  00008ae0    00000028     queue.obj (.text:prvCopyDataFromQueue)
+                  00008b08    00000028     mmc_MSP432P401r.obj (.text:xmit_spi)
+                  00008b30    00000026     ff.obj (.text:ld_clust)
+                  00008b56    00000002     --HOLE-- [fill = 0]
+                  00008b58    00000026     list.obj (.text:uxListRemove)
+                  00008b7e    00000002     --HOLE-- [fill = 0]
+                  00008b80    00000024     cs.obj (.text:CS_clearInterruptFlag)
+                  00008ba4    00000004     --HOLE-- [fill = 0]
+                  00008ba8    00000024     timers.obj (.text:prvGetNextExpireTime)
+                  00008bcc    00000004     --HOLE-- [fill = 0]
+                  00008bd0    00000024     taskManager.obj (.text:queueCreate)
+                  00008bf4    00000004     --HOLE-- [fill = 0]
+                  00008bf8    00000024     trcSnapshotRecorder.obj (.text:vTraceStop)
+                  00008c1c    00000004     --HOLE-- [fill = 0]
+                  00008c20    00000024     mmc_MSP432P401r.obj (.text:wait_ready)
+                  00008c44    00000004     --HOLE-- [fill = 0]
+                  00008c48    00000022     CS_Driver.obj (.text:CS_Init)
+                  00008c6a    00000006     --HOLE-- [fill = 0]
+                  00008c70    00000022     diskio.obj (.text:disk_read)
+                  00008c92    00000006     --HOLE-- [fill = 0]
+                  00008c98    00000022     diskio.obj (.text:disk_write)
+                  00008cba    00000006     --HOLE-- [fill = 0]
+                  00008cc0    00000022     ff.obj (.text:st_clust)
+                  00008ce2    00000006     --HOLE-- [fill = 0]
+                  00008ce8    00000020     gpio.obj (.text:GPIO_setAsOutputPin)
+                  00008d08    00000020     MPU9250.obj (.text:MPU9250_initialize)
+                  00008d28    00000020     msp432p4xx_driverlib.lib : ref_a.o (.text:REF_A_setReferenceVoltage)
+                  00008d48    00000020     diskio.obj (.text:disk_ioctl)
+                  00008d68    00000020     trcSnapshotRecorder.obj (.text:prvMarkObjectAsUsed)
+                  00008d88    00000020     IntQueue.obj (.text:prvRecordValue_NormallyEmpty)
+                  00008da8    00000020     IntQueue.obj (.text:prvRecordValue_NormallyFull)
+                  00008dc8    00000020     trcSnapshotRecorder.obj (.text:prvStrncpy)
+                  00008de8    00000020     tasks.obj (.text:xTaskGetSchedulerState)
+                  00008e08    0000001e     queue.obj (.text:prvIsQueueFull)
+                  00008e26    00000002     --HOLE-- [fill = 0]
+                  00008e28    0000001e     list.obj (.text:vListInitialise)
+                  00008e46    00000002     --HOLE-- [fill = 0]
+                  00008e48    0000001c     msp432p4xx_driverlib.lib : adc14.o (.text:ADC14_getResult)
+                  00008e64    00000004     --HOLE-- [fill = 0]
+                  00008e68    0000001c     ff.obj (.text:mem_cmp)
+                  00008e84    00000004     --HOLE-- [fill = 0]
+                  00008e88    0000001c     event_groups.obj (.text:prvTestWaitCondition)
+                  00008ea4    00000004     --HOLE-- [fill = 0]
+                  00008ea8    0000001a     ff.obj (.text:clst2sect)
                   00008ec2    00000006     --HOLE-- [fill = 0]
-                  00008ec8    00000018     cs.obj (.text:CS_getMCLK)
-                  00008ee0    00000018     wdt_a.obj (.text:WDT_A_holdTimer)
-                  00008ef8    00000018     ff.obj (.text:chk_chr)
-                  00008f10    00000018     diskio.obj (.text:disk_initialize)
-                  00008f28    00000018     diskio.obj (.text:disk_status)
-                  00008f40    00000018     tasks.obj (.text:pvTaskIncrementMutexHeldCount)
-                  00008f58    00000018     msp432_startup_ccs.obj (.text:resetISR)
-                  00008f70    00000018     ff.obj (.text:st_dword)
-                  00008f88    00000018     tasks.obj (.text:uxTaskResetEventItemValue)
-                  00008fa0    00000018     list.obj (.text:vListInsertEnd)
-                  00008fb8    00000018     tasks.obj (.text:vTaskInternalSetTimeOutState)
-                  00008fd0    00000016     ff.obj (.text:ld_dword)
-                  00008fe6    00000002     --HOLE-- [fill = 0]
-                  00008fe8    00000016     ff.obj (.text:mem_cpy)
-                  00008ffe    00000002     --HOLE-- [fill = 0]
-                  00009000    00000016     queue.obj (.text:xQueueCreateMutex)
-                  00009016    00000002     --HOLE-- [fill = 0]
-                  00009018    00000014     gpio.obj (.text:GPIO_toggleOutputOnPin)
-                  0000902c    00000004     --HOLE-- [fill = 0]
-                  00009030    00000014     mmc_MSP432P401r.obj (.text:power_on)
-                  00009044    00000004     --HOLE-- [fill = 0]
-                  00009048    00000014     queue.obj (.text:prvInitialiseMutex)
-                  0000905c    00000004     --HOLE-- [fill = 0]
-                  00009060    00000014     IntQueue.obj (.text:prvQueueAccessLogError)
-                  00009074    00000004     --HOLE-- [fill = 0]
-                  00009078    00000012     ff.obj (.text:mem_set)
-                  0000908a    00000006     --HOLE-- [fill = 0]
-                  00009090    00000012     tasks.obj (.text:prvDeleteTCB)
-                  000090a2    00000006     --HOLE-- [fill = 0]
-                  000090a8    00000012     main.obj (.text:vApplicationMallocFailedHook)
-                  000090ba    00000006     --HOLE-- [fill = 0]
-                  000090c0    00000012     main.obj (.text:vApplicationStackOverflowHook)
-                  000090d2    00000002     --HOLE-- [fill = 0]
-                  000090d4    00000010     msp432p4xx_driverlib.lib : adc14.o (.text:ADCIsConversionRunning)
-                  000090e4    00000004     --HOLE-- [fill = 0]
-                  000090e8    00000010     fpu.obj (.text:FPU_enableModule)
-                  000090f8    00000010     GPIO_Driver.obj (.text:GPIO_High)
-                  00009108    00000010     GPIO_Driver.obj (.text:GPIO_Low)
-                  00009118    00000010     interrupt.obj (.text:Interrupt_enableMaster)
-                  00009128    00000010     MPU9250.obj (.text:MPU9250_getMotion9)
-                  00009138    00000010     pcm.obj (.text:PCM_gotoLPM4)
-                  00009148    00000010     aodcsTask.obj (.text:setWatchDogBit_AODCS)
-                  00009158    00000010     cameraTask.obj (.text:setWatchDogBit_CAMERA)
-                  00009168    00000010     dataStorage.obj (.text:setWatchDogBit_DATASTORAGE)
-                  00009178    00000010     houseKeeping.obj (.text:setWatchDogBit_HOUSEKEEPING)
-                  00009188    00000010     pptTask.obj (.text:setWatchDogBit_PPT)
-                  00009198    00000010     ttcTask.obj (.text:setWatchDogBit_TTC)
-                  000091a8    00000010     tasks.obj (.text:vTaskSuspendAll)
-                  000091b8    00000010     taskManager.obj (.text:watchDogEventGroupCreate)
-                  000091c8    0000000e     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_decompress_none.c.obj (.text:decompress:none:__TI_decompress_none)
-                  000091d6    00000002     --HOLE-- [fill = 0]
-                  000091d8    0000000e     ff.obj (.text:st_word)
-                  000091e6    00000002     --HOLE-- [fill = 0]
-                  000091e8    0000000c     msp432p4xx_driverlib.lib : adc14.o (.text:ADC14_enableModule)
-                  000091f4    00000004     --HOLE-- [fill = 0]
-                  000091f8    0000000c     cpu.obj (.text:CPU_cpsie)
-                  00009204    00000004     --HOLE-- [fill = 0]
-                  00009208    0000000c     mmc_MSP432P401r.obj (.text:MMC_disk_status)
-                  00009214    00000004     --HOLE-- [fill = 0]
-                  00009218    0000000c     MPU9250.obj (.text:MPU9250_setClockSource)
-                  00009224    00000004     --HOLE-- [fill = 0]
-                  00009228    0000000c     pcm.obj (.text:PCM_getPowerState)
-                  00009234    0000000c     msp432p4xx_driverlib.lib : ref_a.o (.text:REF_A_enableReferenceVoltage)
-                  00009240    0000000c                              : ref_a.o (.text:REF_A_enableTempSensor)
-                  0000924c    00000004     --HOLE-- [fill = 0]
-                  00009250    0000000c     sysctl.obj (.text:SysCtl_getTempCalibrationConstant)
+                  00008ec8    0000001a     queue.obj (.text:prvGetDisinheritPriorityAfterTimeout)
+                  00008ee2    00000006     --HOLE-- [fill = 0]
+                  00008ee8    0000001a     queue.obj (.text:prvIsQueueEmpty)
+                  00008f02    00000006     --HOLE-- [fill = 0]
+                  00008f08    0000001a     timers.obj (.text:prvTimerTask)
+                  00008f22    00000006     --HOLE-- [fill = 0]
+                  00008f28    0000001a     trcKernelPort.obj (.text:prvTraceSetQueueNumberHigh16)
+                  00008f42    00000006     --HOLE-- [fill = 0]
+                  00008f48    0000001a     trcKernelPort.obj (.text:prvTraceSetQueueNumberLow16)
+                  00008f62    00000006     --HOLE-- [fill = 0]
+                  00008f68    0000001a     trcKernelPort.obj (.text:prvTraceSetTaskNumberHigh16)
+                  00008f82    00000006     --HOLE-- [fill = 0]
+                  00008f88    0000001a     trcKernelPort.obj (.text:prvTraceSetTaskNumberLow16)
+                  00008fa2    00000006     --HOLE-- [fill = 0]
+                  00008fa8    0000001a     event_groups.obj (.text:xEventGroupCreate)
+                  00008fc2    00000006     --HOLE-- [fill = 0]
+                  00008fc8    00000018     cs.obj (.text:CS_getMCLK)
+                  00008fe0    00000018     gpio.obj (.text:GPIO_getInputPinValue)
+                  00008ff8    00000018     wdt_a.obj (.text:WDT_A_holdTimer)
+                  00009010    00000018     ff.obj (.text:chk_chr)
+                  00009028    00000018     diskio.obj (.text:disk_initialize)
+                  00009040    00000018     diskio.obj (.text:disk_status)
+                  00009058    00000018     tasks.obj (.text:pvTaskIncrementMutexHeldCount)
+                  00009070    00000018     msp432_startup_ccs.obj (.text:resetISR)
+                  00009088    00000018     ff.obj (.text:st_dword)
+                  000090a0    00000018     tasks.obj (.text:uxTaskResetEventItemValue)
+                  000090b8    00000018     list.obj (.text:vListInsertEnd)
+                  000090d0    00000018     tasks.obj (.text:vTaskInternalSetTimeOutState)
+                  000090e8    00000016     ff.obj (.text:ld_dword)
+                  000090fe    00000002     --HOLE-- [fill = 0]
+                  00009100    00000016     ff.obj (.text:mem_cpy)
+                  00009116    00000002     --HOLE-- [fill = 0]
+                  00009118    00000016     queue.obj (.text:xQueueCreateMutex)
+                  0000912e    00000002     --HOLE-- [fill = 0]
+                  00009130    00000014     gpio.obj (.text:GPIO_clearInterruptFlag)
+                  00009144    00000004     --HOLE-- [fill = 0]
+                  00009148    00000014     gpio.obj (.text:GPIO_enableInterrupt)
+                  0000915c    00000004     --HOLE-- [fill = 0]
+                  00009160    00000014     gpio.obj (.text:GPIO_setOutputHighOnPin)
+                  00009174    00000004     --HOLE-- [fill = 0]
+                  00009178    00000014     gpio.obj (.text:GPIO_setOutputLowOnPin)
+                  0000918c    00000004     --HOLE-- [fill = 0]
+                  00009190    00000014     gpio.obj (.text:GPIO_toggleOutputOnPin)
+                  000091a4    00000004     --HOLE-- [fill = 0]
+                  000091a8    00000014     mmc_MSP432P401r.obj (.text:power_on)
+                  000091bc    00000004     --HOLE-- [fill = 0]
+                  000091c0    00000014     queue.obj (.text:prvInitialiseMutex)
+                  000091d4    00000004     --HOLE-- [fill = 0]
+                  000091d8    00000014     IntQueue.obj (.text:prvQueueAccessLogError)
+                  000091ec    00000004     --HOLE-- [fill = 0]
+                  000091f0    00000012     ff.obj (.text:mem_set)
+                  00009202    00000006     --HOLE-- [fill = 0]
+                  00009208    00000012     tasks.obj (.text:prvDeleteTCB)
+                  0000921a    00000006     --HOLE-- [fill = 0]
+                  00009220    00000012     main.obj (.text:vApplicationMallocFailedHook)
+                  00009232    00000006     --HOLE-- [fill = 0]
+                  00009238    00000012     main.obj (.text:vApplicationStackOverflowHook)
+                  0000924a    00000002     --HOLE-- [fill = 0]
+                  0000924c    00000010     msp432p4xx_driverlib.lib : adc14.o (.text:ADCIsConversionRunning)
                   0000925c    00000004     --HOLE-- [fill = 0]
-                  00009260    0000000c     mmc_MSP432P401r.obj (.text:chk_power)
-                  0000926c    0000000c     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init)
-                  00009278    0000000c     ff.obj (.text:ld_word)
-                  00009284    00000004     --HOLE-- [fill = 0]
-                  00009288    0000000c     mmc_MSP432P401r.obj (.text:power_off)
-                  00009294    00000004     --HOLE-- [fill = 0]
-                  00009298    0000000c     trcKernelPort.obj (.text:prvTraceGetQueueNumberHigh16)
-                  000092a4    00000004     --HOLE-- [fill = 0]
-                  000092a8    0000000c     trcKernelPort.obj (.text:prvTraceGetTaskNumberHigh16)
-                  000092b4    00000004     --HOLE-- [fill = 0]
-                  000092b8    0000000c     mmc_MSP432P401r.obj (.text:rcvr_spi_m)
-                  000092c4    00000004     --HOLE-- [fill = 0]
-                  000092c8    0000000c     MPU9250.obj (.text:setFullScaleAccelRange)
-                  000092d4    00000004     --HOLE-- [fill = 0]
-                  000092d8    0000000c     MPU9250.obj (.text:setFullScaleGyroRange)
-                  000092e4    00000004     --HOLE-- [fill = 0]
-                  000092e8    0000000c     tasks.obj (.text:vTaskMissedYield)
-                  000092f4    00000004     --HOLE-- [fill = 0]
-                  000092f8    0000000c     tasks.obj (.text:xTaskGetCurrentTaskHandle)
-                  00009304    00000004     --HOLE-- [fill = 0]
-                  00009308    0000000c     tasks.obj (.text:xTaskGetTickCount)
-                  00009314    00000004     --HOLE-- [fill = 0]
-                  00009318    0000000a     trcKernelPort.obj (.text:prvTraceGetQueueNumberLow16)
-                  00009322    00000006     --HOLE-- [fill = 0]
-                  00009328    0000000a     trcKernelPort.obj (.text:prvTraceGetTaskNumberLow16)
-                  00009332    00000006     --HOLE-- [fill = 0]
-                  00009338    0000000a     MPU9250.obj (.text:setSleepEnabled)
-                  00009342    00000006     --HOLE-- [fill = 0]
-                  00009348    0000000a     tasks.obj (.text:uxTaskGetTaskNumber)
-                  00009352    00000006     --HOLE-- [fill = 0]
-                  00009358    00000008     pcm.obj (.text:PCM_setCoreVoltageLevel)
-                  00009360    00000008     pcm.obj (.text:PCM_setPowerMode)
-                  00009368    00000008     pcm.obj (.text:PCM_setPowerState)
-                  00009370    00000006     queue.obj (.text:ucQueueGetQueueType)
-                  00009376    00000002     --HOLE-- [fill = 0]
-                  00009378    00000006     list.obj (.text:vListInitialiseItem)
-                  0000937e    00000002     --HOLE-- [fill = 0]
-                  00009380    00000006     tasks.obj (.text:vTaskSetTaskNumber)
-                  00009386    00000002     --HOLE-- [fill = 0]
-                  00009388    00000004     cpu.obj (.text:CPU_wfi)
+                  00009260    00000010     fpu.obj (.text:FPU_enableModule)
+                  00009270    00000010     GPIO_Driver.obj (.text:GPIO_High)
+                  00009280    00000010     GPIO_Driver.obj (.text:GPIO_Low)
+                  00009290    00000010     interrupt.obj (.text:Interrupt_enableMaster)
+                  000092a0    00000010     MPU9250.obj (.text:MPU9250_getMotion9)
+                  000092b0    00000010     pcm.obj (.text:PCM_gotoLPM4)
+                  000092c0    00000010     aodcsTask.obj (.text:setWatchDogBit_AODCS)
+                  000092d0    00000010     cameraTask.obj (.text:setWatchDogBit_CAMERA)
+                  000092e0    00000010     dataStorage.obj (.text:setWatchDogBit_DATASTORAGE)
+                  000092f0    00000010     houseKeeping.obj (.text:setWatchDogBit_HOUSEKEEPING)
+                  00009300    00000010     pptTask.obj (.text:setWatchDogBit_PPT)
+                  00009310    00000010     ttcTask.obj (.text:setWatchDogBit_TTC)
+                  00009320    00000010     tasks.obj (.text:vTaskSuspendAll)
+                  00009330    00000010     taskManager.obj (.text:watchDogEventGroupCreate)
+                  00009340    0000000e     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_decompress_none.c.obj (.text:decompress:none:__TI_decompress_none)
+                  0000934e    00000002     --HOLE-- [fill = 0]
+                  00009350    0000000e     ff.obj (.text:st_word)
+                  0000935e    00000002     --HOLE-- [fill = 0]
+                  00009360    0000000c     msp432p4xx_driverlib.lib : adc14.o (.text:ADC14_enableModule)
+                  0000936c    00000004     --HOLE-- [fill = 0]
+                  00009370    0000000c     cpu.obj (.text:CPU_cpsie)
+                  0000937c    00000004     --HOLE-- [fill = 0]
+                  00009380    0000000c     mmc_MSP432P401r.obj (.text:MMC_disk_status)
                   0000938c    00000004     --HOLE-- [fill = 0]
-                  00009390    00000004     mmc_MSP432P401r.obj (.text:get_fattime)
-                  00009394    00000004     --HOLE-- [fill = 0]
-                  00009398    00000004     queue.obj (.text:uxQueueGetQueueNumber)
+                  00009390    0000000c     MPU9250.obj (.text:MPU9250_setClockSource)
                   0000939c    00000004     --HOLE-- [fill = 0]
-                  000093a0    00000004     queue.obj (.text:vQueueSetQueueNumber)
-                  000093a4    00000004     --HOLE-- [fill = 0]
-                  000093a8    00000004     trcSnapshotRecorder.obj (.text:vTraceStart)
-                  000093ac    00000004     --HOLE-- [fill = 0]
-                  000093b0    00000002     msp432_startup_ccs.obj (.text:defaultISR)
-                  000093b2    00000006     --HOLE-- [fill = 0]
-                  000093b8    00000002     msp432_startup_ccs.obj (.text:faultISR)
-                  000093ba    00000006     --HOLE-- [fill = 0]
-                  000093c0    00000002     msp432_startup_ccs.obj (.text:nmiISR)
-                  000093c2    00000006     --HOLE-- [fill = 0]
-                  000093c8    00000002     main.obj (.text:vApplicationIdleHook)
-                  000093ca    00000006     --HOLE-- [fill = 0]
-                  000093d0    00000002     main_blinky.obj (.text:vApplicationTickHook)
-                  000093d2    00000006     --HOLE-- [fill = 0]
-                  000093d8    00000002     main_blinky.obj (.text:vPreSleepProcessing)
-
-.const     0    000093dc    000000ac     
-                  000093dc    00000080     msp432p4xx_driverlib.lib : adc14.o (.const:_ctlRegs)
-                  0000945c    00000014     MPU9250.obj (.const:i2cConfig)
-                  00009470    0000000a     ff.obj (.const:.string:DbcTbl)
-                  0000947a    00000002     --HOLE-- [fill = 0]
-                  0000947c    00000008     port.obj (.const)
-                  00009484    00000004     serial.obj (.const)
-
-.cinit     0    00009488    00000098     
-                  00009488    0000006e     (.cinit..data.load) [load image, compression = lzss]
+                  000093a0    0000000c     pcm.obj (.text:PCM_getPowerState)
+                  000093ac    0000000c     msp432p4xx_driverlib.lib : ref_a.o (.text:REF_A_enableReferenceVoltage)
+                  000093b8    0000000c                              : ref_a.o (.text:REF_A_enableTempSensor)
+                  000093c4    00000004     --HOLE-- [fill = 0]
+                  000093c8    0000000c     sysctl.obj (.text:SysCtl_getTempCalibrationConstant)
+                  000093d4    00000004     --HOLE-- [fill = 0]
+                  000093d8    0000000c     mmc_MSP432P401r.obj (.text:chk_power)
+                  000093e4    0000000c     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init)
+                  000093f0    0000000c     ff.obj (.text:ld_word)
+                  000093fc    00000004     --HOLE-- [fill = 0]
+                  00009400    0000000c     mmc_MSP432P401r.obj (.text:power_off)
+                  0000940c    00000004     --HOLE-- [fill = 0]
+                  00009410    0000000c     trcKernelPort.obj (.text:prvTraceGetQueueNumberHigh16)
+                  0000941c    00000004     --HOLE-- [fill = 0]
+                  00009420    0000000c     trcKernelPort.obj (.text:prvTraceGetTaskNumberHigh16)
+                  0000942c    00000004     --HOLE-- [fill = 0]
+                  00009430    0000000c     mmc_MSP432P401r.obj (.text:rcvr_spi_m)
+                  0000943c    00000004     --HOLE-- [fill = 0]
+                  00009440    0000000c     MPU9250.obj (.text:setFullScaleAccelRange)
+                  0000944c    00000004     --HOLE-- [fill = 0]
+                  00009450    0000000c     MPU9250.obj (.text:setFullScaleGyroRange)
+                  0000945c    00000004     --HOLE-- [fill = 0]
+                  00009460    0000000c     tasks.obj (.text:vTaskMissedYield)
+                  0000946c    00000004     --HOLE-- [fill = 0]
+                  00009470    0000000c     tasks.obj (.text:xTaskGetCurrentTaskHandle)
+                  0000947c    00000004     --HOLE-- [fill = 0]
+                  00009480    0000000c     tasks.obj (.text:xTaskGetTickCount)
+                  0000948c    00000004     --HOLE-- [fill = 0]
+                  00009490    0000000a     trcKernelPort.obj (.text:prvTraceGetQueueNumberLow16)
+                  0000949a    00000006     --HOLE-- [fill = 0]
+                  000094a0    0000000a     trcKernelPort.obj (.text:prvTraceGetTaskNumberLow16)
+                  000094aa    00000006     --HOLE-- [fill = 0]
+                  000094b0    0000000a     MPU9250.obj (.text:setSleepEnabled)
+                  000094ba    00000006     --HOLE-- [fill = 0]
+                  000094c0    0000000a     tasks.obj (.text:uxTaskGetTaskNumber)
+                  000094ca    00000006     --HOLE-- [fill = 0]
+                  000094d0    00000008     pcm.obj (.text:PCM_setCoreVoltageLevel)
+                  000094d8    00000008     pcm.obj (.text:PCM_setPowerMode)
+                  000094e0    00000008     pcm.obj (.text:PCM_setPowerState)
+                  000094e8    00000006     queue.obj (.text:ucQueueGetQueueType)
+                  000094ee    00000002     --HOLE-- [fill = 0]
+                  000094f0    00000006     list.obj (.text:vListInitialiseItem)
                   000094f6    00000002     --HOLE-- [fill = 0]
-                  000094f8    0000000c     (__TI_handler_table)
+                  000094f8    00000006     tasks.obj (.text:vTaskSetTaskNumber)
+                  000094fe    00000002     --HOLE-- [fill = 0]
+                  00009500    00000004     cpu.obj (.text:CPU_wfi)
                   00009504    00000004     --HOLE-- [fill = 0]
-                  00009508    00000008     (.cinit..bss.load) [load image, compression = zero_init]
-                  00009510    00000010     (__TI_cinit_table)
+                  00009508    00000004     mmc_MSP432P401r.obj (.text:get_fattime)
+                  0000950c    00000004     --HOLE-- [fill = 0]
+                  00009510    00000004     queue.obj (.text:uxQueueGetQueueNumber)
+                  00009514    00000004     --HOLE-- [fill = 0]
+                  00009518    00000004     queue.obj (.text:vQueueSetQueueNumber)
+                  0000951c    00000004     --HOLE-- [fill = 0]
+                  00009520    00000004     trcSnapshotRecorder.obj (.text:vTraceStart)
+                  00009524    00000004     --HOLE-- [fill = 0]
+                  00009528    00000002     msp432_startup_ccs.obj (.text:defaultISR)
+                  0000952a    00000006     --HOLE-- [fill = 0]
+                  00009530    00000002     msp432_startup_ccs.obj (.text:faultISR)
+                  00009532    00000006     --HOLE-- [fill = 0]
+                  00009538    00000002     msp432_startup_ccs.obj (.text:nmiISR)
+                  0000953a    00000006     --HOLE-- [fill = 0]
+                  00009540    00000002     main.obj (.text:vApplicationIdleHook)
+                  00009542    00000006     --HOLE-- [fill = 0]
+                  00009548    00000002     main_blinky.obj (.text:vApplicationTickHook)
+                  0000954a    00000006     --HOLE-- [fill = 0]
+                  00009550    00000002     main_blinky.obj (.text:vPreSleepProcessing)
 
-.bss       0    20000000    0000e894     UNINITIALIZED
+.const     0    00009554    000000ac     
+                  00009554    00000080     msp432p4xx_driverlib.lib : adc14.o (.const:_ctlRegs)
+                  000095d4    00000014     MPU9250.obj (.const:i2cConfig)
+                  000095e8    0000000a     ff.obj (.const:.string:DbcTbl)
+                  000095f2    00000002     --HOLE-- [fill = 0]
+                  000095f4    00000008     port.obj (.const)
+                  000095fc    00000004     serial.obj (.const)
+
+.cinit     0    00009600    00000098     
+                  00009600    0000006e     (.cinit..data.load) [load image, compression = lzss]
+                  0000966e    00000002     --HOLE-- [fill = 0]
+                  00009670    0000000c     (__TI_handler_table)
+                  0000967c    00000004     --HOLE-- [fill = 0]
+                  00009680    00000008     (.cinit..bss.load) [load image, compression = zero_init]
+                  00009688    00000010     (__TI_cinit_table)
+
+.bss       0    20000000    0000e874     UNINITIALIZED
                   20000000    0000c800     heap_4.obj (.bss:ucHeap)
                   2000c800    00001918     (.common:RecorderData)
                   2000e118    00000230     (.common:sdDriver)
@@ -574,50 +583,49 @@ section   page    origin      length       input sections
                   2000e6d4    00000064     tasks.obj (.bss:pxReadyTasksLists)
                   2000e738    0000003f     (.common:imuData)
                   2000e777    00000001     (.common:fResult)
-                  2000e778    0000001c     main.obj (.bss:calendarConfig)
-                  2000e794    00000014     timers.obj (.bss:xActiveTimerList1)
-                  2000e7a8    00000014     timers.obj (.bss:xActiveTimerList2)
-                  2000e7bc    00000014     tasks.obj (.bss:xDelayedTaskList1)
-                  2000e7d0    00000014     tasks.obj (.bss:xDelayedTaskList2)
-                  2000e7e4    00000014     tasks.obj (.bss:xPendingReadyList)
-                  2000e7f8    00000014     tasks.obj (.bss:xSuspendedTaskList)
-                  2000e80c    00000014     tasks.obj (.bss:xTasksWaitingTermination)
-                  2000e820    00000010     houseKeeping.obj (.bss:resultsBuffer)
-                  2000e830    00000010     (.common:bufferIMU)
-                  2000e840    00000009     mmc_MSP432P401r.obj (.bss)
-                  2000e849    00000001     --HOLE--
-                  2000e84a    00000002     (.common:cal30)
-                  2000e84c    00000008     IntQueue.obj (.bss)
-                  2000e854    00000008     cs.obj (.bss)
-                  2000e85c    00000008     tasks.obj (.bss)
-                  2000e864    00000008     timers.obj (.bss)
-                  2000e86c    00000008     heap_4.obj (.bss:xStart)
-                  2000e874    00000006     (.common:localTime)
-                  2000e87a    00000002     (.common:cal85)
-                  2000e87c    00000004     ff.obj (.bss:FatFs)
-                  2000e880    00000004     (.common:WATCHDOG_EVENT_GROUP)
-                  2000e884    00000004     (.common:bw)
-                  2000e888    00000004     (.common:calDifference)
-                  2000e88c    00000004     (.common:flag_lowBattery)
-                  2000e890    00000004     (.common:init_hwtc_count)
+                  2000e778    00000014     timers.obj (.bss:xActiveTimerList1)
+                  2000e78c    00000014     timers.obj (.bss:xActiveTimerList2)
+                  2000e7a0    00000014     tasks.obj (.bss:xDelayedTaskList1)
+                  2000e7b4    00000014     tasks.obj (.bss:xDelayedTaskList2)
+                  2000e7c8    00000014     tasks.obj (.bss:xPendingReadyList)
+                  2000e7dc    00000014     tasks.obj (.bss:xSuspendedTaskList)
+                  2000e7f0    00000014     tasks.obj (.bss:xTasksWaitingTermination)
+                  2000e804    00000010     (.common:bufferIMU)
+                  2000e814    0000000c     houseKeeping.obj (.bss:resultsBuffer)
+                  2000e820    00000009     mmc_MSP432P401r.obj (.bss)
+                  2000e829    00000001     --HOLE--
+                  2000e82a    00000002     (.common:cal30)
+                  2000e82c    00000008     IntQueue.obj (.bss)
+                  2000e834    00000008     cs.obj (.bss)
+                  2000e83c    00000008     tasks.obj (.bss)
+                  2000e844    00000008     timers.obj (.bss)
+                  2000e84c    00000008     heap_4.obj (.bss:xStart)
+                  2000e854    00000006     (.common:localTime)
+                  2000e85a    00000002     (.common:cal85)
+                  2000e85c    00000004     ff.obj (.bss:FatFs)
+                  2000e860    00000004     (.common:WATCHDOG_EVENT_GROUP)
+                  2000e864    00000004     (.common:bw)
+                  2000e868    00000004     (.common:calDifference)
+                  2000e86c    00000004     (.common:flag_lowBattery)
+                  2000e870    00000004     (.common:init_hwtc_count)
 
-.data      0    2000e894    00000373     UNINITIALIZED
-                  2000e894    000000c8     IntQueue.obj (.data:ucNormallyEmptyReceivedValues)
-                  2000e95c    000000c8     IntQueue.obj (.data:ucNormallyFullReceivedValues)
-                  2000ea24    0000008e     trcSnapshotRecorder.obj (.data:objectHandleStacks)
-                  2000eab2    00000002     MPU9250.obj (.data)
-                  2000eab4    00000044     trcSnapshotRecorder.obj (.data)
-                  2000eaf8    0000003c     IntQueue.obj (.data)
-                  2000eb34    00000034     tasks.obj (.data)
-                  2000eb68    00000030     gpio.obj (.data:GPIO_PORT_TO_BASE)
-                  2000eb98    0000001c     dataStorage.obj (.data:SPI0MasterConfig)
-                  2000ebb4    00000018     port.obj (.data)
-                  2000ebcc    00000010     heap_4.obj (.data)
-                  2000ebdc    00000010     serial.obj (.data)
-                  2000ebec    0000000c     timers.obj (.data)
-                  2000ebf8    00000008     taskManager.obj (.data)
-                  2000ec00    00000005     trcKernelPort.obj (.data:TraceQueueClassTable)
-                  2000ec05    00000002     mmc_MSP432P401r.obj (.data)
+.data      0    2000e874    00000373     UNINITIALIZED
+                  2000e874    000000c8     IntQueue.obj (.data:ucNormallyEmptyReceivedValues)
+                  2000e93c    000000c8     IntQueue.obj (.data:ucNormallyFullReceivedValues)
+                  2000ea04    0000008e     trcSnapshotRecorder.obj (.data:objectHandleStacks)
+                  2000ea92    00000002     MPU9250.obj (.data)
+                  2000ea94    00000044     trcSnapshotRecorder.obj (.data)
+                  2000ead8    0000003c     IntQueue.obj (.data)
+                  2000eb14    00000034     tasks.obj (.data)
+                  2000eb48    00000030     gpio.obj (.data:GPIO_PORT_TO_BASE)
+                  2000eb78    0000001c     dataStorage.obj (.data:SPI0MasterConfig)
+                  2000eb94    00000018     port.obj (.data)
+                  2000ebac    00000010     heap_4.obj (.data)
+                  2000ebbc    00000010     serial.obj (.data)
+                  2000ebcc    0000000c     timers.obj (.data)
+                  2000ebd8    00000008     taskManager.obj (.data)
+                  2000ebe0    00000005     trcKernelPort.obj (.data:TraceQueueClassTable)
+                  2000ebe5    00000002     mmc_MSP432P401r.obj (.data)
 
 .stack     0    2000fce0    00000320     UNINITIALIZED
                   2000fce0    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : boot_cortex_m.c.obj (.stack)
@@ -628,18 +636,18 @@ MODULE SUMMARY
        Module                       code    ro data   rw data
        ------                       ----    -------   -------
     .\
-       main.obj                     264     0         390    
+       main.obj                     234     0         362    
     +--+----------------------------+-------+---------+---------+
-       Total:                       264     0         390    
+       Total:                       234     0         362    
                                                              
     .\FreeRTOS_Source\
-       tasks.obj                    4644    0         260    
+       tasks.obj                    4900    0         260    
        queue.obj                    4030    0         0      
        timers.obj                   1082    0         60     
        event_groups.obj             528     0         0      
        list.obj                     150     0         0      
     +--+----------------------------+-------+---------+---------+
-       Total:                       10434   0         320    
+       Total:                       10690   0         320    
                                                              
     .\FreeRTOS_Source\portable\CCS\ARM_CM4F\
        port.obj                     984     8         24     
@@ -677,7 +685,7 @@ MODULE SUMMARY
     .\driverlib\
        pcm.obj                      1452    0         0      
        cs.obj                       1154    0         8      
-       gpio.obj                     220     0         48     
+       gpio.obj                     368     0         48     
        sysctl.obj                   96      0         0      
        flash.obj                    48      0         0      
        wdt_a.obj                    24      0         0      
@@ -685,7 +693,7 @@ MODULE SUMMARY
        fpu.obj                      16      0         0      
        interrupt.obj                16      0         0      
     +--+----------------------------+-------+---------+---------+
-       Total:                       3042    0         56     
+       Total:                       3190    0         56     
                                                              
     .\interface\
        MPU9250.obj                  922     20        18     
@@ -693,16 +701,16 @@ MODULE SUMMARY
        Total:                       922     20        18     
                                                              
     .\src\
-       dataStorage.obj              624     0         1214   
-       houseKeeping.obj             768     0         24     
+       dataStorage.obj              656     0         1214   
+       houseKeeping.obj             804     0         20     
        taskManager.obj              320     0         8      
-       ttcTask.obj                  60      0         0      
-       watchDogTask.obj             60      0         0      
-       aodcsTask.obj                56      0         0      
-       cameraTask.obj               56      0         0      
-       pptTask.obj                  56      0         0      
+       ttcTask.obj                  100     0         0      
+       watchDogTask.obj             92      0         0      
+       aodcsTask.obj                68      0         0      
+       cameraTask.obj               68      0         0      
+       pptTask.obj                  68      0         0      
     +--+----------------------------+-------+---------+---------+
-       Total:                       2000    0         1246   
+       Total:                       2176    0         1242   
                                                              
     .\system\CCS\
        msp432_startup_ccs.obj       30      324       0      
@@ -731,12 +739,12 @@ MODULE SUMMARY
                                                              
     C:/ti/simplelink_msp432p4_sdk_2_40_00_10/source/ti/devices/msp432p4xx/driverlib/ccs/msp432p4xx_driverlib.lib
        adc14.o                      1128    128       0      
-       rtc_c.o                      360     0         0      
        spi.o                        240     0         0      
+       rtc_c.o                      168     0         0      
        i2c.o                        104     0         0      
        ref_a.o                      56      0         0      
     +--+----------------------------+-------+---------+---------+
-       Total:                       1888    128       0      
+       Total:                       1696    128       0      
                                                              
     C:\ti\ccsv8\tools\compiler\ti-cgt-arm_18.1.1.LTS\lib\rtsv7M4_T_le_v4SPD16_eabi.lib
        memcpy_t2.asm.obj            156     0         0      
@@ -754,19 +762,19 @@ MODULE SUMMARY
        Stack:                       0       0         800    
        Linker Generated:            0       146       0      
     +--+----------------------------+-------+---------+---------+
-       Grand Total:                 36761   640       61222  
+       Grand Total:                 37119   640       61190  
 
 
 LINKER GENERATED COPY TABLES
 
-__TI_cinit_table @ 00009510 records: 2, size/record: 8, table size: 16
-	.data: load addr=00009488, load size=0000006e bytes, run addr=2000e894, run size=00000373 bytes, compression=lzss
-	.bss: load addr=00009508, load size=00000008 bytes, run addr=20000000, run size=0000e894 bytes, compression=zero_init
+__TI_cinit_table @ 00009688 records: 2, size/record: 8, table size: 16
+	.data: load addr=00009600, load size=0000006e bytes, run addr=2000e874, run size=00000373 bytes, compression=lzss
+	.bss: load addr=00009680, load size=00000008 bytes, run addr=20000000, run size=0000e874 bytes, compression=zero_init
 
 
 LINKER GENERATED HANDLER TABLE
 
-__TI_handler_table @ 000094f8 records: 3, size/record: 4, table size: 12
+__TI_handler_table @ 00009670 records: 3, size/record: 4, table size: 12
 	index: 0, handler: __TI_decompress_lzss
 	index: 1, handler: __TI_decompress_none
 	index: 2, handler: __TI_zero_init
@@ -776,295 +784,299 @@ GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name
 
 address   name                                       
 -------   ----                                       
-00005e19  ADC14_configureConversionMemory            
-00005cc9  ADC14_configureMultiSequenceMode           
-00008915  ADC14_enableConversion                     
-000091e9  ADC14_enableModule                         
-000083c9  ADC14_enableSampleTimer                    
-00006d69  ADC14_getMultiSequenceResult               
-00008d49  ADC14_getResult                            
-000077b1  ADC14_initModule                           
-000085bd  ADC14_setSampleHoldTime                    
-000086e1  ADC14_toggleConversionTrigger              
+00005f41  ADC14_configureConversionMemory            
+00005df1  ADC14_configureMultiSequenceMode           
+00008a65  ADC14_enableConversion                     
+00009361  ADC14_enableModule                         
+00008531  ADC14_enableSampleTimer                    
+00006e01  ADC14_getMultiSequenceResult               
+00008e49  ADC14_getResult                            
+00007901  ADC14_initModule                           
+000087cd  ADC14_setSampleHoldTime                    
+00008891  ADC14_toggleConversionTrigger              
 00000aed  C$$EXIT                                    
-000091f9  CPU_cpsie                                  
-00009389  CPU_wfi                                    
-00008b49  CS_Init                                    
-00008a81  CS_clearInterruptFlag                      
-00002b29  CS_getDCOFrequency                         
-00008ec9  CS_getMCLK                                 
-00003af1  CS_initClockSignal                         
-00008711  CS_setDCOCenteredFrequency                 
-2000eade  CurrentFilterGroup                         
-2000eadc  CurrentFilterMask                          
-000090e9  FPU_enableModule                           
-000085f1  FlashCtl_setWaitState                      
-000090f9  GPIO_High                                  
-00008941  GPIO_Init                                  
-00009109  GPIO_Low                                   
-00008be9  GPIO_setAsOutputPin                        
-00007809  GPIO_setAsPeripheralModuleFunctionInputPin 
-00007861  GPIO_setAsPeripheralModuleFunctionOutputPin
-00009019  GPIO_toggleOutputOnPin                     
-0000716d  I2C_masterSendMultiByteStart               
-00009119  Interrupt_enableMaster                     
-00002879  MMC_disk_initialize                        
-00001f31  MMC_disk_ioctl                             
-00006289  MMC_disk_read                              
-00009209  MMC_disk_status                            
-00005651  MMC_disk_write                             
-2000eab2  MPU9250_devAddr                            
-00009129  MPU9250_getMotion9                         
-00008c09  MPU9250_initialize                         
-00009219  MPU9250_setClockSource                     
-00007a71  PCM_getCoreVoltageLevel                    
-00008261  PCM_getPowerMode                           
-00009229  PCM_getPowerState                          
-00008741  PCM_gotoLPM0                               
-00006849  PCM_gotoLPM3                               
-00009139  PCM_gotoLPM4                               
-00009359  PCM_setCoreVoltageLevel                    
-00009361  PCM_setPowerMode                           
-00009369  PCM_setPowerState                          
-00007ca1  PCM_shutdownDevice                         
-00009235  REF_A_enableReferenceVoltage               
-00009241  REF_A_enableTempSensor                     
-00008c29  REF_A_setReferenceVoltage                  
-00006b71  RTC_C_getCalendarTime                      
-0000876d  RTC_C_holdClock                            
-0000631d  RTC_C_initCalendar                         
-00008799  RTC_C_startClock                           
+00009371  CPU_cpsie                                  
+00009501  CPU_wfi                                    
+00008c49  CS_Init                                    
+00008b81  CS_clearInterruptFlag                      
+00002b51  CS_getDCOFrequency                         
+00008fc9  CS_getMCLK                                 
+00003b19  CS_initClockSignal                         
+000088c1  CS_setDCOCenteredFrequency                 
+2000eabe  CurrentFilterGroup                         
+2000eabc  CurrentFilterMask                          
+00009261  FPU_enableModule                           
+00008801  FlashCtl_setWaitState                      
+00009271  GPIO_High                                  
+00008a91  GPIO_Init                                  
+00009281  GPIO_Low                                   
+00009131  GPIO_clearInterruptFlag                    
+00009149  GPIO_enableInterrupt                       
+00008fe1  GPIO_getInputPinValue                      
+000088f1  GPIO_setAsInputPinWithPullUpResistor       
+00008ce9  GPIO_setAsOutputPin                        
+00007959  GPIO_setAsPeripheralModuleFunctionInputPin 
+000079b1  GPIO_setAsPeripheralModuleFunctionOutputPin
+00009161  GPIO_setOutputHighOnPin                    
+00009179  GPIO_setOutputLowOnPin                     
+00009191  GPIO_toggleOutputOnPin                     
+00007205  I2C_masterSendMultiByteStart               
+00009291  Interrupt_enableMaster                     
+000028a1  MMC_disk_initialize                        
+000020f9  MMC_disk_ioctl                             
+000063b1  MMC_disk_read                              
+00009381  MMC_disk_status                            
+00005779  MMC_disk_write                             
+2000ea92  MPU9250_devAddr                            
+000092a1  MPU9250_getMotion9                         
+00008d09  MPU9250_initialize                         
+00009391  MPU9250_setClockSource                     
+00007c19  PCM_getCoreVoltageLevel                    
+000083c9  PCM_getPowerMode                           
+000093a1  PCM_getPowerState                          
+00008921  PCM_gotoLPM0                               
+000068e1  PCM_gotoLPM3                               
+000092b1  PCM_gotoLPM4                               
+000094d1  PCM_setCoreVoltageLevel                    
+000094d9  PCM_setPowerMode                           
+000094e1  PCM_setPowerState                          
+00007e49  PCM_shutdownDevice                         
+000093ad  REF_A_enableReferenceVoltage               
+000093b9  REF_A_enableTempSensor                     
+00008d29  REF_A_setReferenceVoltage                  
+00006c09  RTC_C_getCalendarTime                      
+0000894d  RTC_C_holdClock                            
 2000c800  RecorderData                               
-2000eae4  RecorderDataPtr                            
-2000eb98  SPI0MasterConfig                           
-00007ac1  SPI_Init                                   
-00008401  SPI_Read                                   
-00008439  SPI_Write                                  
-00005ab5  SPI_initMaster                             
-000078b9  SysCtl_getTLVInfo                          
-00009251  SysCtl_getTempCalibrationConstant          
-000071d9  SystemInit                                 
-2000ec00  TraceQueueClassTable                       
-2000e880  WATCHDOG_EVENT_GROUP                       
+2000eac4  RecorderDataPtr                            
+2000eb78  SPI0MasterConfig                           
+00007c69  SPI_Init                                   
+00008569  SPI_Read                                   
+000085a1  SPI_Write                                  
+00005bdd  SPI_initMaster                             
+00007a09  SysCtl_getTLVInfo                          
+000093c9  SysCtl_getTempCalibrationConstant          
+00007271  SystemInit                                 
+2000ebe0  TraceQueueClassTable                       
+2000e860  WATCHDOG_EVENT_GROUP                       
 4000480c  WDTCTL_SYM                                 
-00008ee1  WDT_A_holdTimer                            
+00008ff9  WDT_A_holdTimer                            
 20010000  __STACK_END                                
 00000320  __STACK_SIZE                               
-00009510  __TI_CINIT_Base                            
-00009520  __TI_CINIT_Limit                           
-000094f8  __TI_Handler_Table_Base                    
-00009504  __TI_Handler_Table_Limit                   
-00007f09  __TI_auto_init_nobinit_nopinit             
-00007241  __TI_decompress_lzss                       
-000091c9  __TI_decompress_none                       
+00009688  __TI_CINIT_Base                            
+00009698  __TI_CINIT_Limit                           
+00009670  __TI_Handler_Table_Base                    
+0000967c  __TI_Handler_Table_Limit                   
+000080a9  __TI_auto_init_nobinit_nopinit             
+000072d9  __TI_decompress_lzss                       
+00009341  __TI_decompress_none                       
 ffffffff  __TI_pprof_out_hndl                        
 ffffffff  __TI_prof_data_size                        
 ffffffff  __TI_prof_data_start                       
 00000000  __TI_static_base__                         
-0000926d  __TI_zero_init                             
-00006ced  __aeabi_memclr                             
-00006ced  __aeabi_memclr4                            
-00006ced  __aeabi_memclr8                            
-000060b1  __aeabi_memcpy                             
-000060b1  __aeabi_memcpy4                            
-000060b1  __aeabi_memcpy8                            
-00006cef  __aeabi_memset                             
-00006cef  __aeabi_memset4                            
-00006cef  __aeabi_memset8                            
+000093e5  __TI_zero_init                             
+00006d85  __aeabi_memclr                             
+00006d85  __aeabi_memclr4                            
+00006d85  __aeabi_memclr8                            
+000061d9  __aeabi_memcpy                             
+000061d9  __aeabi_memcpy4                            
+000061d9  __aeabi_memcpy8                            
+00006d87  __aeabi_memset                             
+00006d87  __aeabi_memset4                            
+00006d87  __aeabi_memset8                            
 ffffffff  __binit__                                  
 ffffffff  __c_args__                                 
 UNDEFED   __mpu_init                                 
 2000fce0  __stack                                    
-0000831d  _c_int00_noargs                            
+00008485  _c_int00_noargs                            
 UNDEFED   _system_post_cinit                         
 000007dd  _system_pre_init                           
 00000aed  abort                                      
-00004c59  adcInit                                    
-00008969  aodcsTask                                  
+00004d81  adcInit                                    
+000085d9  aodcsTask                                  
 ffffffff  binit                                      
-2000e830  bufferIMU                                  
-2000e884  bw                                         
-2000e84a  cal30                                      
-2000e87a  cal85                                      
-2000e888  calDifference                              
-000080a1  calendarConfiguration                      
-00008991  cameraTask                                 
-00001a29  dataStorage                                
-00008f11  disk_initialize                            
-00008c49  disk_ioctl                                 
-00008b71  disk_read                                  
-00008f29  disk_status                                
-00008b99  disk_write                                 
-000080e1  eTaskConfirmSleepModeStatus                
+2000e804  bufferIMU                                  
+2000e864  bw                                         
+2000e82a  cal30                                      
+2000e85a  cal85                                      
+2000e868  calDifference                              
+00008611  cameraTask                                 
+00001301  dataStorage                                
+00009029  disk_initialize                            
+00008d49  disk_ioctl                                 
+00008c71  disk_read                                  
+00009041  disk_status                                
+00008c99  disk_write                                 
+00008289  eTaskConfirmSleepModeStatus                
 2000e777  fResult                                    
-00007cf1  f_mount                                    
-000016a1  f_open                                     
-000061f1  f_sync                                     
-00001301  f_write                                    
+00007e99  f_mount                                    
+00001879  f_open                                     
+00006319  f_sync                                     
+000014d9  f_write                                    
 2000e348  file                                       
-2000e88c  flag_lowBattery                            
-00007f51  getLocalTime                               
-00006609  getMotion6                                 
-00007f99  getTemperature                             
-00009391  get_fattime                                
-2000ead5  handle_of_last_logged_task                 
-000020d1  houseKeeping                               
-0000945c  i2cConfig                                  
+2000e86c  flag_lowBattery                            
+000080f1  getLocalTime                               
+000066a1  getMotion6                                 
+00008139  getTemperature                             
+00009509  get_fattime                                
+2000eab5  handle_of_last_logged_task                 
+00001db1  houseKeeping                               
+000095d4  i2cConfig                                  
 2000e738  imuData                                    
-00007fe1  initI2C                                    
-00007449  initSD                                     
-2000e890  init_hwtc_count                            
+000081c9  initI2C                                    
+000074e1  initSD                                     
+2000e870  init_hwtc_count                            
 00000000  interruptVectors                           
-00008621  isLowBattery                               
-2000eab4  isPendingContextSwitch                     
-00005ec1  itoa                                       
-2000e874  localTime                                  
-00008651  main                                       
-000060b1  memcpy                                     
-00006cf5  memset                                     
-2000ead4  nISRactive                                 
+00007fd1  isLowBattery                               
+2000ea94  isPendingContextSwitch                     
+00005fe9  itoa                                       
+2000e854  localTime                                  
+00008ab9  main                                       
+000061d9  memcpy                                     
+00006d8d  memset                                     
+2000eab4  nISRactive                                 
 2000e570  obcData                                    
-2000ea24  objectHandleStacks                         
-000089b9  pptTask                                    
-00008c69  prvMarkObjectAsUsed                        
-00008121  prvTraceError                              
-000092f9  prvTraceGetCurrentTaskHandle               
-000029d9  prvTraceGetObjectHandle                    
-00004d39  prvTraceGetPriorityProperty                
-00009399  prvTraceGetQueueNumber                     
-00009299  prvTraceGetQueueNumberHigh16               
-00009319  prvTraceGetQueueNumberLow16                
-00009371  prvTraceGetQueueType                       
-000092a9  prvTraceGetTaskNumberHigh16                
-00009329  prvTraceGetTaskNumberLow16                 
-00005d71  prvTraceInitCortexM                        
-000079c1  prvTracePortGetTimeStamp                   
-00004061  prvTraceSetObjectName                      
-00005321  prvTraceSetObjectState                     
-00004fd1  prvTraceSetPriorityProperty                
-00008e29  prvTraceSetQueueNumberHigh16               
-00008e49  prvTraceSetQueueNumberLow16                
-00006c71  prvTraceSetTaskInstanceFinished            
-00008e69  prvTraceSetTaskNumberHigh16                
-00008e89  prvTraceSetTaskNumberLow16                 
-00001d91  prvTraceStoreKernelCall                    
-00003e41  prvTraceStoreKernelCallWithNumericParamOnly
-000014d9  prvTraceStoreKernelCallWithParam           
-000048a9  prvTraceStoreTaskReady                     
-00004b71  prvTraceStoreTaskswitch                    
+2000ea04  objectHandleStacks                         
+000086b9  pptTask                                    
+00008d69  prvMarkObjectAsUsed                        
+000082c9  prvTraceError                              
+00009471  prvTraceGetCurrentTaskHandle               
+00002a01  prvTraceGetObjectHandle                    
+00004e61  prvTraceGetPriorityProperty                
+00009511  prvTraceGetQueueNumber                     
+00009411  prvTraceGetQueueNumberHigh16               
+00009491  prvTraceGetQueueNumberLow16                
+000094e9  prvTraceGetQueueType                       
+00009421  prvTraceGetTaskNumberHigh16                
+000094a1  prvTraceGetTaskNumberLow16                 
+00005e99  prvTraceInitCortexM                        
+00007b11  prvTracePortGetTimeStamp                   
+00004089  prvTraceSetObjectName                      
+00005449  prvTraceSetObjectState                     
+000050f9  prvTraceSetPriorityProperty                
+00008f29  prvTraceSetQueueNumberHigh16               
+00008f49  prvTraceSetQueueNumberLow16                
+00006d09  prvTraceSetTaskInstanceFinished            
+00008f69  prvTraceSetTaskNumberHigh16                
+00008f89  prvTraceSetTaskNumberLow16                 
+00001f59  prvTraceStoreKernelCall                    
+00003e69  prvTraceStoreKernelCallWithNumericParamOnly
+000016b1  prvTraceStoreKernelCallWithParam           
+000049d1  prvTraceStoreTaskReady                     
+00004c99  prvTraceStoreTaskswitch                    
 00000149  pszTraceGetErrorNotEnoughHandles           
-00002f01  pvPortMalloc                               
-00008f41  pvTaskIncrementMutexHeldCount              
-2000eb34  pxCurrentTCB                               
-00008829  pxPortInitialiseStack                      
-00008ad1  queueCreate                                
-00004171  readI2C                                    
-2000eac8  recorder_busy                              
+00002f29  pvPortMalloc                               
+00009059  pvTaskIncrementMutexHeldCount              
+2000eb14  pxCurrentTCB                               
+000089a9  pxPortInitialiseStack                      
+00008bd1  queueCreate                                
+00004199  readI2C                                    
+2000eaa8  recorder_busy                              
 2000e118  sdDriver                                   
-2000ebfc  semaphoreIMU                               
-000092c9  setFullScaleAccelRange                     
-000092d9  setFullScaleGyroRange                      
-00009339  setSleepEnabled                            
-00009149  setWatchDogBit_AODCS                       
-00009159  setWatchDogBit_CAMERA                      
-00009169  setWatchDogBit_DATASTORAGE                 
-00009179  setWatchDogBit_HOUSEKEEPING                
-00009189  setWatchDogBit_PPT                         
-00009199  setWatchDogBit_TTC                         
-00004281  taskCreate                                 
-2000eacc  timestampFrequency                         
-2000ead0  traceErrorMessage                          
-2000eac0  trace_disable_timestamp                    
-00008889  ttcTask                                    
-00009371  ucQueueGetQueueType                        
-000032c1  uiIndexOfObject                            
-000049a1  uiTraceStart                               
-2000eabc  uiTraceTickCount                           
-0000947c  ulMaxSyscallInterruptPriority              
-00004f05  ulPortGetIPSR                              
-00008a59  uxListRemove                               
-00009399  uxQueueGetQueueNumber                      
-00009349  uxTaskGetTaskNumber                        
-00008f89  uxTaskResetEventItemValue                  
-000093c9  vApplicationIdleHook                       
-000090a9  vApplicationMallocFailedHook               
-000090c1  vApplicationStackOverflowHook              
-000093d1  vApplicationTickHook                       
-00008d29  vListInitialise                            
-00009379  vListInitialiseItem                        
-000084e1  vListInsert                                
-00008fa1  vListInsertEnd                             
-00004fc1  vPortEnableVFP                             
-000081e1  vPortEnterCritical                         
-000086b1  vPortExitCritical                          
-00006729  vPortFree                                  
-00004f7d  vPortSVCHandler                            
-00007311  vPortSetupTimerInterrupt                   
-00004f9d  vPortStartFirstTask                        
-00003189  vPortSuppressTicksAndSleep                 
-00007519  vPortValidateInterruptPriority             
-000093d9  vPreSleepProcessing                        
-000093a1  vQueueSetQueueNumber                       
-00007ec1  vQueueWaitForMessageRestricted             
-00008519  vT32_0_Handler                             
-00008551  vT32_1_Handler                             
-00006151  vTaskDelay                                 
-00008fb9  vTaskInternalSetTimeOutState               
-000092e9  vTaskMissedYield                           
-000038a9  vTaskNotifyGiveFromISR                     
-00008391  vTaskPlaceOnEventList                      
-00006959  vTaskPlaceOnEventListRestricted            
-000076a1  vTaskPlaceOnUnorderedEventList             
-00003521  vTaskPriorityDisinheritAfterTimeout        
-00005891  vTaskRemoveFromUnorderedEventList          
-00009381  vTaskSetTaskNumber                         
-00006a69  vTaskStartScheduler                        
-00008589  vTaskStepTick                              
-000091a9  vTaskSuspendAll                            
-000050a9  vTaskSwitchContext                         
-00005f69  vTraceEnable                               
-000053f1  vTraceInitObjectHandleStack                
-00003c11  vTraceInitObjectPropertyTable              
-000093a9  vTraceStart                                
-00008af9  vTraceStop                                 
-2000ead8  vTraceStopHookPtr                          
-000057d1  vTraceStoreMemMangEvent                    
-00005949  vUART_Handler                              
-000091b9  watchDogEventGroupCreate                   
-00008221  watchDogTask                               
-00007c01  writeBit                                   
-000075e1  writeBits                                  
-00005a01  writeI2C                                   
-00008ea9  xEventGroupCreate                          
-00005c19  xEventGroupSetBits                         
-00003651  xEventGroupWaitBits                        
-000033f1  xFirstTimerHandler                         
-00004f1d  xPortPendSVHandler                         
-00004e19  xPortStartScheduler                        
-000088b9  xPortSysTickHandler                        
-00009001  xQueueCreateMutex                          
-00006de1  xQueueGenericCreate                        
-00006579  xQueueGenericReset                         
+2000ebdc  semaphoreIMU                               
+00009441  setFullScaleAccelRange                     
+00009451  setFullScaleGyroRange                      
+000094b1  setSleepEnabled                            
+000092c1  setWatchDogBit_AODCS                       
+000092d1  setWatchDogBit_CAMERA                      
+000092e1  setWatchDogBit_DATASTORAGE                 
+000092f1  setWatchDogBit_HOUSEKEEPING                
+00009301  setWatchDogBit_PPT                         
+00009311  setWatchDogBit_TTC                         
+000042a9  taskCreate                                 
+2000eaac  timestampFrequency                         
+2000eab0  traceErrorMessage                          
+2000eaa0  trace_disable_timestamp                    
+00007b69  ttcTask                                    
+000094e9  ucQueueGetQueueType                        
+000032e9  uiIndexOfObject                            
+00004ac9  uiTraceStart                               
+2000ea9c  uiTraceTickCount                           
+000095f4  ulMaxSyscallInterruptPriority              
+0000502d  ulPortGetIPSR                              
+00008b59  uxListRemove                               
+00009511  uxQueueGetQueueNumber                      
+000094c1  uxTaskGetTaskNumber                        
+000090a1  uxTaskResetEventItemValue                  
+00009541  vApplicationIdleHook                       
+00009221  vApplicationMallocFailedHook               
+00009239  vApplicationStackOverflowHook              
+00009549  vApplicationTickHook                       
+00008e29  vListInitialise                            
+000094f1  vListInitialiseItem                        
+000086f1  vListInsert                                
+000090b9  vListInsertEnd                             
+000050e9  vPortEnableVFP                             
+00008389  vPortEnterCritical                         
+00008861  vPortExitCritical                          
+000067c1  vPortFree                                  
+000050a5  vPortSVCHandler                            
+000073a9  vPortSetupTimerInterrupt                   
+000050c5  vPortStartFirstTask                        
+000031b1  vPortSuppressTicksAndSleep                 
+000075b1  vPortValidateInterruptPriority             
+00009551  vPreSleepProcessing                        
+00009519  vQueueSetQueueNumber                       
+00008061  vQueueWaitForMessageRestricted             
+00008729  vT32_0_Handler                             
+00008761  vT32_1_Handler                             
+00006279  vTaskDelay                                 
+000047d1  vTaskDelayUntil                            
+000090d1  vTaskInternalSetTimeOutState               
+00009461  vTaskMissedYield                           
+000038d1  vTaskNotifyGiveFromISR                     
+000084f9  vTaskPlaceOnEventList                      
+000069f1  vTaskPlaceOnEventListRestricted            
+00007739  vTaskPlaceOnUnorderedEventList             
+00003549  vTaskPriorityDisinheritAfterTimeout        
+000059b9  vTaskRemoveFromUnorderedEventList          
+000094f9  vTaskSetTaskNumber                         
+00006b01  vTaskStartScheduler                        
+00008799  vTaskStepTick                              
+00009321  vTaskSuspendAll                            
+000051d1  vTaskSwitchContext                         
+00006091  vTraceEnable                               
+00005519  vTraceInitObjectHandleStack                
+00003c39  vTraceInitObjectPropertyTable              
+00009521  vTraceStart                                
+00008bf9  vTraceStop                                 
+2000eab8  vTraceStopHookPtr                          
+000058f9  vTraceStoreMemMangEvent                    
+00005a71  vUART_Handler                              
+00009331  watchDogEventGroupCreate                   
+00007799  watchDogTask                               
+00007da9  writeBit                                   
+00007679  writeBits                                  
+00005b29  writeI2C                                   
+00008fa9  xEventGroupCreate                          
+00005d41  xEventGroupSetBits                         
+00003679  xEventGroupWaitBits                        
+00003419  xFirstTimerHandler                         
+00005045  xPortPendSVHandler                         
+00004f41  xPortStartScheduler                        
+00008a09  xPortSysTickHandler                        
+00009119  xQueueCreateMutex                          
+00006e79  xQueueGenericCreate                        
+00006611  xQueueGenericReset                         
 000007e1  xQueueGenericSend                          
-00002409  xQueueGenericSendFromISR                   
-2000ebf8  xQueueIMU                                  
-000088e9  xQueueIsQueueFullFromISR                   
+00002431  xQueueGenericSendFromISR                   
+2000ebd8  xQueueIMU                                  
+00008a39  xQueueIsQueueFullFromISR                   
 00000df9  xQueueReceive                              
-00002db9  xQueueReceiveFromISR                       
+00002de1  xQueueReceiveFromISR                       
 000004a9  xQueueSemaphoreTake                        
-00001869  xSecondTimerHandler                        
-000064e1  xTaskCheckForTimeOut                       
-00007379  xTaskCreate                                
-000092f9  xTaskGetCurrentTaskHandle                  
-00008ce9  xTaskGetSchedulerState                     
-00009309  xTaskGetTickCount                          
-00002271  xTaskIncrementTick                         
-000039d1  xTaskPriorityDisinherit                    
-00003f51  xTaskPriorityInherit                       
-00005591  xTaskRemoveFromEventList                   
-00003781  xTaskResumeAll                             
-00007701  xTimerCreateTimerTask                      
-00006e59  xTimerGenericCommand                       
+00001a41  xSecondTimerHandler                        
+00006579  xTaskCheckForTimeOut                       
+00007411  xTaskCreate                                
+00009471  xTaskGetCurrentTaskHandle                  
+00008de9  xTaskGetSchedulerState                     
+00009481  xTaskGetTickCount                          
+00002299  xTaskIncrementTick                         
+000039f9  xTaskPriorityDisinherit                    
+00003f79  xTaskPriorityInherit                       
+000056b9  xTaskRemoveFromEventList                   
+000037a9  xTaskResumeAll                             
+00007851  xTimerCreateTimerTask                      
+00006ef1  xTimerGenericCommand                       
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -1081,274 +1093,278 @@ address   name
 00000aed  C$$EXIT                                    
 00000aed  abort                                      
 00000df9  xQueueReceive                              
-00001301  f_write                                    
-000014d9  prvTraceStoreKernelCallWithParam           
-000016a1  f_open                                     
-00001869  xSecondTimerHandler                        
-00001a29  dataStorage                                
-00001d91  prvTraceStoreKernelCall                    
-00001f31  MMC_disk_ioctl                             
-000020d1  houseKeeping                               
-00002271  xTaskIncrementTick                         
-00002409  xQueueGenericSendFromISR                   
-00002879  MMC_disk_initialize                        
-000029d9  prvTraceGetObjectHandle                    
-00002b29  CS_getDCOFrequency                         
-00002db9  xQueueReceiveFromISR                       
-00002f01  pvPortMalloc                               
-00003189  vPortSuppressTicksAndSleep                 
-000032c1  uiIndexOfObject                            
-000033f1  xFirstTimerHandler                         
-00003521  vTaskPriorityDisinheritAfterTimeout        
-00003651  xEventGroupWaitBits                        
-00003781  xTaskResumeAll                             
-000038a9  vTaskNotifyGiveFromISR                     
-000039d1  xTaskPriorityDisinherit                    
-00003af1  CS_initClockSignal                         
-00003c11  vTraceInitObjectPropertyTable              
-00003e41  prvTraceStoreKernelCallWithNumericParamOnly
-00003f51  xTaskPriorityInherit                       
-00004061  prvTraceSetObjectName                      
-00004171  readI2C                                    
-00004281  taskCreate                                 
-000048a9  prvTraceStoreTaskReady                     
-000049a1  uiTraceStart                               
-00004b71  prvTraceStoreTaskswitch                    
-00004c59  adcInit                                    
-00004d39  prvTraceGetPriorityProperty                
-00004e19  xPortStartScheduler                        
-00004f05  ulPortGetIPSR                              
-00004f1d  xPortPendSVHandler                         
-00004f7d  vPortSVCHandler                            
-00004f9d  vPortStartFirstTask                        
-00004fc1  vPortEnableVFP                             
-00004fd1  prvTraceSetPriorityProperty                
-000050a9  vTaskSwitchContext                         
-00005321  prvTraceSetObjectState                     
-000053f1  vTraceInitObjectHandleStack                
-00005591  xTaskRemoveFromEventList                   
-00005651  MMC_disk_write                             
-000057d1  vTraceStoreMemMangEvent                    
-00005891  vTaskRemoveFromUnorderedEventList          
-00005949  vUART_Handler                              
-00005a01  writeI2C                                   
-00005ab5  SPI_initMaster                             
-00005c19  xEventGroupSetBits                         
-00005cc9  ADC14_configureMultiSequenceMode           
-00005d71  prvTraceInitCortexM                        
-00005e19  ADC14_configureConversionMemory            
-00005ec1  itoa                                       
-00005f69  vTraceEnable                               
-000060b1  __aeabi_memcpy                             
-000060b1  __aeabi_memcpy4                            
-000060b1  __aeabi_memcpy8                            
-000060b1  memcpy                                     
-00006151  vTaskDelay                                 
-000061f1  f_sync                                     
-00006289  MMC_disk_read                              
-0000631d  RTC_C_initCalendar                         
-000064e1  xTaskCheckForTimeOut                       
-00006579  xQueueGenericReset                         
-00006609  getMotion6                                 
-00006729  vPortFree                                  
-00006849  PCM_gotoLPM3                               
-00006959  vTaskPlaceOnEventListRestricted            
-00006a69  vTaskStartScheduler                        
-00006b71  RTC_C_getCalendarTime                      
-00006c71  prvTraceSetTaskInstanceFinished            
-00006ced  __aeabi_memclr                             
-00006ced  __aeabi_memclr4                            
-00006ced  __aeabi_memclr8                            
-00006cef  __aeabi_memset                             
-00006cef  __aeabi_memset4                            
-00006cef  __aeabi_memset8                            
-00006cf5  memset                                     
-00006d69  ADC14_getMultiSequenceResult               
-00006de1  xQueueGenericCreate                        
-00006e59  xTimerGenericCommand                       
-0000716d  I2C_masterSendMultiByteStart               
-000071d9  SystemInit                                 
-00007241  __TI_decompress_lzss                       
-00007311  vPortSetupTimerInterrupt                   
-00007379  xTaskCreate                                
-00007449  initSD                                     
-00007519  vPortValidateInterruptPriority             
-000075e1  writeBits                                  
-000076a1  vTaskPlaceOnUnorderedEventList             
-00007701  xTimerCreateTimerTask                      
-000077b1  ADC14_initModule                           
-00007809  GPIO_setAsPeripheralModuleFunctionInputPin 
-00007861  GPIO_setAsPeripheralModuleFunctionOutputPin
-000078b9  SysCtl_getTLVInfo                          
-000079c1  prvTracePortGetTimeStamp                   
-00007a71  PCM_getCoreVoltageLevel                    
-00007ac1  SPI_Init                                   
-00007c01  writeBit                                   
-00007ca1  PCM_shutdownDevice                         
-00007cf1  f_mount                                    
-00007ec1  vQueueWaitForMessageRestricted             
-00007f09  __TI_auto_init_nobinit_nopinit             
-00007f51  getLocalTime                               
-00007f99  getTemperature                             
-00007fe1  initI2C                                    
-000080a1  calendarConfiguration                      
-000080e1  eTaskConfirmSleepModeStatus                
-00008121  prvTraceError                              
-000081e1  vPortEnterCritical                         
-00008221  watchDogTask                               
-00008261  PCM_getPowerMode                           
-0000831d  _c_int00_noargs                            
-00008391  vTaskPlaceOnEventList                      
-000083c9  ADC14_enableSampleTimer                    
-00008401  SPI_Read                                   
-00008439  SPI_Write                                  
-000084e1  vListInsert                                
-00008519  vT32_0_Handler                             
-00008551  vT32_1_Handler                             
-00008589  vTaskStepTick                              
-000085bd  ADC14_setSampleHoldTime                    
-000085f1  FlashCtl_setWaitState                      
-00008621  isLowBattery                               
-00008651  main                                       
-000086b1  vPortExitCritical                          
-000086e1  ADC14_toggleConversionTrigger              
-00008711  CS_setDCOCenteredFrequency                 
-00008741  PCM_gotoLPM0                               
-0000876d  RTC_C_holdClock                            
-00008799  RTC_C_startClock                           
-00008829  pxPortInitialiseStack                      
-00008889  ttcTask                                    
-000088b9  xPortSysTickHandler                        
-000088e9  xQueueIsQueueFullFromISR                   
-00008915  ADC14_enableConversion                     
-00008941  GPIO_Init                                  
-00008969  aodcsTask                                  
-00008991  cameraTask                                 
-000089b9  pptTask                                    
-00008a59  uxListRemove                               
-00008a81  CS_clearInterruptFlag                      
-00008ad1  queueCreate                                
-00008af9  vTraceStop                                 
-00008b49  CS_Init                                    
-00008b71  disk_read                                  
-00008b99  disk_write                                 
-00008be9  GPIO_setAsOutputPin                        
-00008c09  MPU9250_initialize                         
-00008c29  REF_A_setReferenceVoltage                  
-00008c49  disk_ioctl                                 
-00008c69  prvMarkObjectAsUsed                        
-00008ce9  xTaskGetSchedulerState                     
-00008d29  vListInitialise                            
-00008d49  ADC14_getResult                            
-00008e29  prvTraceSetQueueNumberHigh16               
-00008e49  prvTraceSetQueueNumberLow16                
-00008e69  prvTraceSetTaskNumberHigh16                
-00008e89  prvTraceSetTaskNumberLow16                 
-00008ea9  xEventGroupCreate                          
-00008ec9  CS_getMCLK                                 
-00008ee1  WDT_A_holdTimer                            
-00008f11  disk_initialize                            
-00008f29  disk_status                                
-00008f41  pvTaskIncrementMutexHeldCount              
-00008f89  uxTaskResetEventItemValue                  
-00008fa1  vListInsertEnd                             
-00008fb9  vTaskInternalSetTimeOutState               
-00009001  xQueueCreateMutex                          
-00009019  GPIO_toggleOutputOnPin                     
-000090a9  vApplicationMallocFailedHook               
-000090c1  vApplicationStackOverflowHook              
-000090e9  FPU_enableModule                           
-000090f9  GPIO_High                                  
-00009109  GPIO_Low                                   
-00009119  Interrupt_enableMaster                     
-00009129  MPU9250_getMotion9                         
-00009139  PCM_gotoLPM4                               
-00009149  setWatchDogBit_AODCS                       
-00009159  setWatchDogBit_CAMERA                      
-00009169  setWatchDogBit_DATASTORAGE                 
-00009179  setWatchDogBit_HOUSEKEEPING                
-00009189  setWatchDogBit_PPT                         
-00009199  setWatchDogBit_TTC                         
-000091a9  vTaskSuspendAll                            
-000091b9  watchDogEventGroupCreate                   
-000091c9  __TI_decompress_none                       
-000091e9  ADC14_enableModule                         
-000091f9  CPU_cpsie                                  
-00009209  MMC_disk_status                            
-00009219  MPU9250_setClockSource                     
-00009229  PCM_getPowerState                          
-00009235  REF_A_enableReferenceVoltage               
-00009241  REF_A_enableTempSensor                     
-00009251  SysCtl_getTempCalibrationConstant          
-0000926d  __TI_zero_init                             
-00009299  prvTraceGetQueueNumberHigh16               
-000092a9  prvTraceGetTaskNumberHigh16                
-000092c9  setFullScaleAccelRange                     
-000092d9  setFullScaleGyroRange                      
-000092e9  vTaskMissedYield                           
-000092f9  prvTraceGetCurrentTaskHandle               
-000092f9  xTaskGetCurrentTaskHandle                  
-00009309  xTaskGetTickCount                          
-00009319  prvTraceGetQueueNumberLow16                
-00009329  prvTraceGetTaskNumberLow16                 
-00009339  setSleepEnabled                            
-00009349  uxTaskGetTaskNumber                        
-00009359  PCM_setCoreVoltageLevel                    
-00009361  PCM_setPowerMode                           
-00009369  PCM_setPowerState                          
-00009371  prvTraceGetQueueType                       
-00009371  ucQueueGetQueueType                        
-00009379  vListInitialiseItem                        
-00009381  vTaskSetTaskNumber                         
-00009389  CPU_wfi                                    
-00009391  get_fattime                                
-00009399  prvTraceGetQueueNumber                     
-00009399  uxQueueGetQueueNumber                      
-000093a1  vQueueSetQueueNumber                       
-000093a9  vTraceStart                                
-000093c9  vApplicationIdleHook                       
-000093d1  vApplicationTickHook                       
-000093d9  vPreSleepProcessing                        
-0000945c  i2cConfig                                  
-0000947c  ulMaxSyscallInterruptPriority              
-000094f8  __TI_Handler_Table_Base                    
-00009504  __TI_Handler_Table_Limit                   
-00009510  __TI_CINIT_Base                            
-00009520  __TI_CINIT_Limit                           
+00001301  dataStorage                                
+000014d9  f_write                                    
+000016b1  prvTraceStoreKernelCallWithParam           
+00001879  f_open                                     
+00001a41  xSecondTimerHandler                        
+00001db1  houseKeeping                               
+00001f59  prvTraceStoreKernelCall                    
+000020f9  MMC_disk_ioctl                             
+00002299  xTaskIncrementTick                         
+00002431  xQueueGenericSendFromISR                   
+000028a1  MMC_disk_initialize                        
+00002a01  prvTraceGetObjectHandle                    
+00002b51  CS_getDCOFrequency                         
+00002de1  xQueueReceiveFromISR                       
+00002f29  pvPortMalloc                               
+000031b1  vPortSuppressTicksAndSleep                 
+000032e9  uiIndexOfObject                            
+00003419  xFirstTimerHandler                         
+00003549  vTaskPriorityDisinheritAfterTimeout        
+00003679  xEventGroupWaitBits                        
+000037a9  xTaskResumeAll                             
+000038d1  vTaskNotifyGiveFromISR                     
+000039f9  xTaskPriorityDisinherit                    
+00003b19  CS_initClockSignal                         
+00003c39  vTraceInitObjectPropertyTable              
+00003e69  prvTraceStoreKernelCallWithNumericParamOnly
+00003f79  xTaskPriorityInherit                       
+00004089  prvTraceSetObjectName                      
+00004199  readI2C                                    
+000042a9  taskCreate                                 
+000047d1  vTaskDelayUntil                            
+000049d1  prvTraceStoreTaskReady                     
+00004ac9  uiTraceStart                               
+00004c99  prvTraceStoreTaskswitch                    
+00004d81  adcInit                                    
+00004e61  prvTraceGetPriorityProperty                
+00004f41  xPortStartScheduler                        
+0000502d  ulPortGetIPSR                              
+00005045  xPortPendSVHandler                         
+000050a5  vPortSVCHandler                            
+000050c5  vPortStartFirstTask                        
+000050e9  vPortEnableVFP                             
+000050f9  prvTraceSetPriorityProperty                
+000051d1  vTaskSwitchContext                         
+00005449  prvTraceSetObjectState                     
+00005519  vTraceInitObjectHandleStack                
+000056b9  xTaskRemoveFromEventList                   
+00005779  MMC_disk_write                             
+000058f9  vTraceStoreMemMangEvent                    
+000059b9  vTaskRemoveFromUnorderedEventList          
+00005a71  vUART_Handler                              
+00005b29  writeI2C                                   
+00005bdd  SPI_initMaster                             
+00005d41  xEventGroupSetBits                         
+00005df1  ADC14_configureMultiSequenceMode           
+00005e99  prvTraceInitCortexM                        
+00005f41  ADC14_configureConversionMemory            
+00005fe9  itoa                                       
+00006091  vTraceEnable                               
+000061d9  __aeabi_memcpy                             
+000061d9  __aeabi_memcpy4                            
+000061d9  __aeabi_memcpy8                            
+000061d9  memcpy                                     
+00006279  vTaskDelay                                 
+00006319  f_sync                                     
+000063b1  MMC_disk_read                              
+00006579  xTaskCheckForTimeOut                       
+00006611  xQueueGenericReset                         
+000066a1  getMotion6                                 
+000067c1  vPortFree                                  
+000068e1  PCM_gotoLPM3                               
+000069f1  vTaskPlaceOnEventListRestricted            
+00006b01  vTaskStartScheduler                        
+00006c09  RTC_C_getCalendarTime                      
+00006d09  prvTraceSetTaskInstanceFinished            
+00006d85  __aeabi_memclr                             
+00006d85  __aeabi_memclr4                            
+00006d85  __aeabi_memclr8                            
+00006d87  __aeabi_memset                             
+00006d87  __aeabi_memset4                            
+00006d87  __aeabi_memset8                            
+00006d8d  memset                                     
+00006e01  ADC14_getMultiSequenceResult               
+00006e79  xQueueGenericCreate                        
+00006ef1  xTimerGenericCommand                       
+00007205  I2C_masterSendMultiByteStart               
+00007271  SystemInit                                 
+000072d9  __TI_decompress_lzss                       
+000073a9  vPortSetupTimerInterrupt                   
+00007411  xTaskCreate                                
+000074e1  initSD                                     
+000075b1  vPortValidateInterruptPriority             
+00007679  writeBits                                  
+00007739  vTaskPlaceOnUnorderedEventList             
+00007799  watchDogTask                               
+00007851  xTimerCreateTimerTask                      
+00007901  ADC14_initModule                           
+00007959  GPIO_setAsPeripheralModuleFunctionInputPin 
+000079b1  GPIO_setAsPeripheralModuleFunctionOutputPin
+00007a09  SysCtl_getTLVInfo                          
+00007b11  prvTracePortGetTimeStamp                   
+00007b69  ttcTask                                    
+00007c19  PCM_getCoreVoltageLevel                    
+00007c69  SPI_Init                                   
+00007da9  writeBit                                   
+00007e49  PCM_shutdownDevice                         
+00007e99  f_mount                                    
+00007fd1  isLowBattery                               
+00008061  vQueueWaitForMessageRestricted             
+000080a9  __TI_auto_init_nobinit_nopinit             
+000080f1  getLocalTime                               
+00008139  getTemperature                             
+000081c9  initI2C                                    
+00008289  eTaskConfirmSleepModeStatus                
+000082c9  prvTraceError                              
+00008389  vPortEnterCritical                         
+000083c9  PCM_getPowerMode                           
+00008485  _c_int00_noargs                            
+000084f9  vTaskPlaceOnEventList                      
+00008531  ADC14_enableSampleTimer                    
+00008569  SPI_Read                                   
+000085a1  SPI_Write                                  
+000085d9  aodcsTask                                  
+00008611  cameraTask                                 
+000086b9  pptTask                                    
+000086f1  vListInsert                                
+00008729  vT32_0_Handler                             
+00008761  vT32_1_Handler                             
+00008799  vTaskStepTick                              
+000087cd  ADC14_setSampleHoldTime                    
+00008801  FlashCtl_setWaitState                      
+00008861  vPortExitCritical                          
+00008891  ADC14_toggleConversionTrigger              
+000088c1  CS_setDCOCenteredFrequency                 
+000088f1  GPIO_setAsInputPinWithPullUpResistor       
+00008921  PCM_gotoLPM0                               
+0000894d  RTC_C_holdClock                            
+000089a9  pxPortInitialiseStack                      
+00008a09  xPortSysTickHandler                        
+00008a39  xQueueIsQueueFullFromISR                   
+00008a65  ADC14_enableConversion                     
+00008a91  GPIO_Init                                  
+00008ab9  main                                       
+00008b59  uxListRemove                               
+00008b81  CS_clearInterruptFlag                      
+00008bd1  queueCreate                                
+00008bf9  vTraceStop                                 
+00008c49  CS_Init                                    
+00008c71  disk_read                                  
+00008c99  disk_write                                 
+00008ce9  GPIO_setAsOutputPin                        
+00008d09  MPU9250_initialize                         
+00008d29  REF_A_setReferenceVoltage                  
+00008d49  disk_ioctl                                 
+00008d69  prvMarkObjectAsUsed                        
+00008de9  xTaskGetSchedulerState                     
+00008e29  vListInitialise                            
+00008e49  ADC14_getResult                            
+00008f29  prvTraceSetQueueNumberHigh16               
+00008f49  prvTraceSetQueueNumberLow16                
+00008f69  prvTraceSetTaskNumberHigh16                
+00008f89  prvTraceSetTaskNumberLow16                 
+00008fa9  xEventGroupCreate                          
+00008fc9  CS_getMCLK                                 
+00008fe1  GPIO_getInputPinValue                      
+00008ff9  WDT_A_holdTimer                            
+00009029  disk_initialize                            
+00009041  disk_status                                
+00009059  pvTaskIncrementMutexHeldCount              
+000090a1  uxTaskResetEventItemValue                  
+000090b9  vListInsertEnd                             
+000090d1  vTaskInternalSetTimeOutState               
+00009119  xQueueCreateMutex                          
+00009131  GPIO_clearInterruptFlag                    
+00009149  GPIO_enableInterrupt                       
+00009161  GPIO_setOutputHighOnPin                    
+00009179  GPIO_setOutputLowOnPin                     
+00009191  GPIO_toggleOutputOnPin                     
+00009221  vApplicationMallocFailedHook               
+00009239  vApplicationStackOverflowHook              
+00009261  FPU_enableModule                           
+00009271  GPIO_High                                  
+00009281  GPIO_Low                                   
+00009291  Interrupt_enableMaster                     
+000092a1  MPU9250_getMotion9                         
+000092b1  PCM_gotoLPM4                               
+000092c1  setWatchDogBit_AODCS                       
+000092d1  setWatchDogBit_CAMERA                      
+000092e1  setWatchDogBit_DATASTORAGE                 
+000092f1  setWatchDogBit_HOUSEKEEPING                
+00009301  setWatchDogBit_PPT                         
+00009311  setWatchDogBit_TTC                         
+00009321  vTaskSuspendAll                            
+00009331  watchDogEventGroupCreate                   
+00009341  __TI_decompress_none                       
+00009361  ADC14_enableModule                         
+00009371  CPU_cpsie                                  
+00009381  MMC_disk_status                            
+00009391  MPU9250_setClockSource                     
+000093a1  PCM_getPowerState                          
+000093ad  REF_A_enableReferenceVoltage               
+000093b9  REF_A_enableTempSensor                     
+000093c9  SysCtl_getTempCalibrationConstant          
+000093e5  __TI_zero_init                             
+00009411  prvTraceGetQueueNumberHigh16               
+00009421  prvTraceGetTaskNumberHigh16                
+00009441  setFullScaleAccelRange                     
+00009451  setFullScaleGyroRange                      
+00009461  vTaskMissedYield                           
+00009471  prvTraceGetCurrentTaskHandle               
+00009471  xTaskGetCurrentTaskHandle                  
+00009481  xTaskGetTickCount                          
+00009491  prvTraceGetQueueNumberLow16                
+000094a1  prvTraceGetTaskNumberLow16                 
+000094b1  setSleepEnabled                            
+000094c1  uxTaskGetTaskNumber                        
+000094d1  PCM_setCoreVoltageLevel                    
+000094d9  PCM_setPowerMode                           
+000094e1  PCM_setPowerState                          
+000094e9  prvTraceGetQueueType                       
+000094e9  ucQueueGetQueueType                        
+000094f1  vListInitialiseItem                        
+000094f9  vTaskSetTaskNumber                         
+00009501  CPU_wfi                                    
+00009509  get_fattime                                
+00009511  prvTraceGetQueueNumber                     
+00009511  uxQueueGetQueueNumber                      
+00009519  vQueueSetQueueNumber                       
+00009521  vTraceStart                                
+00009541  vApplicationIdleHook                       
+00009549  vApplicationTickHook                       
+00009551  vPreSleepProcessing                        
+000095d4  i2cConfig                                  
+000095f4  ulMaxSyscallInterruptPriority              
+00009670  __TI_Handler_Table_Base                    
+0000967c  __TI_Handler_Table_Limit                   
+00009688  __TI_CINIT_Base                            
+00009698  __TI_CINIT_Limit                           
 2000c800  RecorderData                               
 2000e118  sdDriver                                   
 2000e348  file                                       
 2000e570  obcData                                    
 2000e738  imuData                                    
 2000e777  fResult                                    
-2000e830  bufferIMU                                  
-2000e84a  cal30                                      
-2000e874  localTime                                  
-2000e87a  cal85                                      
-2000e880  WATCHDOG_EVENT_GROUP                       
-2000e884  bw                                         
-2000e888  calDifference                              
-2000e88c  flag_lowBattery                            
-2000e890  init_hwtc_count                            
-2000ea24  objectHandleStacks                         
-2000eab2  MPU9250_devAddr                            
-2000eab4  isPendingContextSwitch                     
-2000eabc  uiTraceTickCount                           
-2000eac0  trace_disable_timestamp                    
-2000eac8  recorder_busy                              
-2000eacc  timestampFrequency                         
-2000ead0  traceErrorMessage                          
-2000ead4  nISRactive                                 
-2000ead5  handle_of_last_logged_task                 
-2000ead8  vTraceStopHookPtr                          
-2000eadc  CurrentFilterMask                          
-2000eade  CurrentFilterGroup                         
-2000eae4  RecorderDataPtr                            
-2000eb34  pxCurrentTCB                               
-2000eb98  SPI0MasterConfig                           
-2000ebf8  xQueueIMU                                  
-2000ebfc  semaphoreIMU                               
-2000ec00  TraceQueueClassTable                       
+2000e804  bufferIMU                                  
+2000e82a  cal30                                      
+2000e854  localTime                                  
+2000e85a  cal85                                      
+2000e860  WATCHDOG_EVENT_GROUP                       
+2000e864  bw                                         
+2000e868  calDifference                              
+2000e86c  flag_lowBattery                            
+2000e870  init_hwtc_count                            
+2000ea04  objectHandleStacks                         
+2000ea92  MPU9250_devAddr                            
+2000ea94  isPendingContextSwitch                     
+2000ea9c  uiTraceTickCount                           
+2000eaa0  trace_disable_timestamp                    
+2000eaa8  recorder_busy                              
+2000eaac  timestampFrequency                         
+2000eab0  traceErrorMessage                          
+2000eab4  nISRactive                                 
+2000eab5  handle_of_last_logged_task                 
+2000eab8  vTraceStopHookPtr                          
+2000eabc  CurrentFilterMask                          
+2000eabe  CurrentFilterGroup                         
+2000eac4  RecorderDataPtr                            
+2000eb14  pxCurrentTCB                               
+2000eb78  SPI0MasterConfig                           
+2000ebd8  xQueueIMU                                  
+2000ebdc  semaphoreIMU                               
+2000ebe0  TraceQueueClassTable                       
 2000fce0  __stack                                    
 20010000  __STACK_END                                
 4000480c  WDTCTL_SYM                                 
@@ -1361,4 +1377,4 @@ ffffffff  binit
 UNDEFED   __mpu_init                                 
 UNDEFED   _system_post_cinit                         
 
-[289 symbols]
+[293 symbols]

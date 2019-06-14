@@ -13,11 +13,21 @@ void setWatchDogBit_CAMERA(void);
 
 void *cameraTask(void *pvParameters){
 
+    /* The xLastWakeTime variable needs to be initialized with the current tick
+     count. Note that this is the only time the variable is written to explicitly.
+     After this xLastWakeTime is updated automatically internally within
+     vTaskDelayUntil(). */
+    portTickType xLastWakeTimeCAMERA = xTaskGetTickCount();
+
+
     while (1)
     {
         setWatchDogBit_CAMERA();
         //TODO: the CAMERA task
-        (flag_lowBattery) ? vTaskDelay(CAMERA_TASK_TICK_PERIOD_LOW_BATTERY): vTaskDelay(CAMERA_TASK_TICK_PERIOD);
+
+        (flag_lowBattery) ?
+                vTaskDelayUntil(&xLastWakeTimeCAMERA,CAMERA_TASK_TICK_PERIOD_LOW_BATTERY) :
+                vTaskDelayUntil(&xLastWakeTimeCAMERA, CAMERA_TASK_TICK_PERIOD);            //
 
     }
 }

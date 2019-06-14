@@ -55,9 +55,15 @@ ImuData imuData;
 LocalTime localTime;
 
 void getLocalTime(void);
+void setWatchDogBit_DATASTORAGE(void);
 
 void *dataStorage(void *pvParameters){
 
+    /* The xLastWakeTime variable needs to be initialized with the current tick
+     count. Note that this is the only time the variable is written to explicitly.
+     After this xLastWakeTime is updated automatically internally within
+     vTaskDelayUntil(). */
+    portTickType xLastWakeTimeDataStorage = xTaskGetTickCount();
 
     //initializing the SPI protocol and mounting the SD card
     while(!initSD());
@@ -129,7 +135,10 @@ void *dataStorage(void *pvParameters){
 
         setWatchDogBit_DATASTORAGE();
         // IF THE SYSTEM HAS LOW BATTERY THE TASK WILL USE A LONGER DELAY, OTHERWISE IT WILL USE A SHOETTER PERIOD
-        (flag_lowBattery) ? vTaskDelay(DATA_STORAGE_TICK_PERIOD_LOW_BATTERY): vTaskDelay(DATA_STORAGE_TICK_PERIOD);
+
+        (flag_lowBattery) ?
+                vTaskDelayUntil(&xLastWakeTimeDataStorage,DATA_STORAGE_TICK_PERIOD_LOW_BATTERY) :
+                vTaskDelayUntil(&xLastWakeTimeDataStorage, DATA_STORAGE_TICK_PERIOD);            //
 
 
     }
