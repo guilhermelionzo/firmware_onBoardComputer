@@ -105,6 +105,13 @@ static void prvSetupHardware( void )
 	/* Stop the watchdog timer. */
 	MAP_WDT_A_holdTimer();
 
+    /* Configuring WDT in interval mode to trigger every 8.192MHz clock iterations.
+     * This comes out to roughly every 5.8 seconds */
+    MAP_WDT_A_initIntervalTimer(WDT_A_CLOCKSOURCE_SMCLK,
+                                WDT_A_CLOCKITERATIONS_8192K);
+
+    WDT_A_setTimeoutReset(WDT_A_SOFT_RESET);
+
 	/* Ensure the FPU is enabled. */
 	FPU_enableModule();
 
