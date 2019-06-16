@@ -1,8 +1,32 @@
 /*
  * systemDef.h
  *
- *  Created on: 17 de mar de 2019
- *      Author: Guilherme
+ * Copyright (C) 2019, Universidade de Brasilia - FGA
+ *
+ * This file is part of Firmware_OBC.
+ *
+ * Firmware_OBC is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Firmware_OBC is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Firmware_OBC.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+ /**
+ * \file systemDef.h
+ *
+ * \brief systemDef file
+ *
+ * \author Guilherme Lionço
+ *
  */
 
 #ifndef SYSTEMDEF_H_
@@ -19,28 +43,36 @@
 #define SIZE_OF_IMU_DATA 7
 #define LOW_BATTERY_STATUS 1
 
-#define AODCS_TASK_TICK_PERIOD 500/portTICK_RATE_MS       //=500/1ms=>period 500ms
-#define AODCS_TASK_TICK_PERIOD_LOW_BATTERY AODCS_TASK_TICK_PERIOD*3 //1.5s
+#define AODCS_TASK_TICK_PERIOD 100/portTICK_RATE_MS       //=100/1ms => period 100ms
+#define AODCS_TASK_TICK_PERIOD_LOW_BATTERY AODCS_TASK_TICK_PERIOD*3 //3s
 
-#define CAMERA_TASK_TICK_PERIOD 500/portTICK_RATE_MS       //500ms
-#define CAMERA_TASK_TICK_PERIOD_LOW_BATTERY CAMERA_TASK_TICK_PERIOD*3 //1.5s
+#define CAMERA_TASK_TICK_PERIOD 100/portTICK_RATE_MS       //100ms
+#define CAMERA_TASK_TICK_PERIOD_LOW_BATTERY CAMERA_TASK_TICK_PERIOD*3 //3s
 
-#define DATA_STORAGE_TICK_PERIOD 500/portTICK_RATE_MS       //500ms
-#define DATA_STORAGE_TICK_PERIOD_LOW_BATTERY DATA_STORAGE_TICK_PERIOD*3 //1.5s
+#define DATA_STORAGE_TICK_PERIOD 100/portTICK_RATE_MS       //100ms
+#define DATA_STORAGE_TICK_PERIOD_LOW_BATTERY DATA_STORAGE_TICK_PERIOD*3 //3s
 
-#define HOUSE_KEEPING_TICK_PERIOD 500/portTICK_RATE_MS       //500ms
-#define HOUSE_KEEPING_TICK_PERIOD_LOW_BATTERY HOUSE_KEEPING_TICK_PERIOD*3 //1.5s
+#define HOUSE_KEEPING_TICK_PERIOD 100/portTICK_RATE_MS       //100ms( pdMS_TO_TICKS( 300UL ) )//
+#define HOUSE_KEEPING_TICK_PERIOD_LOW_BATTERY HOUSE_KEEPING_TICK_PERIOD*3 //3s
 
-#define PPT_TASK_TICK_PERIOD 500/portTICK_RATE_MS       //500ms
-#define PPT_TASK_TICK_PERIOD_LOW_BATTERY PPT_TASK_TICK_PERIOD*3 //1.5s
+#define PPT_TASK_TICK_PERIOD 100/portTICK_RATE_MS       //100ms
+#define PPT_TASK_TICK_PERIOD_LOW_BATTERY PPT_TASK_TICK_PERIOD*3 //3s
 
-#define TTC_TASK_TICK_PERIOD 500/portTICK_RATE_MS       //500ms
-#define TTC_TASK_TICK_PERIOD_LOW_BATTERY TTC_TASK_TICK_PERIOD*3 //1.5s
+#define TTC_TASK_TICK_PERIOD 100/portTICK_RATE_MS       //100ms( pdMS_TO_TICKS( 300UL ) )
+#define TTC_TASK_TICK_PERIOD_LOW_BATTERY TTC_TASK_TICK_PERIOD*3 //3s
 
-#define WATCHDOG_TASK_TICK_PERIOD 570/portTICK_RATE_MS       //570ms
-#define WATCHDOG_TASK_TICK_PERIOD_LOW_BATTERY WATCHDOG_TASK_TICK_PERIOD*3 //2.1s
+#define WATCHDOG_TASK_TICK_PERIOD 100/portTICK_RATE_MS       //100ms
+#define WATCHDOG_TASK_TICK_PERIOD_LOW_BATTERY WATCHDOG_TASK_TICK_PERIOD*3 //3s
 
 #define DEBUG_SESSION 1
+
+typedef struct
+{
+
+    uint8_t varCounter;
+    uint8_t varReset;
+
+} DataFlash;
 
 typedef struct
 {
@@ -104,6 +136,7 @@ EventGroupHandle_t WATCHDOG_EVENT_GROUP;
 #define ALL_TASK_IDS  (AODCS_TASK_ID|CAMERA_TASK_ID|DATASTORAGE_TASK_ID|HOUSEKEEPING_TASK_ID|PPT_TASK_ID|TTC_TASK_ID)
 
 volatile dataPacket obcData;
+volatile DataFlash dataFlash;
 
 volatile int flag_lowBattery;
 

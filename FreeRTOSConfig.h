@@ -204,7 +204,7 @@ CLI commands. */
 		#define portGET_RUN_TIME_COUNTER_VALUE()		0
 
 		/* The blinky demo can use a slow tick rate to save power. */
-		#define configTICK_RATE_HZ						( ( TickType_t ) 1000 ) //1kHz
+		#define configTICK_RATE_HZ						( ( TickType_t ) 1000 ) //10kHz
 
 	#else
 

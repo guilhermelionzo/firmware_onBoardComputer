@@ -16,7 +16,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with FloripaSat-OBDH.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Firmware_OBC.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -130,7 +130,7 @@ void *dataStorage(void *pvParameters){
 
         //DEBUG SESSION
         #if DEBUG_SESSION
-        GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN1);
+        //GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN1);
         #endif
 
         setWatchDogBit_DATASTORAGE();

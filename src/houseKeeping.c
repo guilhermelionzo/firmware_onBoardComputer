@@ -16,7 +16,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with FloripaSat-OBDH.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Firmware_OBC.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -118,7 +118,6 @@ void *houseKeeping(void *pvParameters){
         (flag_lowBattery) ?
                 vTaskDelayUntil(&xLastWakeTimeHouseKeeping,HOUSE_KEEPING_TICK_PERIOD_LOW_BATTERY) :
                 vTaskDelayUntil(&xLastWakeTimeHouseKeeping, HOUSE_KEEPING_TICK_PERIOD);            //
-
 
     }
 

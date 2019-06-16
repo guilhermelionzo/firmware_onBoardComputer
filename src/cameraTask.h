@@ -1,5 +1,4 @@
 /*
- * cameratask.h
  *
  *  Created on: 11 de jun de 2019
  *      Author: Guilherme
