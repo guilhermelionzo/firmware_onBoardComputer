@@ -375,4 +375,3 @@ void getMotion6(int16_t* ax, int16_t* ay, int16_t* az, int16_t* gx, int16_t* gy,
 uint8_t bufferIMU[14];
 
 #endif /* MPU9250_H_ */
-

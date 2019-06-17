@@ -56,7 +56,7 @@ void setWatchDogBit_HOUSEKEEPING(void);
 void *houseKeeping(void *pvParameters){
 
     ImuData imuData;
-    MPU9250_initialize();
+    //MPU9250_initialize();
     int16_t ax,ay,az,gx,gy,gz,mx,my,mz;
 
     adcInit();
@@ -79,7 +79,7 @@ void *houseKeeping(void *pvParameters){
     while(1){
 
 
-        MPU9250_getMotion9(&ax, &ay, &az, &gx, &gy, &gz, &mx, &my, &mz);
+        //MPU9250_getMotion9(&ax, &ay, &az, &gx, &gy, &gz, &mx, &my, &mz);
 
         itoa(ax, &imuData.ax, DECIMAL);
         itoa(ay, &imuData.ay, DECIMAL);

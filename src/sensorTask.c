@@ -5,6 +5,7 @@
  *      Author: Guilherme
  */
 #include "sensorTask.h"
+#include "interface/MPU9250.h"
 
 volatile uint32_t cal30;
 volatile uint32_t cal85;
@@ -17,25 +18,34 @@ volatile float tempF;
 static uint16_t resultsBuffer[8];
 
 
-void adcInit(void);
-void getTemperature(int16_t *temperatureBuffer);
+void aadcInit(void);
+void agetTemperature(int16_t *temperatureBuffer);
 
 void *sensorTask(void *pvParameters){
 
-    adcInit();
-
+    aadcInit();
+    //Interrupt_enableMaster();
+    MPU9250_initialize();
+    //Interrupt_disableMaster();
+    //Interrupt_enableInterrupt(interruptNumber)
+    int16_t ax,ay,az,gx,gy,gz,mx,my,mz;
     /* Zero-filling buffer */
     memset(resultsBuffer, 0x00, 8 * sizeof(uint16_t));
 
     int16_t temperatureValue;
 
+    portTickType xLastWakeTimeTask = xTaskGetTickCount();
+
     while(1){
 
-        getTemperature(&temperatureValue);
+        MPU9250_getMotion9(&ax, &ay, &az, &gx, &gy, &gz, &mx, &my, &mz);
+
+        agetTemperature(&temperatureValue);
 
         ADC14_getMultiSequenceResult(resultsBuffer);
 
-        vTaskDelay(SENSOR_TASK_TICK_PERIOD);
+        vTaskDelayUntil(xLastWakeTimeTask, 10000/portTICK_RATE_MS );
+
     }
 
     /* Going to sleep */
@@ -46,7 +56,7 @@ void *sensorTask(void *pvParameters){
 
 }
 
-void getTemperature(int16_t *temperatureBuffer){
+void agetTemperature(int16_t *temperatureBuffer){
 
     int16_t adcValue;
 
@@ -75,7 +85,7 @@ void ADC14_IRQHandler(void)
 }
 
 
-void adcInit(void){
+void aadcInit(void){
 
     /* Initializing ADC (MCLK/1/1) with temperature sensor routed */
     ADC14_enableModule();
