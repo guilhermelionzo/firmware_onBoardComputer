@@ -23,14 +23,14 @@ void agetTemperature(int16_t *temperatureBuffer);
 
 void *sensorTask(void *pvParameters){
 
-    aadcInit();
+    //aadcInit();
     //Interrupt_enableMaster();
     MPU9250_initialize();
     //Interrupt_disableMaster();
     //Interrupt_enableInterrupt(interruptNumber)
     int16_t ax,ay,az,gx,gy,gz,mx,my,mz;
     /* Zero-filling buffer */
-    memset(resultsBuffer, 0x00, 8 * sizeof(uint16_t));
+    //memset(resultsBuffer, 0x00, 8 * sizeof(uint16_t));
 
     int16_t temperatureValue;
 
@@ -40,9 +40,9 @@ void *sensorTask(void *pvParameters){
 
         MPU9250_getMotion9(&ax, &ay, &az, &gx, &gy, &gz, &mx, &my, &mz);
 
-        agetTemperature(&temperatureValue);
+        //agetTemperature(&temperatureValue);
 
-        ADC14_getMultiSequenceResult(resultsBuffer);
+        //ADC14_getMultiSequenceResult(resultsBuffer);
 
         vTaskDelayUntil(xLastWakeTimeTask, 10000/portTICK_RATE_MS );
 

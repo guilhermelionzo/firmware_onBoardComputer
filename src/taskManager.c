@@ -60,15 +60,14 @@ void taskCreate(){
 
     watchDogEventGroupCreate();
 
-    xTaskCreate(aodcsTask   , "AODCS Task"   , configMINIMAL_STACK_SIZE, NULL, 1, NULL);
+    xTaskCreate(aodcsTask   , "AODCS Task"   , 1024, NULL, 1, NULL);
     xTaskCreate(cameraTask  , "CAMERA Task"  , 1024, NULL, 1, NULL);
-    xTaskCreate(houseKeeping, "House Keeping", 1024, NULL, 2, NULL);
-    xTaskCreate(dataStorage , "Data Storage" , 1024, NULL, 2, NULL);
-    xTaskCreate(pptTask     , "PPT Task"     , configMINIMAL_STACK_SIZE, NULL, 1, NULL);
-    xTaskCreate(ttcTask     , "TT&C Task"    , configMINIMAL_STACK_SIZE, NULL, 1, NULL);
-    xTaskCreate(watchDogTask, "WTD Task"     , configMINIMAL_STACK_SIZE, NULL, 5, NULL);
-
-    //xTaskCreate(sensorTask, "Sensor", configMINIMAL_STACK_SIZE, NULL, 2, NULL);
+    xTaskCreate(houseKeeping, "House Keeping", 1024, NULL, 1, NULL);
+    xTaskCreate(dataStorage , "Data Storage" , 1024, NULL, 1, NULL);
+    xTaskCreate(pptTask     , "PPT Task"     , 1024, NULL, 1, NULL);
+    xTaskCreate(ttcTask     , "TT&C Task"    , 1024, NULL, 1, NULL);
+    xTaskCreate(watchDogTask, "WTD Task"     , 1024, NULL, 5, NULL);
+    //xTaskCreate(sensorTask, "SS", 1024, NULL, 1, NULL);
 
 
 }

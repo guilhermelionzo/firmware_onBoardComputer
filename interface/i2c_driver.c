@@ -37,7 +37,7 @@
 #include "i2c_driver.h"
 #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 
-#define USE_LPM 1
+//#define USE_LPM 1
 //*****************************************************************************
 //
 // Definitions

@@ -28,18 +28,17 @@ bool writeI2C(uint16_t ui8Addr, uint16_t ui8Reg, uint16_t *Data, uint16_t ui8Byt
 void getMotion6(int16_t* ax, int16_t* ay, int16_t* az, int16_t* gx, int16_t* gy, int16_t* gz);
 void MPU9250_getMotion9(int16_t* ax, int16_t* ay, int16_t* az, int16_t* gx, int16_t* gy, int16_t* gz, int16_t* mx, int16_t* my, int16_t* mz);
 
-uint16_t MPU9250_devAddr = 0x68;
+uint16_t MPU9250_devAddr = MPU6050_ADDRESS_AD0_HIGH;
 
 /* I2C Master Configuration Parameter */
-volatile eUSCI_I2C_MasterConfig i2cConfig =
+const eUSCI_I2C_MasterConfig i2cConfig =
 {
         EUSCI_B_I2C_CLOCKSOURCE_SMCLK,          // SMCLK Clock Source
-        0,
+        48000000,                                      // SMCLK = 3MHz
         EUSCI_B_I2C_SET_DATA_RATE_100KBPS,      // Desired I2C Clock of 100khz
         0,                                      // No byte counter threshold
-        EUSCI_B_I2C_SEND_STOP_AUTOMATICALLY_ON_BYTECOUNT_THRESHOLD                // Autostop
+        EUSCI_B_I2C_NO_AUTO_STOP                // No Autostop
 };
-
 
 void MPU9250_initialize(){
 
@@ -195,7 +194,7 @@ void writeBits(uint16_t regAddr, uint16_t bitStart, uint16_t length, uint16_t da
 void initI2C(void)
 {
     /* I2C Clock Soruce Speed */
-    i2cConfig.i2cClk = MAP_CS_getSMCLK();
+    //i2cConfig.i2cClk = CS_getSMCLK();
 
     /* Select I2C function for I2C_SCL & I2C_SDA */
     GPIO_setAsPeripheralModuleFunctionOutputPin(EUSCI_I2C_PORT, EUSCI_I2C_SCL_PIN,
