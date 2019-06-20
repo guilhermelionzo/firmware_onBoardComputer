@@ -20,7 +20,7 @@
  *
  */
 
- /**
+/**
  * \file taskManager.c
  *
  * \brief taskManager file
@@ -34,63 +34,104 @@
 
 #include "taskManager.h"
 
-/***** TASKS *****/
-extern void *aodcsTask(void *pvParameters);
-extern void *cameraTask(void *pvParameters);
-extern void *dataStorage(void *pvParameters);
-extern void *houseKeeping(void *pvParameters);
-extern void *pptTask(void *pvParameters);
-extern void *ttcTask(void *pvParameters);
-extern void *watchDogTask(void *pvParameters);
-extern void *sensorTask(void *pvParameters);
+void updateBatteryLevel(void);
+void operationMode(uint8_t op_mode);
 
+float batteryValue;
 
-/***** HANDLES *****/
-QueueHandle_t xQueueIMU=NULL;
-SemaphoreHandle_t semaphoreIMU=NULL;
+void *taskManager(void *pvParameters)
+{
 
-void queueDataCrete();
-void watchDogEventGroupCreate(void);
+    portTickType xLastWakeTimeTaskManager = xTaskGetTickCount();
 
+    while (1)
+    {
 
-void taskCreate(){
+        updateBatteryLevel();
 
-    /*create queue to exchange data between the tasks*/
-    queueDataCrete();
+        xQueueReceive(xQueueIMU, &imuData, 200);
 
-    watchDogEventGroupCreate();
+        operationMode(obcData.system_status[5]);
 
-    xTaskCreate(aodcsTask   , "AODCS Task"   , 1024, NULL, 1, NULL);
-    xTaskCreate(cameraTask  , "CAMERA Task"  , 1024, NULL, 1, NULL);
-    xTaskCreate(houseKeeping, "House Keeping", 1024, NULL, 1, NULL);
-    xTaskCreate(dataStorage , "Data Storage" , 1024, NULL, 1, NULL);
-    xTaskCreate(pptTask     , "PPT Task"     , 1024, NULL, 1, NULL);
-    xTaskCreate(ttcTask     , "TT&C Task"    , 1024, NULL, 1, NULL);
-    xTaskCreate(watchDogTask, "WTD Task"     , 1024, NULL, 5, NULL);
-    //xTaskCreate(sensorTask, "SS", 1024, NULL, 1, NULL);
-
+        (flag_lowBattery) ?
+                vTaskDelayUntil(&xLastWakeTimeTaskManager,
+                                TASK_MANAGER_TICK_PERIOD_LOW_BATTERY) :
+                vTaskDelayUntil(&xLastWakeTimeTaskManager,
+                                TASK_MANAGER_TICK_PERIOD);
+    }
 
 }
 
-void watchDogEventGroupCreate(void){
+void operationMode(uint8_t op_mode)
+{
 
-    //create the event group for wtd
-    WATCHDOG_EVENT_GROUP = xEventGroupCreate();
+    switch (op_mode)
+    {
+    case NM_MODE:
+
+        PCM_setCoreVoltageLevel(PCM_VCORE1);
+        PCM_setPowerMode(PCM_LDO_MODE);
+        PCM_setPowerState(PCM_AM_LDO_VCORE1);
+
+        break;
+    case BLLM1_MODE:
+
+        PCM_setCoreVoltageLevel(PCM_VCORE1);
+        PCM_setPowerMode(PCM_DCDC_MODE);
+        PCM_setPowerState(PCM_AM_DCDC_VCORE1);
+
+        break;
+    case HM_MODE:
+
+        PCM_setCoreVoltageLevel(PCM_VCORE1);
+        //PCM_setPowerMode(PCM_DCDC_MODE);
+        PCM_setPowerState(PCM_LPM0_LF_VCORE1);
+
+        killAllTasks();
+
+        break;
+    case SM_MODE:
+        //TODO
+        break;
+    default:
+        break;
+    }
+
 }
 
-/* CREATE THE QUEUES TO SUPPORT THE DATA EXCHANGE BETWEEN THE TASKS*/
-void queueDataCrete(){
+void killAllTasks(void)
+{
 
-    //creating a Queue to handle the data between the tasks
-    xQueueIMU = xQueueCreate( 9,SIZE_OF_IMU_DATA*8);
-    //xQueueIMU = xQueueCreate( 1,sizeof(obcData));
-
-    semaphoreIMU = xSemaphoreCreateMutex();
+    //TODO:
 
 }
 
-void queueCommunicationCreate(){
+void updateBatteryLevel(void)
+{
 
+    xQueueReceive(xQueueSystem, &imuData, 200);
+
+    if (obcData.obc_sensors[5] < 4000)
+    {
+
+        //DEBUG SESSION
+#if DEBUG_SESSION
+        MAP_GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN0); // PIN RED
+#endif
+        obcData.system_status[5] = NM_MODE;
+        flag_lowBattery = BATTERY_LEVEL_1;
+
+    }
+    else if (obcData.obc_sensors[5] < 7000)
+    {
+
+        //DEBUG SESSION
+#if DEBUG_SESSION
+        MAP_GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN0); // PIN RED
+#endif
+        obcData.system_status[5] = HM_MODE;
+        flag_lowBattery = BATTERY_LEVEL_0;
+    }
 
 }
 

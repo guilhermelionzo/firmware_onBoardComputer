@@ -32,9 +32,11 @@
 #ifndef SRC_TASKMANAGER_H_
 #define SRC_TASKMANAGER_H_
 
+//------- SYSTEM --------------//
+#include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 #include <src/systemDef.h>
 
-void taskCreate();
+void *taskManager(void *pvParameters);
 
 
 

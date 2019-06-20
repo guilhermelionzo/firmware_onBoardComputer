@@ -41,7 +41,7 @@ volatile float tempF;
 
 //internal temperature sensor P5.5 (A0)
 //low battery simulation P5.0 (A5)
-static uint16_t resultsBuffer[6];
+static float resultsBuffer[6];
 ////////////////////////////////////
 
 extern QueueHandle_t xQueueIMU;
@@ -61,7 +61,7 @@ void *houseKeeping(void *pvParameters){
 
     adcInit();
     memset(resultsBuffer, 0x00, 6 * sizeof(uint16_t));
-    int16_t temperatureValue;
+    float temperatureValue;
 
     memset(imuData.ax, 0x00, sizeof(char)*7);
     memset(imuData.ay, 0x00, sizeof(char)*7);
@@ -101,6 +101,8 @@ void *houseKeeping(void *pvParameters){
         obcData.obc_sensors[2] = resultsBuffer[2];
         obcData.obc_sensors[3] = resultsBuffer[3];
         obcData.obc_sensors[4] = resultsBuffer[4];
+        obcData.obc_sensors[5] = resultsBuffer[5];
+
         /**/
 
         isLowBattery();
@@ -108,6 +110,7 @@ void *houseKeeping(void *pvParameters){
         if(xSemaphoreTake(semaphoreIMU,200)){
 
             while(!xQueueSend( xQueueIMU, &imuData, 100)) ;
+            while(!xQueueSend( xQueueSystem, &obcData.obc_sensors, 100)) ;
 
             xSemaphoreGive(semaphoreIMU);
         }

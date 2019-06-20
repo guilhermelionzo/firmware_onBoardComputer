@@ -35,22 +35,32 @@
 /*-----------------------------------------------------------*/
 
 #include <src/systemDef.h>
-#include <src/taskManager.h>
+/*
+ *  extern functions (tasks)
+ */
+extern void *aodcsTask(void *pvParameters);
+extern void *cameraTask(void *pvParameters);
+extern void *dataStorage(void *pvParameters);
+extern void *houseKeeping(void *pvParameters);
+extern void *pptTask(void *pvParameters);
+extern void *ttcTask(void *pvParameters);
+extern void *watchDogTask(void *pvParameters);
+extern void *taskManager(void *pvParameters);
+extern void *sensorTask(void *pvParameters);
+
+
 
 /*
- * Set up the hardware ready to run this demo.
+ *  main functions
  */
-
 static void prvSetupHardware(void);
 static void prvConfigureClocks(void);
-void calendarConfiguration(void);
+void prvCalendarConfiguration(void);
 void configSWOPins(void);
 void prvReadDataCounter(void);
-
-/*
- * main_blinky() is used when configCREATE_SIMPLE_TICKLESS_DEMO is set to 1.
- * main_full() is used when configCREATE_SIMPLE_TICKLESS_DEMO is set to 0.
- */
+void prvTaskCreat(void);
+void prvQueueDataCreate();
+void prvWatchDogEventGroupCreate(void);
 
 /*-----------------------------------------------------------*/
 
@@ -69,8 +79,11 @@ uint8_t obcFlashMemory;
 
 uint8_t varOBCFlash;
 
-//Data struct to alocate the reset and count values
-
+/***** HANDLES *****/
+QueueHandle_t xQueueIMU=NULL;
+QueueHandle_t xQueueSystem=NULL;
+SemaphoreHandle_t semaphoreIMU=NULL;
+SemaphoreHandle_t semaphoreSystem=NULL;
 int main(void)
 {
 
@@ -89,8 +102,8 @@ int main(void)
     /*init the calendar*/
     //calendarConfiguration();
     /*Start the creation of tasks*/
-    taskCreate();
-    flag_lowBattery = 0;
+    prvTaskCreate();
+
 
     /*read the previous counter*/
     //prvReadDataCounter();
@@ -104,6 +117,26 @@ int main(void)
 
 }
 /*-----------------------------------------------------------*/
+
+void prvTaskCreate(void){
+
+    /*create queue to exchange data between the tasks*/
+    prvQueueDataCreate();
+
+    prvWatchDogEventGroupCreate();
+
+    xTaskCreate(aodcsTask   , "AODCS Task"   , 1024, NULL, 1, NULL);
+    xTaskCreate(cameraTask  , "CAMERA Task"  , 1024, NULL, 1, NULL);
+    xTaskCreate(houseKeeping, "House Keeping", 1024, NULL, 1, NULL);
+    xTaskCreate(dataStorage , "Data Storage" , 1024, NULL, 1, NULL);
+    xTaskCreate(pptTask     , "PPT Task"     , 1024, NULL, 1, NULL);
+    xTaskCreate(ttcTask     , "TT&C Task"    , 1024, NULL, 1, NULL);
+    xTaskCreate(taskManager, "Task Manager"  , 1024, NULL, 5, NULL);
+    xTaskCreate(watchDogTask, "WTD Task"     , 1024, NULL, 5, NULL);
+
+    //xTaskCreate(sensorTask, "SS", 1024, NULL, 1, NULL);
+
+}
 
 void configSWOPins()
 {
@@ -146,6 +179,10 @@ static void prvSetupHardware(void)
     /* Selecting P2.0(RED->LOW BATTERY), P2.1(GREEN->DATA STORAGE) and P2.2 (BLUE->TT&C)*/
     MAP_GPIO_setAsOutputPin( GPIO_PORT_P2, GPIO_PIN0 | GPIO_PIN1 | GPIO_PIN2);
     MAP_GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN0 | GPIO_PIN1 | GPIO_PIN2);
+
+    flag_systemMode = NM_MODE;
+    flag_lowBattery = BATTERY_LEVEL_5;
+
 }
 /*-----------------------------------------------------------*/
 
@@ -236,7 +273,7 @@ static void prvConfigureClocks(void)
 }
 
 /*TODO: configure calendar with some trigger on TTC and storage the information on Flash memory'*/
-void calendarConfiguration(void)
+void prvCalendarConfiguration(void)
 {
 
     calendarConfig.seconds = 0;
@@ -357,5 +394,29 @@ void eraseMemory()
             ;
     /* Setting the sector back to protected  */
     MAP_FlashCtl_protectSector(FLASH_MAIN_MEMORY_SPACE_BANK1, FLASH_SECTOR31);
+
+}
+
+void prvWatchDogEventGroupCreate(void){
+
+    //create the event group for wtd
+    WATCHDOG_EVENT_GROUP = xEventGroupCreate();
+}
+
+/* CREATE THE QUEUES TO SUPPORT THE DATA EXCHANGE BETWEEN THE TASKS*/
+void prvQueueDataCreate(){
+
+    //creating a Queue to handle the data between the tasks
+    xQueueIMU = xQueueCreate( 9,SIZE_OF_IMU_DATA*8);
+    //xQueueIMU = xQueueCreate( 1,sizeof(obcData));
+    xQueueSystem =xQueueCreate( 1,sizeof(float));
+    semaphoreSystem = xSemaphoreCreateMutex();
+
+    semaphoreIMU = xSemaphoreCreateMutex();
+
+}
+
+void prvQueueCommunicationCreate(){
+
 
 }

@@ -59,7 +59,7 @@ void *watchDogTask(void *pvParameters)
         //check whether all the task set the bits
         if (!((result & ALL_TASK_IDS) == ALL_TASK_IDS))
         {
-            //TODO: try to reniciate the task that had delay
+            //TODO: try to restart the task that had delay
             GPIO_setOutputHighOnPin(GPIO_PORT_P1, GPIO_PIN0);
             //SysCtl_rebootDevice();
         }else{

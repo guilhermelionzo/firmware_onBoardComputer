@@ -61,10 +61,29 @@
 #define TTC_TASK_TICK_PERIOD 1000/portTICK_RATE_MS       //1000ms( pdMS_TO_TICKS( 300UL ) )
 #define TTC_TASK_TICK_PERIOD_LOW_BATTERY TTC_TASK_TICK_PERIOD*3 //3s
 
+#define TASK_MANAGER_TICK_PERIOD 1000/portTICK_RATE_MS       //1000ms( pdMS_TO_TICKS( 300UL ) )
+#define TASK_MANAGER_TICK_PERIOD_LOW_BATTERY TTC_TASK_TICK_PERIOD*3 //3s
+
 #define WATCHDOG_TASK_TICK_PERIOD 1000/portTICK_RATE_MS       //1000ms
 #define WATCHDOG_TASK_TICK_PERIOD_LOW_BATTERY WATCHDOG_TASK_TICK_PERIOD*3 //3s
 
 #define DEBUG_SESSION 1
+
+/*SYSTEM STATUS FLAG*/
+#define NM_MODE     0
+#define BLLM1_MODE  1
+#define HM_MODE     2
+#define SM_MODE     3
+
+/*BATTERY LEVEL FLAG*/
+#define BATTERY_LEVEL_0     0
+#define BATTERY_LEVEL_1     1
+#define BATTERY_LEVEL_2     2
+#define BATTERY_LEVEL_3     3
+#define BATTERY_LEVEL_4     4
+#define BATTERY_LEVEL_5     5
+
+
 
 typedef struct
 {
@@ -98,9 +117,13 @@ typedef struct
 {
     uint16_t package_flags;
     //obdh
+
+ /*BIT:  0           1           2           3           4           5
+     *[not set] |[not set]  |[not set]  |[not set]  |[not set]  |[OPERATION MODE]*/
     uint8_t system_status[6];
+
     ImuData imuData;
-    uint8_t obc_sensors[5];
+    uint8_t obc_sensors[6];
     uint8_t internalTemperature;
     uint8_t systick[4];
     uint8_t solar_panels[12];
@@ -139,6 +162,7 @@ volatile dataPacket obcData;
 volatile DataFlash dataFlash;
 
 volatile int flag_lowBattery;
+volatile int flag_systemMode;
 
 #define SUCCESS 1
 #define FAILURE 0
