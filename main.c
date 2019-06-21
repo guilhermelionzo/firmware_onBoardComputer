@@ -35,18 +35,12 @@
 /*-----------------------------------------------------------*/
 
 #include <src/systemDef.h>
+#include <src/taskManager.h>
+
 /*
  *  extern functions (tasks)
  */
-extern void *aodcsTask(void *pvParameters);
-extern void *cameraTask(void *pvParameters);
-extern void *dataStorage(void *pvParameters);
-extern void *houseKeeping(void *pvParameters);
-extern void *pptTask(void *pvParameters);
-extern void *ttcTask(void *pvParameters);
-extern void *watchDogTask(void *pvParameters);
 extern void *taskManager(void *pvParameters);
-extern void *sensorTask(void *pvParameters);
 
 
 
@@ -79,11 +73,6 @@ uint8_t obcFlashMemory;
 
 uint8_t varOBCFlash;
 
-/***** HANDLES *****/
-QueueHandle_t xQueueIMU=NULL;
-QueueHandle_t xQueueSystem=NULL;
-SemaphoreHandle_t semaphoreIMU=NULL;
-SemaphoreHandle_t semaphoreSystem=NULL;
 int main(void)
 {
 
@@ -92,18 +81,16 @@ int main(void)
 
     prvConfigureClocks();
 
-    //main_blinky();
-
     //configSWOPins();
 
     //chose between TRC_START_AWAIT_HOST or TRC_START
     vTraceEnable(TRC_START);
 
     /*init the calendar*/
-    //calendarConfiguration();
-    /*Start the creation of tasks*/
-    prvTaskCreate();
+    prvCalendarConfiguration();
 
+    //create the Task Manager task
+    xTaskCreate((TaskFunction_t)taskManager, "Task Manager", 1024, NULL, 5, NULL );
 
     /*read the previous counter*/
     //prvReadDataCounter();
@@ -118,25 +105,7 @@ int main(void)
 }
 /*-----------------------------------------------------------*/
 
-void prvTaskCreate(void){
 
-    /*create queue to exchange data between the tasks*/
-    prvQueueDataCreate();
-
-    prvWatchDogEventGroupCreate();
-
-    xTaskCreate(aodcsTask   , "AODCS Task"   , 1024, NULL, 1, NULL);
-    xTaskCreate(cameraTask  , "CAMERA Task"  , 1024, NULL, 1, NULL);
-    xTaskCreate(houseKeeping, "House Keeping", 1024, NULL, 1, NULL);
-    xTaskCreate(dataStorage , "Data Storage" , 1024, NULL, 1, NULL);
-    xTaskCreate(pptTask     , "PPT Task"     , 1024, NULL, 1, NULL);
-    xTaskCreate(ttcTask     , "TT&C Task"    , 1024, NULL, 1, NULL);
-    xTaskCreate(taskManager, "Task Manager"  , 1024, NULL, 5, NULL);
-    xTaskCreate(watchDogTask, "WTD Task"     , 1024, NULL, 5, NULL);
-
-    //xTaskCreate(sensorTask, "SS", 1024, NULL, 1, NULL);
-
-}
 
 void configSWOPins()
 {
@@ -276,13 +245,13 @@ static void prvConfigureClocks(void)
 void prvCalendarConfiguration(void)
 {
 
-    calendarConfig.seconds = 0;
+    /*calendarConfig.seconds = 0;
     calendarConfig.minutes = 0;
     calendarConfig.hours = 0;
     calendarConfig.dayOfWeek = 0;
     calendarConfig.dayOfmonth = 11;
     calendarConfig.month = 6;
-    calendarConfig.year = 0;
+    calendarConfig.year = 0;*/
 
     //setup the calendar
     RTC_C_initCalendar(&calendarConfig, RTC_C_FORMAT_BINARY);
@@ -397,26 +366,3 @@ void eraseMemory()
 
 }
 
-void prvWatchDogEventGroupCreate(void){
-
-    //create the event group for wtd
-    WATCHDOG_EVENT_GROUP = xEventGroupCreate();
-}
-
-/* CREATE THE QUEUES TO SUPPORT THE DATA EXCHANGE BETWEEN THE TASKS*/
-void prvQueueDataCreate(){
-
-    //creating a Queue to handle the data between the tasks
-    xQueueIMU = xQueueCreate( 9,SIZE_OF_IMU_DATA*8);
-    //xQueueIMU = xQueueCreate( 1,sizeof(obcData));
-    xQueueSystem =xQueueCreate( 1,sizeof(float));
-    semaphoreSystem = xSemaphoreCreateMutex();
-
-    semaphoreIMU = xSemaphoreCreateMutex();
-
-}
-
-void prvQueueCommunicationCreate(){
-
-
-}

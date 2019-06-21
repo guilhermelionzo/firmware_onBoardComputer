@@ -47,9 +47,10 @@ FILINFO FI;
 
 char buffer_timer[10]="";
 char CTime;
-
+char buffer[];
 extern QueueHandle_t xQueueIMU;
 extern SemaphoreHandle_t semaphoreIMU;
+extern volatile dataPacket obcData;
 
 ImuData imuData;
 LocalTime localTime;
@@ -92,17 +93,29 @@ void *dataStorage(void *pvParameters){
 
         //TIME STAMP
         getLocalTime();
+        fResult = f_write(&file, "L_T:", sizeof("L_T:"), NULL);
         fResult=f_write(&file, localTime.hour, sizeof(localTime.hour), NULL);
         fResult=f_write(&file, ":", sizeof(":"), NULL);
         fResult=f_write(&file, localTime.minutes, sizeof(localTime.minutes), NULL);
         fResult=f_write(&file, ":", sizeof(":"), NULL);
         fResult=f_write(&file, localTime.seconds, sizeof(localTime.seconds), NULL);
         //xTaskGetTickCount();
+
         //MSP STATUS
+        fResult = f_write(&file, " |MODE:", sizeof(" |MODE:"), NULL);
+        fResult = f_write(&file, obcData.system_status, sizeof(obcData.system_status), &bw);
 
         tick=xTaskGetTickCount();
+        fResult = f_write(&file, " |TEMP:", sizeof("|TEMP:"), NULL);
+        fResult = f_write(&file,itoa(obcData.internalTemperature,&buffer,DECIMAL), 2*sizeof(char), &bw);
 
         //SUBSYSTEM STATUS
+        fResult = f_write(&file, " |ADC:", sizeof("|ADC:"), NULL);
+        fResult = f_write(&file,itoa(obcData.obc_sensors[0],&buffer,DECIMAL), 6*sizeof(char), &bw);
+        fResult = f_write(&file,itoa(obcData.obc_sensors[1],&buffer,DECIMAL), 6*sizeof(char), &bw);
+        fResult = f_write(&file,itoa(obcData.obc_sensors[2],&buffer,DECIMAL), 6*sizeof(char), &bw);
+        fResult = f_write(&file,itoa(obcData.obc_sensors[3],&buffer,DECIMAL), 6*sizeof(char), &bw);
+        fResult = f_write(&file,itoa(obcData.obc_sensors[4],&buffer,DECIMAL), 6*sizeof(char), &bw);
 
         //DATA
         if(xSemaphoreTake(semaphoreIMU,2000)){
@@ -111,13 +124,13 @@ void *dataStorage(void *pvParameters){
 
             xSemaphoreGive(semaphoreIMU);
         }
-        fResult=f_write(&file, " IMU:", sizeof(" IMU:"), NULL);
-        fResult = f_write(&file, imuData.ax, sizeof(imuData.az), &bw);
-        fResult = f_write(&file, imuData.ay, sizeof(imuData.az), &bw);
+        fResult = f_write(&file, " |IMU:", sizeof(" |IMU:"), NULL);
+        fResult = f_write(&file, imuData.ax, sizeof(imuData.ax), &bw);
+        fResult = f_write(&file, imuData.ay, sizeof(imuData.ay), &bw);
         fResult = f_write(&file, imuData.az, sizeof(imuData.az), &bw);
-        fResult = f_write(&file, imuData.gx, sizeof(imuData.az), &bw);
-        fResult = f_write(&file, imuData.gy, sizeof(imuData.az), &bw);
-        fResult = f_write(&file, imuData.gz, sizeof(imuData.az), &bw);
+        fResult = f_write(&file, imuData.gx, sizeof(imuData.gx), &bw);
+        fResult = f_write(&file, imuData.gy, sizeof(imuData.gy), &bw);
+        fResult = f_write(&file, imuData.gz, sizeof(imuData.gz), &bw);
         /* fResult = f_write(&file, imuData.mx, sizeof(imuData.az), &bw);
         fResult = f_write(&file, imuData.my, sizeof(imuData.az), &bw);
         fResult = f_write(&file, imuData.mz, sizeof(imuData.az), &bw);

@@ -77,6 +77,8 @@ main.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/timers.h
 main.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/util/stringUtil.h
 main.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/util/itoa.h
 main.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/util/dtoa.h
+main.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/src/taskManager.h
+main.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/driverlib.h
 
 ../main.c: 
 C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdio.h: 
@@ -155,3 +157,5 @@ C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/timers.h:
 C:/Users/Guilherme/workspace_v8/RTOSDemo/util/stringUtil.h: 
 C:/Users/Guilherme/workspace_v8/RTOSDemo/util/itoa.h: 
 C:/Users/Guilherme/workspace_v8/RTOSDemo/util/dtoa.h: 
+C:/Users/Guilherme/workspace_v8/RTOSDemo/src/taskManager.h: 
+C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/driverlib.h: 

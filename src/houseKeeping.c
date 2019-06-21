@@ -33,19 +33,22 @@
 #include <util/itoa.h>
 
 ////////////ADC//////////////////
-volatile uint16_t cal30;
-volatile uint16_t cal85;
-volatile float calDifference;
-volatile float tempC;
-volatile float tempF;
+volatile int16_t cal30;
+volatile int16_t cal85;
+volatile int16_t calDifference;
+volatile int16_t tempC;
+volatile int16_t tempF;
 
-//internal temperature sensor P5.5 (A0)
+//internal temperature sensor P5.5 (ADC_INPUT_A22)
 //low battery simulation P5.0 (A5)
-static float resultsBuffer[6];
+static int16_t resultsBuffer[6];
 ////////////////////////////////////
 
 extern QueueHandle_t xQueueIMU;
+extern QueueHandle_t xQueueSystem;
 extern SemaphoreHandle_t semaphoreIMU;
+
+extern volatile dataPacket obcData;
 
 void adcInit(void);
 void getTemperature(int16_t *temperatureBuffer);
@@ -60,8 +63,9 @@ void *houseKeeping(void *pvParameters){
     int16_t ax,ay,az,gx,gy,gz,mx,my,mz;
 
     adcInit();
-    memset(resultsBuffer, 0x00, 6 * sizeof(uint16_t));
-    float temperatureValue;
+    memset(resultsBuffer, 0x00, 6 * sizeof(int16_t));
+
+    int16_t temperatureValue;
 
     memset(imuData.ax, 0x00, sizeof(char)*7);
     memset(imuData.ay, 0x00, sizeof(char)*7);
@@ -77,6 +81,8 @@ void *houseKeeping(void *pvParameters){
     portTickType xLastWakeTimeHouseKeeping = xTaskGetTickCount();
 
     while(1){
+
+
 
 
         MPU9250_getMotion9(&ax, &ay, &az, &gx, &gy, &gz, &mx, &my, &mz);
@@ -97,6 +103,7 @@ void *houseKeeping(void *pvParameters){
         ADC14_getMultiSequenceResult(resultsBuffer);
 
         obcData.internalTemperature = temperatureValue;
+        obcData.obc_sensors[0] = resultsBuffer[0];
         obcData.obc_sensors[1] = resultsBuffer[1];
         obcData.obc_sensors[2] = resultsBuffer[2];
         obcData.obc_sensors[3] = resultsBuffer[3];
@@ -110,7 +117,7 @@ void *houseKeeping(void *pvParameters){
         if(xSemaphoreTake(semaphoreIMU,200)){
 
             while(!xQueueSend( xQueueIMU, &imuData, 100)) ;
-            while(!xQueueSend( xQueueSystem, &obcData.obc_sensors, 100)) ;
+            while(!xQueueSend( xQueueSystem, &resultsBuffer[5], 100)) ;
 
             xSemaphoreGive(semaphoreIMU);
         }
@@ -178,7 +185,7 @@ void adcInit(void){
     ADC14_configureMultiSequenceMode(ADC_MEM0, ADC_MEM5, true);
     ADC14_configureConversionMemory(ADC_MEM0,
             ADC_VREFPOS_INTBUF_VREFNEG_VSS,
-            ADC_INPUT_A0, false);
+            ADC_INPUT_A22, false);
     ADC14_configureConversionMemory(ADC_MEM1,
             ADC_VREFPOS_INTBUF_VREFNEG_VSS,
             ADC_INPUT_A1, false);

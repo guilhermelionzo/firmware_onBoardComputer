@@ -20,7 +20,7 @@
  *
  */
 
- /**
+/**
  * \file taskManager.h
  *
  * \brief taskManager file
@@ -38,6 +38,5 @@
 
 void *taskManager(void *pvParameters);
 
-
-
 #endif /* SRC_TASKMANAGER_H_ */
+

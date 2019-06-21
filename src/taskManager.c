@@ -35,12 +35,39 @@
 #include "taskManager.h"
 
 void updateBatteryLevel(void);
-void operationMode(uint8_t op_mode);
+void setOperationMode(uint8_t op_mode);
+void killAllTasks(void);
+void prvTaskCreate(void);
+void prvWatchDogEventGroupCreate(void);
+void prvQueueDataCreate(void);
+void prvQueueCommunicationCreate(void);
 
-float batteryValue;
+extern void *aodcsTask(void *pvParameters);
+extern void *cameraTask(void *pvParameters);
+extern void *dataStorage(void *pvParameters);
+extern void *houseKeeping(void *pvParameters);
+extern void *pptTask(void *pvParameters);
+extern void *ttcTask(void *pvParameters);
+extern void *watchDogTask(void *pvParameters);
+extern void *sensorTask(void *pvParameters);
+
+
+/***** HANDLES *****/
+QueueHandle_t xQueueIMU=NULL;
+QueueHandle_t xQueueDataObc=NULL;
+QueueHandle_t xQueueSystem=NULL;
+SemaphoreHandle_t semaphoreIMU=NULL;
+SemaphoreHandle_t semaphoreSystem=NULL;
+
+uint16_t batteryValue=0;
 
 void *taskManager(void *pvParameters)
 {
+    memset(obcData, 0x00, sizeof(obcData));
+
+    memcpy(obcData.system_status, "NM", sizeof("NM"));
+
+    prvTaskCreate();
 
     portTickType xLastWakeTimeTaskManager = xTaskGetTickCount();
 
@@ -49,9 +76,9 @@ void *taskManager(void *pvParameters)
 
         updateBatteryLevel();
 
-        xQueueReceive(xQueueIMU, &imuData, 200);
+        //xQueueReceive(xQueueSystem, &batteryValue, 2000);
 
-        operationMode(obcData.system_status[5]);
+        //setOperationMode(batteryValue);
 
         (flag_lowBattery) ?
                 vTaskDelayUntil(&xLastWakeTimeTaskManager,
@@ -62,7 +89,26 @@ void *taskManager(void *pvParameters)
 
 }
 
-void operationMode(uint8_t op_mode)
+void prvTaskCreate(void){
+
+    /*create queue to exchange data between the tasks*/
+    prvQueueDataCreate();
+
+    prvWatchDogEventGroupCreate();
+
+    xTaskCreate((TaskFunction_t)aodcsTask   , "AODCS Task"   , 1024, NULL, 1, NULL);
+    xTaskCreate((TaskFunction_t)cameraTask  , "CAMERA Task"  , 1024, NULL, 1, NULL);
+    xTaskCreate((TaskFunction_t)houseKeeping, "House Keeping", 2*1024, NULL, 2, NULL);
+    xTaskCreate((TaskFunction_t)dataStorage , "Data Storage" , 1024, NULL, 1, NULL);
+    xTaskCreate((TaskFunction_t)pptTask     , "PPT Task"     , 1024, NULL, 1, NULL);
+    xTaskCreate((TaskFunction_t)ttcTask     , "TT&C Task"    , 1024, NULL, 1, NULL);
+    xTaskCreate((TaskFunction_t)watchDogTask, "WTD Task"     , 1024, NULL, 5, NULL);
+
+    //xTaskCreate(sensorTask, "SS", 1024, NULL, 1, NULL);
+
+}
+
+void setOperationMode(uint8_t op_mode)
 {
 
     switch (op_mode)
@@ -109,30 +155,68 @@ void killAllTasks(void)
 void updateBatteryLevel(void)
 {
 
-    xQueueReceive(xQueueSystem, &imuData, 200);
+    xQueueReceive(xQueueSystem, &batteryValue, 3000);
 
-    if (obcData.obc_sensors[5] < 4000)
-    {
-
-        //DEBUG SESSION
-#if DEBUG_SESSION
-        MAP_GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN0); // PIN RED
-#endif
-        obcData.system_status[5] = NM_MODE;
-        flag_lowBattery = BATTERY_LEVEL_1;
-
-    }
-    else if (obcData.obc_sensors[5] < 7000)
+    //BATERY LEVEL 1
+    if (batteryValue >= 5000 && batteryValue < 12500)
     {
 
         //DEBUG SESSION
 #if DEBUG_SESSION
         MAP_GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN0); // PIN RED
 #endif
-        obcData.system_status[5] = HM_MODE;
+
+        memcpy(obcData.system_status, "BLLM1", sizeof("BLLM1"));
+        flag_lowBattery = BATTERY_LEVEL_1;
+
+    }
+    //HIBERNATE MODE
+    else if (batteryValue < 5000){
+
+        //DEBUG SESSION
+#if DEBUG_SESSION
+        MAP_GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN0); // PIN RED
+#endif
+        memcpy(obcData.system_status, "HM_MODE", sizeof("HM_MODE"));
         flag_lowBattery = BATTERY_LEVEL_0;
     }
+    //NORMAL MODE
+    else{
+
+        //DEBUG SESSION
+#if DEBUG_SESSION
+        MAP_GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN0); // PIN RED
+#endif
+        memcpy(obcData.system_status, "NM_MODE", sizeof("NM_MODE"));
+        flag_lowBattery = BATTERY_LEVEL_5;
+
+    }
+}
+
+void prvWatchDogEventGroupCreate(void){
+
+    //create the event group for wtd
+    WATCHDOG_EVENT_GROUP = xEventGroupCreate();
+}
+
+/* CREATE THE QUEUES TO SUPPORT THE DATA EXCHANGE BETWEEN THE TASKS*/
+void prvQueueDataCreate(void){
+
+    //creating a Queue to handle the data between the tasks
+    xQueueIMU = xQueueCreate( 9,SIZE_OF_IMU_DATA*8);
+    //xQueueDataObc=xQueueCreate( 1,sizeof(obcData));
+    //xQueueIMU = xQueueCreate( 1,sizeof(obcData));
+    xQueueSystem =xQueueCreate( 1,sizeof(int16_t));
+    semaphoreSystem = xSemaphoreCreateMutex();
+
+    semaphoreIMU = xSemaphoreCreateMutex();
 
 }
+
+void prvQueueCommunicationCreate(void){
+
+
+}
+
 
 #endif /* SRC_TASKMANAGER_C_ */

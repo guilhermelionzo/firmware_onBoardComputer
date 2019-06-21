@@ -43,28 +43,28 @@
 #define SIZE_OF_IMU_DATA 7
 #define LOW_BATTERY_STATUS 1
 
-#define AODCS_TASK_TICK_PERIOD 1000/portTICK_RATE_MS       //=1000/1ms => period 1000ms
+#define AODCS_TASK_TICK_PERIOD 1000/portTICK_RATE_MS/3       //=1000/1ms => period 1000ms
 #define AODCS_TASK_TICK_PERIOD_LOW_BATTERY AODCS_TASK_TICK_PERIOD*3 //3s
 
-#define CAMERA_TASK_TICK_PERIOD 1000/portTICK_RATE_MS       //1000ms
+#define CAMERA_TASK_TICK_PERIOD 1000/portTICK_RATE_MS/3       //1000ms
 #define CAMERA_TASK_TICK_PERIOD_LOW_BATTERY CAMERA_TASK_TICK_PERIOD*3 //3s
 
-#define DATA_STORAGE_TICK_PERIOD 1000/portTICK_RATE_MS       //1000ms
+#define DATA_STORAGE_TICK_PERIOD 1000/portTICK_RATE_MS/3       //1000ms
 #define DATA_STORAGE_TICK_PERIOD_LOW_BATTERY DATA_STORAGE_TICK_PERIOD*3 //3s
 
-#define HOUSE_KEEPING_TICK_PERIOD 1000/portTICK_RATE_MS       //1000ms( pdMS_TO_TICKS( 300UL ) )//
+#define HOUSE_KEEPING_TICK_PERIOD 1000/portTICK_RATE_MS/3       //1000ms( pdMS_TO_TICKS( 300UL ) )//
 #define HOUSE_KEEPING_TICK_PERIOD_LOW_BATTERY HOUSE_KEEPING_TICK_PERIOD*3 //3s
 
-#define PPT_TASK_TICK_PERIOD 1000/portTICK_RATE_MS       //1000ms
+#define PPT_TASK_TICK_PERIOD 1000/portTICK_RATE_MS/3       //1000ms
 #define PPT_TASK_TICK_PERIOD_LOW_BATTERY PPT_TASK_TICK_PERIOD*3 //3s
 
-#define TTC_TASK_TICK_PERIOD 1000/portTICK_RATE_MS       //1000ms( pdMS_TO_TICKS( 300UL ) )
+#define TTC_TASK_TICK_PERIOD 1000/portTICK_RATE_MS/3       //1000ms( pdMS_TO_TICKS( 300UL ) )
 #define TTC_TASK_TICK_PERIOD_LOW_BATTERY TTC_TASK_TICK_PERIOD*3 //3s
 
-#define TASK_MANAGER_TICK_PERIOD 1000/portTICK_RATE_MS       //1000ms( pdMS_TO_TICKS( 300UL ) )
+#define TASK_MANAGER_TICK_PERIOD 1000/portTICK_RATE_MS/3       //1000ms( pdMS_TO_TICKS( 300UL ) )
 #define TASK_MANAGER_TICK_PERIOD_LOW_BATTERY TTC_TASK_TICK_PERIOD*3 //3s
 
-#define WATCHDOG_TASK_TICK_PERIOD 1000/portTICK_RATE_MS       //1000ms
+#define WATCHDOG_TASK_TICK_PERIOD 1000/portTICK_RATE_MS/3       //1000ms
 #define WATCHDOG_TASK_TICK_PERIOD_LOW_BATTERY WATCHDOG_TASK_TICK_PERIOD*3 //3s
 
 #define DEBUG_SESSION 1
@@ -123,15 +123,15 @@ typedef struct
     uint8_t system_status[6];
 
     ImuData imuData;
-    uint8_t obc_sensors[6];
-    uint8_t internalTemperature;
+    int16_t obc_sensors[6];
+    int16_t internalTemperature;
     uint8_t systick[4];
-    uint8_t solar_panels[12];
-    uint8_t transceiver[85];
+    //uint8_t solar_panels[12];
+    //uint8_t transceiver[85];
     //eps
     uint8_t adc_solar_panels[18];
     uint8_t msp432_adc[8];
-    uint8_t battery_monitor[21];
+    //uint8_t battery_monitor[21];
     uint8_t ads1248[21];
     uint8_t task_scheduler[1];
     //payloads
