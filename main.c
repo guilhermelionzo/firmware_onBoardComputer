@@ -111,7 +111,7 @@ void configSWOPins()
 {
 
     /*SELECT P1.2 AND P1.3 IN UART MODE*/
-    GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P1,
+    MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P1,
     GPIO_PIN2 | GPIO_PIN3,GPIO_PRIMARY_MODULE_FUNCTION);
 }
 
@@ -131,13 +131,13 @@ static void prvSetupHardware(void)
     MAP_WDT_A_initIntervalTimer(WDT_A_CLOCKSOURCE_SMCLK,
     WDT_A_CLOCKITERATIONS_8192K);
 
-    WDT_A_setTimeoutReset(WDT_A_SOFT_RESET);
+    MAP_WDT_A_setTimeoutReset(WDT_A_SOFT_RESET);
 
     /* Ensure the FPU is enabled. */
-    FPU_enableModule();
+    MAP_FPU_enableModule();
 
     //selecting P1.0(RED->WDT reset)
-    GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN0);
+    MAP_GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN0);
 
     /* Configuring P1.4(receiving a TT&C comand) as an input and enabling interrupts */
     MAP_GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P1, GPIO_PIN4);
@@ -185,6 +185,13 @@ void vApplicationIdleHook(void)
      important that vApplicationIdleHook() is permitted to return to its calling
      function, because it is the responsibility of the idle task to clean up
      memory allocated by the kernel to any task that has since been deleted. */
+
+    /* Enabling Interrupts */
+    Interrupt_enableInterrupt(INT_ADC14);
+    Interrupt_enableMaster();
+
+
+        PCM_gotoLPM0();
 }
 /*-----------------------------------------------------------*/
 
@@ -207,7 +214,7 @@ void *malloc(size_t xSize)
 {
     /* There should not be a heap defined, so trap any attempts to call
      malloc. */
-    Interrupt_disableMaster();
+    MAP_Interrupt_disableMaster();
     for (;;)
         ;
 }
@@ -223,19 +230,19 @@ static void prvConfigureClocks(void)
      peripherals is 12 MHz. */
 
     /* Set the core voltage level to VCORE1 */
-    PCM_setCoreVoltageLevel(PCM_VCORE1);
+    MAP_PCM_setCoreVoltageLevel(PCM_VCORE1);
     MAP_Interrupt_disableMaster();
 
     /* Set 2 flash wait states for Flash bank 0 and 1*/
-    FlashCtl_setWaitState( FLASH_BANK0, 2);
-    FlashCtl_setWaitState( FLASH_BANK1, 2);
+    MAP_FlashCtl_setWaitState( FLASH_BANK0, 2);
+    MAP_FlashCtl_setWaitState( FLASH_BANK1, 2);
 
     /* Initializes Clock System */
-    CS_setDCOCenteredFrequency( CS_DCO_FREQUENCY_48);                    //48MHZ
-    CS_initClockSignal( CS_HSMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1);
-    CS_initClockSignal( CS_SMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1);
-    CS_initClockSignal( CS_MCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1);
-    CS_initClockSignal( CS_ACLK, CS_REFOCLK_SELECT, CS_CLOCK_DIVIDER_1);
+    MAP_CS_setDCOCenteredFrequency( CS_DCO_FREQUENCY_48);                    //48MHZ
+    //CS_initClockSignal( CS_HSMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1);
+    //CS_initClockSignal( CS_SMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1);
+    MAP_CS_initClockSignal( CS_MCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1);
+    //CS_initClockSignal( CS_ACLK, CS_REFOCLK_SELECT, CS_CLOCK_DIVIDER_1);
 
     /* The lower frequency allows the use of CVORE level 0. */
     //PCM_setCoreVoltageLevel( PCM_VCORE0 );
@@ -254,9 +261,9 @@ void prvCalendarConfiguration(void)
     calendarConfig.year = 0;*/
 
     //setup the calendar
-    RTC_C_initCalendar(&calendarConfig, RTC_C_FORMAT_BINARY);
+    MAP_RTC_C_initCalendar(&calendarConfig, RTC_C_FORMAT_BINARY);
 
-    RTC_C_startClock();
+    MAP_RTC_C_startClock();
 }
 
 /*this function will read the data from msp432 flash memory (BANK1 SECTOR31)*/

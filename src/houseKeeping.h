@@ -43,8 +43,6 @@
 
 //------- SENSOR --------------//
 #include <interface/MPU9250.h>
-#include "src/sensorTask.h"
-
 
 
 #endif /* SRC_HOUSEKEEPING_H_ */

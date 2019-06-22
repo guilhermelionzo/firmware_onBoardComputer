@@ -106,11 +106,11 @@ void *dataStorage(void *pvParameters){
         fResult = f_write(&file, obcData.system_status, sizeof(obcData.system_status), &bw);
 
         tick=xTaskGetTickCount();
-        fResult = f_write(&file, " |TEMP:", sizeof("|TEMP:"), NULL);
+        fResult = f_write(&file, " |TEMP: ", sizeof("|TEMP: "), NULL);
         fResult = f_write(&file,itoa(obcData.internalTemperature,&buffer,DECIMAL), 2*sizeof(char), &bw);
 
         //SUBSYSTEM STATUS
-        fResult = f_write(&file, " |ADC:", sizeof("|ADC:"), NULL);
+        fResult = f_write(&file, " |ADC: ", sizeof("|ADC: "), NULL);
         fResult = f_write(&file,itoa(obcData.obc_sensors[0],&buffer,DECIMAL), 6*sizeof(char), &bw);
         fResult = f_write(&file,itoa(obcData.obc_sensors[1],&buffer,DECIMAL), 6*sizeof(char), &bw);
         fResult = f_write(&file,itoa(obcData.obc_sensors[2],&buffer,DECIMAL), 6*sizeof(char), &bw);

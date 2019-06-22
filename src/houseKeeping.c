@@ -20,7 +20,7 @@
  *
  */
 
- /**
+/**
  * \file houseKeeping.c
  *
  * \brief houseKeeping file
@@ -41,7 +41,7 @@ volatile int16_t tempF;
 
 //internal temperature sensor P5.5 (ADC_INPUT_A22)
 //low battery simulation P5.0 (A5)
-static int16_t resultsBuffer[6];
+
 ////////////////////////////////////
 
 extern QueueHandle_t xQueueIMU;
@@ -49,30 +49,33 @@ extern QueueHandle_t xQueueSystem;
 extern SemaphoreHandle_t semaphoreIMU;
 
 extern volatile dataPacket obcData;
+volatile int16_t resultsBuffer[6];
 
 void adcInit(void);
 void getTemperature(int16_t *temperatureBuffer);
 void isLowBattery(void);
+void gettADCResult(void);
 
 void setWatchDogBit_HOUSEKEEPING(void);
 
-void *houseKeeping(void *pvParameters){
+void *houseKeeping(void *pvParameters)
+{
 
     ImuData imuData;
     MPU9250_initialize();
-    int16_t ax,ay,az,gx,gy,gz,mx,my,mz;
+    int16_t ax, ay, az, gx, gy, gz, mx, my, mz;
 
     adcInit();
     memset(resultsBuffer, 0x00, 6 * sizeof(int16_t));
 
     int16_t temperatureValue;
 
-    memset(imuData.ax, 0x00, sizeof(char)*7);
-    memset(imuData.ay, 0x00, sizeof(char)*7);
-    memset(imuData.az, 0x00, sizeof(char)*7);
-    memset(imuData.gx, 0x00, sizeof(char)*7);
-    memset(imuData.gy, 0x00, sizeof(char)*7);
-    memset(imuData.gz, 0x00, sizeof(char)*7);
+    memset(imuData.ax, 0x00, sizeof(char) * 7);
+    memset(imuData.ay, 0x00, sizeof(char) * 7);
+    memset(imuData.az, 0x00, sizeof(char) * 7);
+    memset(imuData.gx, 0x00, sizeof(char) * 7);
+    memset(imuData.gy, 0x00, sizeof(char) * 7);
+    memset(imuData.gz, 0x00, sizeof(char) * 7);
 
     /* The xLastWakeTime variable needs to be initialized with the current tick
      count. Note that this is the only time the variable is written to explicitly.
@@ -80,10 +83,8 @@ void *houseKeeping(void *pvParameters){
      vTaskDelayUntil(). */
     portTickType xLastWakeTimeHouseKeeping = xTaskGetTickCount();
 
-    while(1){
-
-
-
+    while (1)
+    {
 
         MPU9250_getMotion9(&ax, &ay, &az, &gx, &gy, &gz, &mx, &my, &mz);
 
@@ -94,14 +95,13 @@ void *houseKeeping(void *pvParameters){
         itoa(gy, &imuData.gy, DECIMAL);
         itoa(gz, &imuData.gz, DECIMAL);
         /*itoa(mx, &imuData.mx, DECIMAL);
-        itoa(my, &imuData.my, DECIMAL);
-        itoa(mz, &imuData.mz, DECIMAL);*/
+         itoa(my, &imuData.my, DECIMAL);
+         itoa(mz, &imuData.mz, DECIMAL);*/
 
-        obcData.imuData =imuData;
+        obcData.imuData = imuData;
 
         getTemperature(&temperatureValue);
         ADC14_getMultiSequenceResult(resultsBuffer);
-
         obcData.internalTemperature = temperatureValue;
         obcData.obc_sensors[0] = resultsBuffer[0];
         obcData.obc_sensors[1] = resultsBuffer[1];
@@ -112,118 +112,127 @@ void *houseKeeping(void *pvParameters){
 
         /**/
 
-        isLowBattery();
+        //isLowBattery();
+        //while (!xQueueSend(xQueueSystem, &resultsBuffer[5], 3000));
+        if (xSemaphoreTake(semaphoreIMU, 200))
+        {
 
-        if(xSemaphoreTake(semaphoreIMU,200)){
-
-            while(!xQueueSend( xQueueIMU, &imuData, 100)) ;
-            while(!xQueueSend( xQueueSystem, &resultsBuffer[5], 100)) ;
+            while (!xQueueSend(xQueueIMU, &imuData, 100))
+                ;
 
             xSemaphoreGive(semaphoreIMU);
         }
 
         setWatchDogBit_HOUSEKEEPING();
 
-
-        (flag_lowBattery) ?
-                vTaskDelayUntil(&xLastWakeTimeHouseKeeping,HOUSE_KEEPING_TICK_PERIOD_LOW_BATTERY) :
-                vTaskDelayUntil(&xLastWakeTimeHouseKeeping, HOUSE_KEEPING_TICK_PERIOD);            //
+        (flag_lowBattery) ? vTaskDelayUntil(&xLastWakeTimeHouseKeeping,
+        HOUSE_KEEPING_TICK_PERIOD_LOW_BATTERY) :
+                            vTaskDelayUntil(&xLastWakeTimeHouseKeeping,
+                            HOUSE_KEEPING_TICK_PERIOD);            //
 
     }
 
     //vTaskDelete( NULL );
 
 }
+/*
+void isLowBattery(void)
+{
 
-void isLowBattery(void){
-
-    if(resultsBuffer[5]<4000){
+    if (resultsBuffer[5] < 4000)
+    {
 
         //DEBUG SESSION
-        #if DEBUG_SESSION
+#if DEBUG_SESSION
         MAP_GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN0); // PIN RED
-        #endif
-        flag_lowBattery=0;
+#endif
+        flag_lowBattery = 0;
     }
-    else{
+    else
+    {
 
         //DEBUG SESSION
-        #if DEBUG_SESSION
+#if DEBUG_SESSION
         MAP_GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN0); // PIN RED
-        #endif
-        flag_lowBattery=1;
+#endif
+        flag_lowBattery = 1;
     }
 
-
-    (flag_lowBattery) ? PCM_setPowerState(PCM_LPM0_LF_VCORE1): PCM_setPowerState(PCM_AM_LDO_VCORE1);
+    (flag_lowBattery) ?
+            MAP_PCM_setPowerState(PCM_LPM0_LF_VCORE1) :
+            MAP_PCM_setPowerState(PCM_AM_LDO_VCORE1);
 
 }
-
-void getTemperature(int16_t *temperatureBuffer){
+*/
+void getTemperature(int16_t *temperatureBuffer)
+{
 
     int16_t adcValue;
 
-    adcValue = ((ADC14_getResult(ADC_MEM0) - cal30) * 55);
+    adcValue = ((MAP_ADC14_getResult(ADC_MEM0) - cal30) * 55);
 
     *temperatureBuffer = (adcValue / calDifference) + 30.0f;
 
 }
 
-void adcInit(void){
+void adcInit(void)
+{
 
     /* Initializing ADC (MCLK/1/1) with temperature sensor routed */
-    ADC14_enableModule();
-    ADC14_initModule(ADC_CLOCKSOURCE_MCLK, ADC_PREDIVIDER_1, ADC_DIVIDER_1,
-                     ADC_TEMPSENSEMAP);
+    MAP_ADC14_enableModule();
+    MAP_ADC14_initModule(ADC_CLOCKSOURCE_MCLK, ADC_PREDIVIDER_1, ADC_DIVIDER_1,
+    ADC_TEMPSENSEMAP);
 
     /* Configuring GPIOs for Analog In */
-    GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P5,
-            GPIO_PIN3 | GPIO_PIN2 | GPIO_PIN1| GPIO_PIN0, GPIO_TERTIARY_MODULE_FUNCTION);
+    MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P5,
+    GPIO_PIN3 | GPIO_PIN2 | GPIO_PIN1 | GPIO_PIN0,
+                                               GPIO_TERTIARY_MODULE_FUNCTION);
 
     /* Configuring ADC Memory (ADC_MEM0 - ADC_MEM7 (A0 - A5)  with repeat)
      * with internal 2.5v reference */
-    ADC14_configureMultiSequenceMode(ADC_MEM0, ADC_MEM5, true);
-    ADC14_configureConversionMemory(ADC_MEM0,
-            ADC_VREFPOS_INTBUF_VREFNEG_VSS,
-            ADC_INPUT_A22, false);
-    ADC14_configureConversionMemory(ADC_MEM1,
-            ADC_VREFPOS_INTBUF_VREFNEG_VSS,
-            ADC_INPUT_A1, false);
-    ADC14_configureConversionMemory(ADC_MEM2,
-            ADC_VREFPOS_INTBUF_VREFNEG_VSS,
-            ADC_INPUT_A2, false);
-    ADC14_configureConversionMemory(ADC_MEM3,
-            ADC_VREFPOS_INTBUF_VREFNEG_VSS,
-            ADC_INPUT_A3, false);
-    ADC14_configureConversionMemory(ADC_MEM4,
-            ADC_VREFPOS_INTBUF_VREFNEG_VSS,
-            ADC_INPUT_A4, false);
-    ADC14_configureConversionMemory(ADC_MEM5,
-            ADC_VREFPOS_INTBUF_VREFNEG_VSS,
-            ADC_INPUT_A5, false);
+    MAP_ADC14_configureMultiSequenceMode(ADC_MEM0, ADC_MEM5, true);
+    MAP_ADC14_configureConversionMemory(ADC_MEM0,
+    ADC_VREFPOS_INTBUF_VREFNEG_VSS,
+                                    ADC_INPUT_A22, false);
+    MAP_ADC14_configureConversionMemory(ADC_MEM1,
+    ADC_VREFPOS_INTBUF_VREFNEG_VSS,
+                                    ADC_INPUT_A1, false);
+    MAP_ADC14_configureConversionMemory(ADC_MEM2,
+    ADC_VREFPOS_INTBUF_VREFNEG_VSS,
+                                    ADC_INPUT_A2, false);
+    MAP_ADC14_configureConversionMemory(ADC_MEM3,
+    ADC_VREFPOS_INTBUF_VREFNEG_VSS,
+                                    ADC_INPUT_A3, false);
+    MAP_ADC14_configureConversionMemory(ADC_MEM4,
+    ADC_VREFPOS_INTBUF_VREFNEG_VSS,
+                                    ADC_INPUT_A4, false);
+    MAP_ADC14_configureConversionMemory(ADC_MEM5,
+    ADC_VREFPOS_INTBUF_VREFNEG_VSS,
+                                    ADC_INPUT_A5, false);
 
     /* Configuring the sample/hold time for 192 */
-    ADC14_setSampleHoldTime(ADC_PULSE_WIDTH_192,ADC_PULSE_WIDTH_192);
+    MAP_ADC14_setSampleHoldTime(ADC_PULSE_WIDTH_192, ADC_PULSE_WIDTH_192);
 
-    ADC14_enableSampleTimer(ADC_AUTOMATIC_ITERATION);
+    MAP_ADC14_enableSampleTimer(ADC_AUTOMATIC_ITERATION);
 
-    REF_A_enableTempSensor();
-    REF_A_setReferenceVoltage(REF_A_VREF2_5V);
-    REF_A_enableReferenceVoltage();
+    MAP_REF_A_enableTempSensor();
+    MAP_REF_A_setReferenceVoltage(REF_A_VREF2_5V);
+    MAP_REF_A_enableReferenceVoltage();
 
     //data to calibrate the temperature sensor
-    cal30 = SysCtl_getTempCalibrationConstant(SYSCTL_2_5V_REF,
-            SYSCTL_30_DEGREES_C);
-    cal85 = SysCtl_getTempCalibrationConstant(SYSCTL_2_5V_REF,
-            SYSCTL_85_DEGREES_C);
+    cal30 = MAP_SysCtl_getTempCalibrationConstant(SYSCTL_2_5V_REF,
+    SYSCTL_30_DEGREES_C);
+    cal85 = MAP_SysCtl_getTempCalibrationConstant(SYSCTL_2_5V_REF,
+    SYSCTL_85_DEGREES_C);
     calDifference = cal85 - cal30;
 
     /* Triggering the start of the sample */
-    ADC14_enableConversion();
-    ADC14_toggleConversionTrigger();
+    MAP_ADC14_enableConversion();
+    MAP_ADC14_toggleConversionTrigger();
 }
 
-void setWatchDogBit_HOUSEKEEPING(void){
+void setWatchDogBit_HOUSEKEEPING(void)
+{
 
     xEventGroupSetBits(WATCHDOG_EVENT_GROUP, HOUSEKEEPING_TASK_ID);
 
