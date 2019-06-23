@@ -89,6 +89,7 @@ int main(void)
     /*init the calendar*/
     prvCalendarConfiguration();
 
+
     //create the Task Manager task
     xTaskCreate((TaskFunction_t)taskManager, "Task Manager", 1024, NULL, 5, NULL );
 
@@ -151,7 +152,7 @@ static void prvSetupHardware(void)
 
     flag_systemMode = NM_MODE;
     flag_lowBattery = BATTERY_LEVEL_5;
-
+    configWakeUpPin();
 }
 /*-----------------------------------------------------------*/
 
@@ -187,11 +188,10 @@ void vApplicationIdleHook(void)
      memory allocated by the kernel to any task that has since been deleted. */
 
     /* Enabling Interrupts */
-    Interrupt_enableInterrupt(INT_ADC14);
-    Interrupt_enableMaster();
+    //Interrupt_enableInterrupt(INT_ADC14);
+    //Interrupt_enableMaster();
 
-
-        PCM_gotoLPM0();
+    PCM_gotoLPM0();
 }
 /*-----------------------------------------------------------*/
 
@@ -239,10 +239,10 @@ static void prvConfigureClocks(void)
 
     /* Initializes Clock System */
     MAP_CS_setDCOCenteredFrequency( CS_DCO_FREQUENCY_48);                    //48MHZ
-    //CS_initClockSignal( CS_HSMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1);
-    //CS_initClockSignal( CS_SMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1);
+    CS_initClockSignal( CS_HSMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1);
+    CS_initClockSignal( CS_SMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1);
     MAP_CS_initClockSignal( CS_MCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1);
-    //CS_initClockSignal( CS_ACLK, CS_REFOCLK_SELECT, CS_CLOCK_DIVIDER_1);
+    CS_initClockSignal( CS_ACLK, CS_REFOCLK_SELECT, CS_CLOCK_DIVIDER_1);
 
     /* The lower frequency allows the use of CVORE level 0. */
     //PCM_setCoreVoltageLevel( PCM_VCORE0 );
@@ -372,4 +372,50 @@ void eraseMemory()
     MAP_FlashCtl_protectSector(FLASH_MAIN_MEMORY_SPACE_BANK1, FLASH_SECTOR31);
 
 }
+void configWakeUpPin(){
+    MAP_GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P1, GPIO_PIN1);
+    MAP_GPIO_clearInterruptFlag(GPIO_PORT_P1, GPIO_PIN1);
+    MAP_GPIO_enableInterrupt(GPIO_PORT_P1, GPIO_PIN1);
+    MAP_Interrupt_disableSleepOnIsrExit();
+}
 
+void vPreSleepProcessing( uint32_t ulExpectedIdleTime )
+{//CPU_wfi();
+
+    //disable leds
+    if(flag_systemMode==HM_MODE||flag_systemMode==BATTERY_LEVEL_1){
+        MAP_GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN0 | GPIO_PIN1 | GPIO_PIN2);
+        MAP_GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN0 );
+
+    }
+
+    MAP_PCM_setCoreVoltageLevel(PCM_VCORE1);
+    MAP_PCM_setPowerMode(PCM_DCDC_MODE);
+    MAP_PCM_setPowerState(PCM_AM_DCDC_VCORE1);
+    FPU_enableLazyStacking();
+
+}
+void vPostSleepProcessing( uint32_t ulExpectedIdleTime ){
+
+    MAP_PCM_setCoreVoltageLevel(PCM_VCORE1);
+    MAP_PCM_setPowerMode(PCM_LDO_MODE);
+    MAP_PCM_setPowerState(PCM_AM_LDO_VCORE1);
+    CS_setDCOCenteredFrequency(CS_DCO_FREQUENCY_48);
+    FPU_enableStacking();
+
+}
+void PORT1_IRQHandler(void)
+{
+    uint32_t status = MAP_GPIO_getEnabledInterruptStatus(GPIO_PORT_P1);
+    MAP_GPIO_clearInterruptFlag(GPIO_PORT_P1, status);
+
+    if (status & GPIO_PIN1)
+    {
+        //clock=CS_getMCLK();
+        MAP_Interrupt_disableInterrupt(INT_PORT1);
+        //wakeState=1;
+        PCM_setPowerState(PCM_AM_LDO_VCORE1);
+        //clock=CS_getMCLK();
+
+    }
+}

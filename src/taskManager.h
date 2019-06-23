@@ -36,6 +36,10 @@
 #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 #include <src/systemDef.h>
 
+#ifndef portMAX_24_BIT_NUMBER
+#define portMAX_24_BIT_NUMBER ( 0xffffffUL )
+#endif
+
 void *taskManager(void *pvParameters);
 
 #endif /* SRC_TASKMANAGER_H_ */
