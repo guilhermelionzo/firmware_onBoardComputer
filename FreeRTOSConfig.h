@@ -25,7 +25,6 @@
  * 1 tab == 4 spaces!
  */
 
-
 /******************************************************************************
 	See http://www.freertos.org/a00110.html for an explanation of the
 	definitions contained in this file.

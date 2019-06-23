@@ -89,7 +89,6 @@ int main(void)
     /*init the calendar*/
     prvCalendarConfiguration();
 
-
     //create the Task Manager task
     xTaskCreate((TaskFunction_t)taskManager, "Task Manager", 1024, NULL, 5, NULL );
 

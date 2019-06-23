@@ -95,6 +95,7 @@ will remove items as they are added, meaning the send task should always find
 the queue empty. */
 #define mainQUEUE_LENGTH                    ( 1 )
 
+
 /* Values passed to the two tasks just to check the task parameter
 functionality. */
 #define mainQUEUE_SEND_PARAMETER            ( 0x1111UL )
