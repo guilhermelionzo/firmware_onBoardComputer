@@ -5,12 +5,12 @@
    <boolean>true</boolean>
   </void>
   <void property="name">
-   <string>EnergyTrace_2019_06_21_212010</string>
+   <string>EnergyTrace_2019_06_23_145400</string>
   </void>
   <void property="properties">
    <void method="put">
     <string>RawDataPath</string>
-    <string>C:\Users\Guilherme\workspace_v8\RTOSDemo\.energytrace\EnergyTrace_2019_06_21_212010\ETData.xml</string>
+    <string>C:\Users\Guilherme\workspace_v8\Firmware_OBC\FirmwareOBC\.energytrace\EnergyTrace_2019_06_23_145400\ETData.xml</string>
    </void>
   </void>
   <void property="root">
@@ -151,26 +151,26 @@
           <void index="0">
            <object class="com.ti.dvt.energytrace.core.Measurement" id="Measurement0">
             <void property="accTotal">
-             <double>2.07670983984E17</double>
+             <double>5.0048885227499551E18</double>
             </void>
             <void property="count">
-             <long>120002</long>
+             <long>600002</long>
             </void>
             <void property="lastValue">
-             <double>1.6800000000279397E7</double>
+             <double>1.6600000001490116E7</double>
             </void>
             <void property="name">
              <string>Energy</string>
             </void>
             <void property="value">
-             <double>3.381533800000044E12</double>
+             <double>1.6587242600002658E13</double>
             </void>
             <void property="watermarks">
              <void property="hi">
-              <double>3.381533800000044E12</double>
+              <double>1.6587242600002658E13</double>
              </void>
              <void property="lo">
-              <double>3.09E7</double>
+              <double>2.2599999999999996E7</double>
              </void>
             </void>
            </object>
@@ -178,10 +178,10 @@
           <void index="1">
            <object class="com.ti.dvt.energytrace.core.Measurement" id="Measurement1">
             <void property="accTotal">
-             <double>3.960066E8</double>
+             <double>1.9800066E9</double>
             </void>
             <void property="count">
-             <long>120002</long>
+             <long>600002</long>
             </void>
             <void property="lastValue">
              <double>3300.0</double>
@@ -205,26 +205,26 @@
           <void index="2">
            <object class="com.ti.dvt.energytrace.core.Measurement" id="Measurement2">
             <void property="accTotal">
-             <double>2.0494317668E12</double>
+             <double>1.00528734468E13</double>
             </void>
             <void property="count">
-             <long>120002</long>
+             <long>600002</long>
             </void>
             <void property="lastValue">
-             <double>1.02157E7</double>
+             <double>1.01745E7</double>
             </void>
             <void property="name">
              <string>Current</string>
             </void>
             <void property="value">
-             <double>1.02157E7</double>
+             <double>1.01745E7</double>
             </void>
             <void property="watermarks">
              <void property="hi">
-              <double>5.44114E7</double>
+              <double>5.12248E7</double>
              </void>
              <void property="lo">
-              <double>9789700.0</double>
+              <double>9960200.0</double>
              </void>
             </void>
            </object>
@@ -232,10 +232,10 @@
           <void index="3">
            <object class="com.ti.dvt.energytrace.core.Measurement" id="Measurement3">
             <void property="accTotal">
-             <double>3.6001500015E15</double>
+             <double>9.00007500015E16</double>
             </void>
             <void property="count">
-             <long>120002</long>
+             <long>600002</long>
             </void>
             <void property="lastValue">
              <double>500000.0</double>
@@ -244,11 +244,11 @@
              <string>Cycle</string>
             </void>
             <void property="value">
-             <double>6.0001E10</double>
+             <double>3.00001E11</double>
             </void>
             <void property="watermarks">
              <void property="hi">
-              <double>6.0001E10</double>
+              <double>3.00001E11</double>
              </void>
              <void property="lo">
               <double>500000.0</double>
@@ -259,26 +259,26 @@
           <void index="4">
            <object class="com.ti.dvt.energytrace.core.Measurement" id="Measurement4">
             <void property="accTotal">
-             <double>6763124.830443928</double>
+             <double>3.3174482374331348E7</double>
             </void>
             <void property="count">
-             <long>120002</long>
+             <long>600002</long>
             </void>
             <void property="lastValue">
-             <double>33.71181</double>
+             <double>33.57585</double>
             </void>
             <void property="name">
              <string>Power</string>
             </void>
             <void property="value">
-             <double>33.71181</double>
+             <double>33.57585</double>
             </void>
             <void property="watermarks">
              <void property="hi">
-              <double>179.55762</double>
+              <double>169.04184</double>
              </void>
              <void property="lo">
-              <double>32.30601</double>
+              <double>32.86866</double>
              </void>
             </void>
            </object>
@@ -311,7 +311,7 @@
   </void>
   <void property="targetStopWatch">
    <void property="end">
-    <long>60000500000</long>
+    <long>300000500000</long>
    </void>
   </void>
  </object>

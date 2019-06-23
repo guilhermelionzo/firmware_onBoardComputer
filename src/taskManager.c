@@ -44,6 +44,8 @@ void prvQueueCommunicationCreate(void);
 void prvSetClock();
 void prvResumeAllTasks(void);
 void prvSuspendAllTasks(void);
+void hibernate(uint8_t time_ms);
+
 extern void *aodcsTask(void *pvParameters);
 extern void *cameraTask(void *pvParameters);
 extern void *dataStorage(void *pvParameters);
@@ -69,8 +71,9 @@ TaskHandle_t taskHandlerWatchDog;
 
 uint16_t batteryValue = 0;
 
-uint32_t clock = 0;
 uint8_t adcInitDelay = 0;
+volatile bool wakeState = 1;
+volatile uint32_t clock;
 
 void *taskManager(void *pvParameters)
 {
@@ -111,9 +114,9 @@ void prvTaskCreate(void)
                 &taskHandlerAodcs);
     xTaskCreate((TaskFunction_t) cameraTask, "CAMERA Task", 1024, NULL, 1,
                 &taskHandlerCamera);
-    xTaskCreate((TaskFunction_t) houseKeeping, "House Keeping",1024, NULL,
-                2, &taskHandlerDataStorage);
-    xTaskCreate((TaskFunction_t) dataStorage, "Data Storage",1024, NULL, 1,
+    xTaskCreate((TaskFunction_t) houseKeeping, "House Keeping", 1024, NULL, 2,
+                &taskHandlerDataStorage);
+    xTaskCreate((TaskFunction_t) dataStorage, "Data Storage", 1024, NULL, 1,
                 &taskHandlerHouseKeeping);
     xTaskCreate((TaskFunction_t) pptTask, "PPT Task", 1024, NULL, 1,
                 &taskHandlerPpt);
@@ -127,40 +130,25 @@ void prvTaskCreate(void)
 void setOperationMode(void)
 {
 
+    CS_setDCOCenteredFrequency(CS_DCO_FREQUENCY_48);
     clock = CS_getMCLK();
 
     switch (flag_systemMode)
     {
     case NM_MODE:
 
-        MAP_PCM_setCoreVoltageLevel(PCM_VCORE1);
-        MAP_PCM_setPowerMode(PCM_LDO_MODE);
-        MAP_PCM_setPowerState(PCM_AM_LDO_VCORE1);
-        //prvSetClock();
         prvResumeAllTasks();
 
         break;
     case BLLM1_MODE:
 
-        MAP_PCM_setCoreVoltageLevel(PCM_VCORE1);
-        MAP_PCM_setPowerMode(PCM_DCDC_MODE);
-        MAP_PCM_setPowerState(PCM_AM_DCDC_VCORE1);
-        //prvSetClock();
-        prvResumeAllTasks();
+        prvSuspendAllTasks();
 
         break;
     case HM_MODE:
-
-        MAP_PCM_setCoreVoltageLevel(PCM_VCORE1);
-        MAP_PCM_setPowerMode(PCM_DCDC_MODE);
-        MAP_PCM_setPowerState(PCM_AM_DCDC_VCORE1);
-        //prvSetClock();
-        //vPortSuppressTicksAndSleep(30);
-
         prvSuspendAllTasks();
 
-        //interrupt just for see the result of the battery level and update the state
-        //vPortSuppressTicksAndSleep(50);
+        hibernate(50000);
 
         break;
     case SM_MODE:
@@ -168,6 +156,25 @@ void setOperationMode(void)
         break;
     default:
         break;
+    }
+
+}
+
+void hibernate(uint8_t time_ms)
+{
+
+    int clockFrequency = 48000000;  //48MHz
+    int tickRateHZ = 1000;           //1KHz
+
+    int timerCountsForOneTick = (clockFrequency / tickRateHZ); // timer for one tick 20,8ms
+    int maximumPossibleSuppressedTicks = portMAX_24_BIT_NUMBER
+            / timerCountsForOneTick;
+    int iterations = time_ms / maximumPossibleSuppressedTicks;
+    int i = 0;
+
+    for (i = 0; i < iterations; i++)
+    {
+        vPortSuppressTicksAndSleep(maximumPossibleSuppressedTicks); // loop to complete the time
     }
 
 }
@@ -188,7 +195,6 @@ void updateBatteryLevel(void)
         memcpy(obcData.system_status, "INIT", sizeof("INIT"));
         flag_systemMode = NM_MODE;
         flag_lowBattery = BATTERY_LEVEL_5;
-        batteryValue = 0;
 
     }
     else
@@ -197,7 +203,7 @@ void updateBatteryLevel(void)
         batteryValue = ADC14_getResult(ADC_MEM5);
 
         //BATERY LEVEL 1
-        if (batteryValue >= 4000 && batteryValue < 12500)
+        if (batteryValue >= 4000 && batteryValue < 14500)
         {
 
             //DEBUG SESSION
@@ -208,7 +214,6 @@ void updateBatteryLevel(void)
             memcpy(obcData.system_status, "BLLM1", sizeof("BLLM1"));
             flag_systemMode = BLLM1_MODE;
             flag_lowBattery = BATTERY_LEVEL_1;
-            batteryValue = 1;
 
         }
         //HIBERNATE MODE
@@ -221,8 +226,7 @@ void updateBatteryLevel(void)
 #endif
             memcpy(obcData.system_status, "HM_MODE", sizeof("HM_MODE"));
             flag_systemMode = HM_MODE;
-            flag_lowBattery = BATTERY_LEVEL_0;
-            batteryValue = 1;
+            flag_lowBattery = BATTERY_LEVEL_1;
         }
         //NORMAL MODE
         else
@@ -271,14 +275,31 @@ void prvQueueCommunicationCreate(void)
 void prvSuspendAllTasks()
 {
 
-    vTaskSuspend(taskHandlerAodcs);
-    vTaskSuspend(taskHandlerCamera);
-    vTaskSuspend(taskHandlerDataStorage);
-    vTaskSuspend(taskHandlerHouseKeeping);
-    vTaskSuspend(taskHandlerPpt);
-    vTaskSuspend(taskHandlerTtc);
-    vTaskSuspend( taskHandlerWatchDog  );
-    MAP_WDT_A_holdTimer();
+    switch (flag_systemMode)
+    {
+    case BLLM1_MODE:
+
+        vTaskSuspend(taskHandlerDataStorage);
+        vTaskSuspend(taskHandlerHouseKeeping);
+        vTaskSuspend(taskHandlerWatchDog);
+        MAP_WDT_A_holdTimer();
+
+        break;
+    case HM_MODE:
+
+        vTaskSuspend(taskHandlerAodcs);
+        vTaskSuspend(taskHandlerCamera);
+        vTaskSuspend(taskHandlerDataStorage);
+        vTaskSuspend(taskHandlerHouseKeeping);
+        vTaskSuspend(taskHandlerPpt);
+        vTaskSuspend(taskHandlerTtc);
+        vTaskSuspend(taskHandlerWatchDog);
+        MAP_WDT_A_holdTimer();
+        break;
+
+    default:
+        break;
+    }
 }
 
 void prvResumeAllTasks()
@@ -290,7 +311,7 @@ void prvResumeAllTasks()
     vTaskResume(taskHandlerHouseKeeping);
     vTaskResume(taskHandlerPpt);
     vTaskResume(taskHandlerTtc);
-    vTaskResume( taskHandlerWatchDog  );
+    vTaskResume(taskHandlerWatchDog);
     MAP_WDT_A_startTimer();
 
 }
@@ -306,7 +327,7 @@ void prvSetClock()
         MAP_FlashCtl_setWaitState( FLASH_BANK1, 2);
 
         /* Initializes Clock System */
-        MAP_CS_setDCOCenteredFrequency( CS_DCO_FREQUENCY_48);                //48MHZ
+        MAP_CS_setDCOCenteredFrequency( CS_DCO_FREQUENCY_48);            //48MHZ
         MAP_CS_initClockSignal( CS_MCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1);
         break;
 

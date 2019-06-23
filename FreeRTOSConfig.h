@@ -193,7 +193,9 @@ CLI commands. */
 	#include <driverlib.h>
 
 	void vPreSleepProcessing( uint32_t ulExpectedIdleTime );
+	void vPostSleepProcessing( uint32_t ulExpectedIdleTime );
 	#define configPRE_SLEEP_PROCESSING( x ) vPreSleepProcessing( x )
+    #define configPOST_SLEEP_PROCESSING(x ) vPostSleepProcessing( x )
 
 	#if configCREATE_SIMPLE_TICKLESS_DEMO == 1
 
@@ -220,6 +222,8 @@ CLI commands. */
 		#define configTICK_RATE_HZ						( ( TickType_t ) 1000 )
 
 	#endif /* configCREATE_SIMPLE_TICKLESS_DEMO */
+
+
 #endif /* __IASMARM__ */
 
 #endif /* FREERTOS_CONFIG_H */

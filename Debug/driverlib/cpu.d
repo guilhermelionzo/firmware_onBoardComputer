@@ -1,7 +1,7 @@
 # FIXED
 
 driverlib/cpu.obj: ../driverlib/cpu.c
-driverlib/cpu.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/cpu.h
+driverlib/cpu.obj: C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/driverlib/cpu.h
 driverlib/cpu.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdint.h
 driverlib/cpu.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/stdint.h
 driverlib/cpu.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/cdefs.h
@@ -19,7 +19,7 @@ driverlib/cpu.obj: C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_ccs.h
 driverlib/cpu.obj: C:/ti/ccsv8/ccs_base/arm/include/system_msp432p401r.h
 
 ../driverlib/cpu.c: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/cpu.h: 
+C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/driverlib/cpu.h: 
 C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdint.h: 
 C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/stdint.h: 
 C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/cdefs.h: 
