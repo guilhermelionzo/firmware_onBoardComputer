@@ -194,7 +194,7 @@ void updateBatteryLevel(void)
         adcInitDelay++;
         memcpy(obcData.system_status, "INIT", sizeof("INIT"));
         flag_systemMode = NM_MODE;
-        flag_lowBattery = BATTERY_LEVEL_5;
+        flag_lowBattery = NM_MODE;
 
     }
     else
@@ -238,7 +238,7 @@ void updateBatteryLevel(void)
 #endif
             memcpy(obcData.system_status, "NM_MODE", sizeof("NM_MODE"));
             flag_systemMode = NM_MODE;
-            flag_lowBattery = BATTERY_LEVEL_5;
+            flag_lowBattery = NM_MODE;
             batteryValue = 0;
 
         }
