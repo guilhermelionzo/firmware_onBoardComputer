@@ -8,7 +8,7 @@ driverlib/wdt_a.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sy
 driverlib/wdt_a.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/machine/_types.h
 driverlib/wdt_a.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/machine/_stdint.h
 driverlib/wdt_a.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/_stdint.h
-driverlib/wdt_a.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/wdt_a.h
+driverlib/wdt_a.obj: C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/driverlib/wdt_a.h
 driverlib/wdt_a.obj: C:/ti/ccsv8/ccs_base/arm/include/msp.h
 driverlib/wdt_a.obj: C:/ti/ccsv8/ccs_base/arm/include/msp432p401r.h
 driverlib/wdt_a.obj: C:/ti/ccsv8/ccs_base/arm/include/msp_compatibility.h
@@ -17,9 +17,9 @@ driverlib/wdt_a.obj: C:/ti/ccsv8/ccs_base/arm/include/CMSIS/core_cm4.h
 driverlib/wdt_a.obj: C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_compiler.h
 driverlib/wdt_a.obj: C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_ccs.h
 driverlib/wdt_a.obj: C:/ti/ccsv8/ccs_base/arm/include/system_msp432p401r.h
-driverlib/wdt_a.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/sysctl.h
-driverlib/wdt_a.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/debug.h
-driverlib/wdt_a.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/interrupt.h
+driverlib/wdt_a.obj: C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/driverlib/sysctl.h
+driverlib/wdt_a.obj: C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/driverlib/debug.h
+driverlib/wdt_a.obj: C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/driverlib/interrupt.h
 driverlib/wdt_a.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdbool.h
 
 ../driverlib/wdt_a.c: 
@@ -30,7 +30,7 @@ C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/_types.h:
 C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/machine/_types.h: 
 C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/machine/_stdint.h: 
 C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/_stdint.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/wdt_a.h: 
+C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/driverlib/wdt_a.h: 
 C:/ti/ccsv8/ccs_base/arm/include/msp.h: 
 C:/ti/ccsv8/ccs_base/arm/include/msp432p401r.h: 
 C:/ti/ccsv8/ccs_base/arm/include/msp_compatibility.h: 
@@ -39,7 +39,7 @@ C:/ti/ccsv8/ccs_base/arm/include/CMSIS/core_cm4.h:
 C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_compiler.h: 
 C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_ccs.h: 
 C:/ti/ccsv8/ccs_base/arm/include/system_msp432p401r.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/sysctl.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/debug.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/interrupt.h: 
+C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/driverlib/sysctl.h: 
+C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/driverlib/debug.h: 
+C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/driverlib/interrupt.h: 
 C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdbool.h: 

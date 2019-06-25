@@ -11,7 +11,6 @@ C_SRCS += \
 ../src/dataStorage.c \
 ../src/houseKeeping.c \
 ../src/pptTask.c \
-../src/sensorTask.c \
 ../src/taskManager.c \
 ../src/ttcTask.c \
 ../src/watchDogTask.c 
@@ -22,7 +21,6 @@ C_DEPS += \
 ./src/dataStorage.d \
 ./src/houseKeeping.d \
 ./src/pptTask.d \
-./src/sensorTask.d \
 ./src/taskManager.d \
 ./src/ttcTask.d \
 ./src/watchDogTask.d 
@@ -33,7 +31,6 @@ OBJS += \
 ./src/dataStorage.obj \
 ./src/houseKeeping.obj \
 ./src/pptTask.obj \
-./src/sensorTask.obj \
 ./src/taskManager.obj \
 ./src/ttcTask.obj \
 ./src/watchDogTask.obj 
@@ -44,7 +41,6 @@ OBJS__QUOTED += \
 "src\dataStorage.obj" \
 "src\houseKeeping.obj" \
 "src\pptTask.obj" \
-"src\sensorTask.obj" \
 "src\taskManager.obj" \
 "src\ttcTask.obj" \
 "src\watchDogTask.obj" 
@@ -55,7 +51,6 @@ C_DEPS__QUOTED += \
 "src\dataStorage.d" \
 "src\houseKeeping.d" \
 "src\pptTask.d" \
-"src\sensorTask.d" \
 "src\taskManager.d" \
 "src\ttcTask.d" \
 "src\watchDogTask.d" 
@@ -66,7 +61,6 @@ C_SRCS__QUOTED += \
 "../src/dataStorage.c" \
 "../src/houseKeeping.c" \
 "../src/pptTask.c" \
-"../src/sensorTask.c" \
 "../src/taskManager.c" \
 "../src/ttcTask.c" \
 "../src/watchDogTask.c" 

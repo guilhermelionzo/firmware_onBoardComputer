@@ -51,11 +51,11 @@ void *ttcTask(void *pvParameters){
 
         //DEBUG SESSION
         #if DEBUG_SESSION
-        GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN2); // LED BLUE
+        MAP_GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN2); // LED BLUE
         #endif
 
         uint8_t ttcComand;
-        ttcComand = GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN4);
+        ttcComand = MAP_GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN4);
 
         if(ttcComand==GPIO_INPUT_PIN_LOW){
             //don't set the bit in watchdog bits

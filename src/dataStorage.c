@@ -84,7 +84,7 @@ void *dataStorage(void *pvParameters){
 
         //DEBUG SESSION
         #if DEBUG_SESSION
-        GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN1); // PIN GREEN
+        MAP_GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN1); // PIN GREEN
         #endif
 
         //TODO: control of SPI interface
@@ -183,13 +183,13 @@ void getLocalTime(void){
 
 int initSD(){
 
-    CS_Init();              //init someting that I have to know, TODO
+    //CS_Init();              //init someting that I have to know, TODO
 
     SPI_Init(EUSCI_B0_BASE, SPI0MasterConfig);
 
     GPIO_Init(GPIO_PORT_P4, GPIO_PIN6);
 
-    Interrupt_enableMaster();
+    MAP_Interrupt_enableMaster();
 
     //mount the SD card
     fResult=f_mount(&sdDriver,"0",1);      //mount on the area 0 of the sd card

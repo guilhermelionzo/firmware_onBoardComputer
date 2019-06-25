@@ -110,19 +110,19 @@ void prvTaskCreate(void)
 
     prvWatchDogEventGroupCreate();
 
-    xTaskCreate((TaskFunction_t) aodcsTask, "AODCS Task", 1024, NULL, 1,
+    xTaskCreate((TaskFunction_t) aodcsTask, "AODCS Task", configMINIMAL_STACK_SIZE, NULL, 1,
                 &taskHandlerAodcs);
-    xTaskCreate((TaskFunction_t) cameraTask, "CAMERA Task", 1024, NULL, 1,
+    xTaskCreate((TaskFunction_t) cameraTask, "CAMERA Task", configMINIMAL_STACK_SIZE, NULL, 1,
                 &taskHandlerCamera);
     xTaskCreate((TaskFunction_t) houseKeeping, "House Keeping", 1024, NULL, 2,
                 &taskHandlerDataStorage);
     xTaskCreate((TaskFunction_t) dataStorage, "Data Storage", 1024, NULL, 1,
                 &taskHandlerHouseKeeping);
-    xTaskCreate((TaskFunction_t) pptTask, "PPT Task", 1024, NULL, 1,
+    xTaskCreate((TaskFunction_t) pptTask, "PPT Task", configMINIMAL_STACK_SIZE, NULL, 1,
                 &taskHandlerPpt);
-    xTaskCreate((TaskFunction_t) ttcTask, "TT&C Task", 1024, NULL, 1,
+    xTaskCreate((TaskFunction_t) ttcTask, "TT&C Task", configMINIMAL_STACK_SIZE, NULL, 1,
                 &taskHandlerTtc);
-    xTaskCreate((TaskFunction_t) watchDogTask, "WTD Task", 500, NULL, 5,
+    xTaskCreate((TaskFunction_t) watchDogTask, "WTD Task", configMINIMAL_STACK_SIZE, NULL, 5,
                 &taskHandlerWatchDog);
 
 }
@@ -130,7 +130,7 @@ void prvTaskCreate(void)
 void setOperationMode(void)
 {
 
-    CS_setDCOCenteredFrequency(CS_DCO_FREQUENCY_48);
+    MAP_CS_setDCOCenteredFrequency(CS_DCO_FREQUENCY_48);
     clock = CS_getMCLK();
 
     switch (flag_systemMode)
@@ -189,7 +189,7 @@ void killAllTasks(void)
 void updateBatteryLevel(void)
 {
 
-    if (adcInitDelay < 5)
+    if (adcInitDelay < 10)
     {
         adcInitDelay++;
         memcpy(obcData.system_status, "INIT", sizeof("INIT"));
@@ -239,7 +239,7 @@ void updateBatteryLevel(void)
             memcpy(obcData.system_status, "NM_MODE", sizeof("NM_MODE"));
             flag_systemMode = NM_MODE;
             flag_lowBattery = NM_MODE;
-            batteryValue = 0;
+
 
         }
     }

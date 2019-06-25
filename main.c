@@ -90,7 +90,7 @@ int main(void)
     prvCalendarConfiguration();
 
     //create the Task Manager task
-    xTaskCreate((TaskFunction_t)taskManager, "Task Manager", 1024, NULL, 5, NULL );
+    xTaskCreate((TaskFunction_t)taskManager, "Task Manager", configMINIMAL_STACK_SIZE, NULL, 5, NULL );
 
     /*read the previous counter*/
     //prvReadDataCounter();
@@ -190,7 +190,7 @@ void vApplicationIdleHook(void)
     //Interrupt_enableInterrupt(INT_ADC14);
     //Interrupt_enableMaster();
 
-    PCM_gotoLPM0();
+    MAP_PCM_gotoLPM0();
 }
 /*-----------------------------------------------------------*/
 
@@ -238,10 +238,10 @@ static void prvConfigureClocks(void)
 
     /* Initializes Clock System */
     MAP_CS_setDCOCenteredFrequency( CS_DCO_FREQUENCY_48);                    //48MHZ
-    CS_initClockSignal( CS_HSMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1);
-    CS_initClockSignal( CS_SMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1);
+    MAP_CS_initClockSignal( CS_HSMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1);
+    MAP_CS_initClockSignal( CS_SMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1);
     MAP_CS_initClockSignal( CS_MCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1);
-    CS_initClockSignal( CS_ACLK, CS_REFOCLK_SELECT, CS_CLOCK_DIVIDER_1);
+    MAP_CS_initClockSignal( CS_ACLK, CS_REFOCLK_SELECT, CS_CLOCK_DIVIDER_1);
 
     /* The lower frequency allows the use of CVORE level 0. */
     //PCM_setCoreVoltageLevel( PCM_VCORE0 );
@@ -391,7 +391,7 @@ void vPreSleepProcessing( uint32_t ulExpectedIdleTime )
     MAP_PCM_setCoreVoltageLevel(PCM_VCORE1);
     MAP_PCM_setPowerMode(PCM_DCDC_MODE);
     MAP_PCM_setPowerState(PCM_AM_DCDC_VCORE1);
-    FPU_enableLazyStacking();
+    MAP_FPU_enableLazyStacking();
 
 }
 void vPostSleepProcessing( uint32_t ulExpectedIdleTime ){
@@ -399,8 +399,8 @@ void vPostSleepProcessing( uint32_t ulExpectedIdleTime ){
     MAP_PCM_setCoreVoltageLevel(PCM_VCORE1);
     MAP_PCM_setPowerMode(PCM_LDO_MODE);
     MAP_PCM_setPowerState(PCM_AM_LDO_VCORE1);
-    CS_setDCOCenteredFrequency(CS_DCO_FREQUENCY_48);
-    FPU_enableStacking();
+    MAP_CS_setDCOCenteredFrequency(CS_DCO_FREQUENCY_48);
+    MAP_FPU_enableStacking();
 
 }
 void PORT1_IRQHandler(void)
@@ -413,7 +413,7 @@ void PORT1_IRQHandler(void)
         //clock=CS_getMCLK();
         MAP_Interrupt_disableInterrupt(INT_PORT1);
         //wakeState=1;
-        PCM_setPowerState(PCM_AM_LDO_VCORE1);
+        MAP_PCM_setPowerState(PCM_AM_LDO_VCORE1);
         //clock=CS_getMCLK();
 
     }

@@ -141,7 +141,7 @@ typedef struct
     uint8_t adc_solar_panels[18];
     uint8_t msp432_adc[8];
     //uint8_t battery_monitor[21];
-    uint8_t ads1248[21];
+    //uint8_t ads1248[21];
     uint8_t task_scheduler[1];
     //payloads
     uint8_t payload1[7];

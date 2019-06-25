@@ -42,7 +42,7 @@ void *watchDogTask(void *pvParameters)
     portTickType xLastWakeTimeWatchDog = xTaskGetTickCount();
 
     //initialize the MSP432 watchdog
-    WDT_A_startTimer();
+    MAP_WDT_A_startTimer();
 
 
     while (1)
@@ -60,15 +60,15 @@ void *watchDogTask(void *pvParameters)
         if (!((result & ALL_TASK_IDS) == ALL_TASK_IDS))
         {
             //TODO: try to restart the task that had delay
-            GPIO_setOutputHighOnPin(GPIO_PORT_P1, GPIO_PIN0);
+            MAP_GPIO_setOutputHighOnPin(GPIO_PORT_P1, GPIO_PIN0);
             //SysCtl_rebootDevice();
         }else{
 
-            GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN0);
+            MAP_GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN0);
         }
 
         //reset the MSP432 WatchDog
-        WDT_A_clearTimer();
+        MAP_WDT_A_clearTimer();
 
     }
 }

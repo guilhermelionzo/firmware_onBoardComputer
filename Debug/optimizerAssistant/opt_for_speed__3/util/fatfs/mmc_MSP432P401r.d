@@ -4,7 +4,7 @@ util/fatfs/mmc_MSP432P401r.obj: ../util/fatfs/mmc_MSP432P401r.c
 util/fatfs/mmc_MSP432P401r.obj: ../util/fatfs/mmc_MSP432P401r.h
 util/fatfs/mmc_MSP432P401r.obj: ../util/fatfs/integer.h
 util/fatfs/mmc_MSP432P401r.obj: ../util/fatfs/diskio.h
-util/fatfs/mmc_MSP432P401r.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/util/Hardware/SPI_Driver.h
+util/fatfs/mmc_MSP432P401r.obj: C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/util/Hardware/SPI_Driver.h
 util/fatfs/mmc_MSP432P401r.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/rom.h
 util/fatfs/mmc_MSP432P401r.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/rom_map.h
 util/fatfs/mmc_MSP432P401r.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/spi.h
@@ -26,13 +26,13 @@ util/fatfs/mmc_MSP432P401r.obj: C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_ccs
 util/fatfs/mmc_MSP432P401r.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/inc/system_msp432p401r.h
 util/fatfs/mmc_MSP432P401r.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/eusci.h
 util/fatfs/mmc_MSP432P401r.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/gpio.h
-util/fatfs/mmc_MSP432P401r.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/util/Hardware/GPIO_Driver.h
+util/fatfs/mmc_MSP432P401r.obj: C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/util/Hardware/GPIO_Driver.h
 
 ../util/fatfs/mmc_MSP432P401r.c: 
 ../util/fatfs/mmc_MSP432P401r.h: 
 ../util/fatfs/integer.h: 
 ../util/fatfs/diskio.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/util/Hardware/SPI_Driver.h: 
+C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/util/Hardware/SPI_Driver.h: 
 C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/rom.h: 
 C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/rom_map.h: 
 C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/spi.h: 
@@ -54,4 +54,4 @@ C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_ccs.h:
 C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/inc/system_msp432p401r.h: 
 C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/eusci.h: 
 C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/gpio.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/util/Hardware/GPIO_Driver.h: 
+C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/util/Hardware/GPIO_Driver.h: 

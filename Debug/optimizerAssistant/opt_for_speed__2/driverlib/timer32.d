@@ -1,7 +1,7 @@
 # FIXED
 
 driverlib/timer32.obj: ../driverlib/timer32.c
-driverlib/timer32.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/timer32.h
+driverlib/timer32.obj: C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/driverlib/timer32.h
 driverlib/timer32.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdint.h
 driverlib/timer32.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/stdint.h
 driverlib/timer32.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/cdefs.h
@@ -18,11 +18,11 @@ driverlib/timer32.obj: C:/ti/ccsv8/ccs_base/arm/include/CMSIS/core_cm4.h
 driverlib/timer32.obj: C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_compiler.h
 driverlib/timer32.obj: C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_ccs.h
 driverlib/timer32.obj: C:/ti/ccsv8/ccs_base/arm/include/system_msp432p401r.h
-driverlib/timer32.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/interrupt.h
-driverlib/timer32.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/debug.h
+driverlib/timer32.obj: C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/driverlib/interrupt.h
+driverlib/timer32.obj: C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/driverlib/debug.h
 
 ../driverlib/timer32.c: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/timer32.h: 
+C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/driverlib/timer32.h: 
 C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdint.h: 
 C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/stdint.h: 
 C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/sys/cdefs.h: 
@@ -39,5 +39,5 @@ C:/ti/ccsv8/ccs_base/arm/include/CMSIS/core_cm4.h:
 C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_compiler.h: 
 C:/ti/ccsv8/ccs_base/arm/include/CMSIS/cmsis_ccs.h: 
 C:/ti/ccsv8/ccs_base/arm/include/system_msp432p401r.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/interrupt.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/debug.h: 
+C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/driverlib/interrupt.h: 
+C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/driverlib/debug.h: 

@@ -48,6 +48,7 @@ interface/MPU9250.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/device
 interface/MPU9250.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/wdt_a.h
 interface/MPU9250.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/sysctl.h
 interface/MPU9250.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/flash.h
+interface/MPU9250.obj: C:/ti/ccsv8/ccs_base/arm/include/msp432.h
 
 ../interface/MPU9250.c: 
 ../interface/MPU9250.h: 
@@ -97,3 +98,4 @@ C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/
 C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/wdt_a.h: 
 C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/sysctl.h: 
 C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/flash.h: 
+C:/ti/ccsv8/ccs_base/arm/include/msp432.h: 

@@ -48,19 +48,19 @@ src/aodcsTask.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/ms
 src/aodcsTask.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/wdt_a.h
 src/aodcsTask.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/sysctl.h
 src/aodcsTask.obj: C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/flash.h
-src/aodcsTask.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/src/systemDef.h
+src/aodcsTask.obj: C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/src/systemDef.h
 src/aodcsTask.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/FreeRTOS.h
 src/aodcsTask.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stddef.h
-src/aodcsTask.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/FreeRTOSConfig.h
-src/aodcsTask.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcRecorder.h
-src/aodcsTask.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcConfig.h
-src/aodcsTask.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcPortDefines.h
+src/aodcsTask.obj: C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/FreeRTOSConfig.h
+src/aodcsTask.obj: C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/Tracealyzer/trcRecorder.h
+src/aodcsTask.obj: C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/Tracealyzer/trcConfig.h
+src/aodcsTask.obj: C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/Tracealyzer/trcPortDefines.h
 src/aodcsTask.obj: C:/ti/ccsv8/ccs_base/arm/include/msp432.h
-src/aodcsTask.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcSnapshotConfig.h
-src/aodcsTask.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcHardwarePort.h
-src/aodcsTask.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcKernelPort.h
+src/aodcsTask.obj: C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/Tracealyzer/trcSnapshotConfig.h
+src/aodcsTask.obj: C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/Tracealyzer/trcHardwarePort.h
+src/aodcsTask.obj: C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/Tracealyzer/trcKernelPort.h
 src/aodcsTask.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/FreeRTOS.h
-src/aodcsTask.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/driverlib.h
+src/aodcsTask.obj: C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/driverlib/driverlib.h
 src/aodcsTask.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/projdefs.h
 src/aodcsTask.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/portable.h
 src/aodcsTask.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/deprecated_definitions.h
@@ -72,9 +72,9 @@ src/aodcsTask.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/queue.h
 src/aodcsTask.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/semphr.h
 src/aodcsTask.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/event_groups.h
 src/aodcsTask.obj: C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/timers.h
-src/aodcsTask.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/util/stringUtil.h
-src/aodcsTask.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/util/itoa.h
-src/aodcsTask.obj: C:/Users/Guilherme/workspace_v8/RTOSDemo/util/dtoa.h
+src/aodcsTask.obj: C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/util/stringUtil.h
+src/aodcsTask.obj: C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/util/itoa.h
+src/aodcsTask.obj: C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/util/dtoa.h
 
 ../src/aodcsTask.c: 
 ../src/aodcsTask.h: 
@@ -124,19 +124,19 @@ C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/
 C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/wdt_a.h: 
 C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/sysctl.h: 
 C:/ti/simplelink_msp432p4_sdk_2_10_00_14/source/ti/devices/msp432p4xx/driverlib/flash.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/src/systemDef.h: 
+C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/src/systemDef.h: 
 C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/FreeRTOS.h: 
 C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stddef.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/FreeRTOSConfig.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcRecorder.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcConfig.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcPortDefines.h: 
+C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/FreeRTOSConfig.h: 
+C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/Tracealyzer/trcRecorder.h: 
+C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/Tracealyzer/trcConfig.h: 
+C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/Tracealyzer/trcPortDefines.h: 
 C:/ti/ccsv8/ccs_base/arm/include/msp432.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcSnapshotConfig.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcHardwarePort.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/Tracealyzer/trcKernelPort.h: 
+C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/Tracealyzer/trcSnapshotConfig.h: 
+C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/Tracealyzer/trcHardwarePort.h: 
+C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/Tracealyzer/trcKernelPort.h: 
 C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/FreeRTOS.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/driverlib/driverlib.h: 
+C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/driverlib/driverlib.h: 
 C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/projdefs.h: 
 C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/portable.h: 
 C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/deprecated_definitions.h: 
@@ -148,6 +148,6 @@ C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/queue.h:
 C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/semphr.h: 
 C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/event_groups.h: 
 C:/ti/FreeRTOSv10.0.1/FreeRTOS/Source/include/timers.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/util/stringUtil.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/util/itoa.h: 
-C:/Users/Guilherme/workspace_v8/RTOSDemo/util/dtoa.h: 
+C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/util/stringUtil.h: 
+C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/util/itoa.h: 
+C:/Users/Guilherme/workspace_v8/Firmware_OBC/FirmwareOBC/util/dtoa.h: 
