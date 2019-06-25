@@ -1,7 +1,7 @@
 ******************************************************************************
                   TI ARM Linker PC v18.1.1                     
 ******************************************************************************
->> Linked Mon Jun 24 22:25:02 2019
+>> Linked Mon Jun 24 23:29:27 2019
 
 OUTPUT FILE NAME:   <Firmware_OBC.out>
 ENTRY POINT SYMBOL: "_c_int00_noargs"  address: 000085bd
@@ -14,22 +14,24 @@ MEMORY CONFIGURATION
   MAIN                  00000000   0003f000  000095a2  00035a5e  R  X
   MYDATA                0003f000   00001000  00000000  00001000  R  X
   INFO                  00200000   00004000  00000000  00004000  R  X
-  SRAM_CODE             01000000   00010000  0000fe1f  000001e1  RW X
-  SRAM_DATA             20000000   00010000  0000fe1f  000001e1  RW  
+  SRAM_CODE             01000000   00010000  000006a3  0000f95d  RW X
+  SRAM_DATA             20000000   00010000  000006a3  0000f95d  RW  
 
 
 SEGMENT ALLOCATION MAP
 
 run origin  load origin   length   init length attrs members
 ----------  ----------- ---------- ----------- ----- -------
-00000000    00000000    000095a8   000095a8    r-x
+00000000    00000000    00000144   00000144    r--
   00000000    00000000    00000144   00000144    r-- .intvecs
+00000000    00000000    0001071c   00000000    rw-
+  00000000    00000000    0001071c   00000000    rw- .bss
+00000148    00000148    00009460   00009460    r-x
   00000148    00000148    0000931a   0000931a    r-x .text
   00009464    00009464    000000ac   000000ac    r-- .const
   00009510    00009510    00000098   00000098    r-- .cinit
-20000000    20000000    0000faff   00000000    rw-
-  20000000    20000000    0000f77c   00000000    rw- .bss
-  2000f77c    2000f77c    00000383   00000000    rw- .data
+20000000    20000000    00000383   00000000    rw-
+  20000000    20000000    00000383   00000000    rw- .data
 2000fce0    2000fce0    00000320   00000000    rw-
   2000fce0    2000fce0    00000320   00000000    rw- .stack
 
@@ -42,6 +44,7 @@ section   page    origin      length       input sections
 .intvecs   0    00000000    00000144     
                   00000000    00000144     msp432_startup_ccs.obj (.intvecs:retain)
 
+.bss       0    00000000    0001071c     FAILED TO ALLOCATE
 .text      0    00000148    0000931a     
                   00000148    0000035e     trcKernelPort.obj (.text:pszTraceGetErrorNotEnoughHandles)
                   000004a6    00000002     --HOLE-- [fill = 0]
@@ -545,70 +548,23 @@ section   page    origin      length       input sections
 
 .binit     0    00000000    00000000     
 
-.bss       0    20000000    0000f77c     UNINITIALIZED
-                  20000000    0000c800     heap_4.obj (.bss:ucHeap)
-                  2000c800    000028b8     (.common:RecorderData)
-                  2000f0b8    00000230     (.common:sdDriver)
-                  2000f2e8    00000228     (.common:file)
-                  2000f510    00000084     (.common:obcData)
-                  2000f594    00000064     tasks.obj (.bss:pxReadyTasksLists)
-                  2000f5f8    0000003f     (.common:imuData)
-                  2000f637    00000001     (.common:fResult)
-                  2000f638    0000001c     main.obj (.bss:calendarConfig)
-                  2000f654    00000014     timers.obj (.bss:xActiveTimerList1)
-                  2000f668    00000014     timers.obj (.bss:xActiveTimerList2)
-                  2000f67c    00000014     tasks.obj (.bss:xDelayedTaskList1)
-                  2000f690    00000014     tasks.obj (.bss:xDelayedTaskList2)
-                  2000f6a4    00000014     tasks.obj (.bss:xPendingReadyList)
-                  2000f6b8    00000014     tasks.obj (.bss:xSuspendedTaskList)
-                  2000f6cc    00000014     tasks.obj (.bss:xTasksWaitingTermination)
-                  2000f6e0    00000010     (.common:bufferIMU)
-                  2000f6f0    0000000c     (.common:resultsBuffer)
-                  2000f6fc    00000009     mmc_MSP432P401r.obj (.bss)
-                  2000f705    00000001     --HOLE--
-                  2000f706    00000002     ff.obj (.bss)
-                  2000f708    00000008     IntQueue.obj (.bss)
-                  2000f710    00000008     cs.obj (.bss)
-                  2000f718    00000008     tasks.obj (.bss)
-                  2000f720    00000008     timers.obj (.bss)
-                  2000f728    00000008     heap_4.obj (.bss:xStart)
-                  2000f730    00000008     (.common:buffer)
-                  2000f738    00000006     (.common:localTime)
-                  2000f73e    00000002     (.common:cal30)
-                  2000f740    00000004     ff.obj (.bss:FatFs)
-                  2000f744    00000004     (.common:WATCHDOG_EVENT_GROUP)
-                  2000f748    00000004     (.common:bw)
-                  2000f74c    00000004     (.common:clock)
-                  2000f750    00000004     (.common:flag_lowBattery)
-                  2000f754    00000004     (.common:flag_systemMode)
-                  2000f758    00000004     (.common:init_hwtc_count)
-                  2000f75c    00000004     (.common:taskHandlerAodcs)
-                  2000f760    00000004     (.common:taskHandlerCamera)
-                  2000f764    00000004     (.common:taskHandlerDataStorage)
-                  2000f768    00000004     (.common:taskHandlerHouseKeeping)
-                  2000f76c    00000004     (.common:taskHandlerPpt)
-                  2000f770    00000004     (.common:taskHandlerTtc)
-                  2000f774    00000004     (.common:taskHandlerWatchDog)
-                  2000f778    00000002     (.common:cal85)
-                  2000f77a    00000002     (.common:calDifference)
-
-.data      0    2000f77c    00000383     UNINITIALIZED
-                  2000f77c    000000c8     IntQueue.obj (.data:ucNormallyEmptyReceivedValues)
-                  2000f844    000000c8     IntQueue.obj (.data:ucNormallyFullReceivedValues)
-                  2000f90c    0000008e     trcSnapshotRecorder.obj (.data:objectHandleStacks)
-                  2000f99a    00000002     MPU9250.obj (.data)
-                  2000f99c    00000044     trcSnapshotRecorder.obj (.data)
-                  2000f9e0    0000003c     IntQueue.obj (.data)
-                  2000fa1c    00000034     tasks.obj (.data)
-                  2000fa50    00000030     gpio.obj (.data:GPIO_PORT_TO_BASE)
-                  2000fa80    0000001c     dataStorage.obj (.data:SPI0MasterConfig)
-                  2000fa9c    00000018     port.obj (.data)
-                  2000fab4    00000018     taskManager.obj (.data)
-                  2000facc    00000010     heap_4.obj (.data)
-                  2000fadc    00000010     serial.obj (.data)
-                  2000faec    0000000c     timers.obj (.data)
-                  2000faf8    00000005     trcKernelPort.obj (.data:TraceQueueClassTable)
-                  2000fafd    00000002     mmc_MSP432P401r.obj (.data)
+.data      0    20000000    00000383     UNINITIALIZED
+                  20000000    000000c8     IntQueue.obj (.data:ucNormallyEmptyReceivedValues)
+                  200000c8    000000c8     IntQueue.obj (.data:ucNormallyFullReceivedValues)
+                  20000190    0000008e     trcSnapshotRecorder.obj (.data:objectHandleStacks)
+                  2000021e    00000002     MPU9250.obj (.data)
+                  20000220    00000044     trcSnapshotRecorder.obj (.data)
+                  20000264    0000003c     IntQueue.obj (.data)
+                  200002a0    00000034     tasks.obj (.data)
+                  200002d4    00000030     gpio.obj (.data:GPIO_PORT_TO_BASE)
+                  20000304    0000001c     dataStorage.obj (.data:SPI0MasterConfig)
+                  20000320    00000018     port.obj (.data)
+                  20000338    00000018     taskManager.obj (.data)
+                  20000350    00000010     heap_4.obj (.data)
+                  20000360    00000010     serial.obj (.data)
+                  20000370    0000000c     timers.obj (.data)
+                  2000037c    00000005     trcKernelPort.obj (.data:TraceQueueClassTable)
+                  20000381    00000002     mmc_MSP432P401r.obj (.data)
 
 .stack     0    2000fce0    00000320     UNINITIALIZED
                   2000fce0    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : boot_cortex_m.c.obj (.stack)
@@ -619,18 +575,18 @@ MODULE SUMMARY
        Module                       code    ro data   rw data
        ------                       ----    -------   -------
     .\
-       main.obj                     584     0         400    
+       main.obj                     584     0         0      
     +--+----------------------------+-------+---------+---------+
-       Total:                       584     0         400    
+       Total:                       584     0         0      
                                                              
     .\FreeRTOS_Source\
-       tasks.obj                    5484    0         520    
+       tasks.obj                    5484    0         104    
        queue.obj                    4030    0         0      
-       timers.obj                   1082    0         120    
+       timers.obj                   1082    0         24     
        event_groups.obj             528     0         0      
        list.obj                     150     0         0      
     +--+----------------------------+-------+---------+---------+
-       Total:                       11274   0         640    
+       Total:                       11274   0         128    
                                                              
     .\FreeRTOS_Source\portable\CCS\ARM_CM4F\
        port.obj                     992     8         48     
@@ -639,9 +595,9 @@ MODULE SUMMARY
        Total:                       1210    8         48     
                                                              
     .\FreeRTOS_Source\portable\MemMang\
-       heap_4.obj                   680     0         102448 
+       heap_4.obj                   680     0         32     
     +--+----------------------------+-------+---------+---------+
-       Total:                       680     0         102448 
+       Total:                       680     0         32     
                                                              
     .\Full_Demo\
        serial.obj                   180     4         32     
@@ -650,9 +606,9 @@ MODULE SUMMARY
        Total:                       284     4         32     
                                                              
     .\Full_Demo\Standard_Demo_Tasks\
-       IntQueue.obj                 836     0         936    
+       IntQueue.obj                 836     0         920    
     +--+----------------------------+-------+---------+---------+
-       Total:                       836     0         936    
+       Total:                       836     0         920    
                                                              
     .\SimplyBlinkyDemo\
        main_blinky.obj              2       0         0      
@@ -660,34 +616,34 @@ MODULE SUMMARY
        Total:                       2       0         0      
                                                              
     .\Tracealyzer\
-       trcSnapshotRecorder.obj      5948    0         21276  
+       trcSnapshotRecorder.obj      5948    0         420    
        trcKernelPort.obj            1494    0         10     
     +--+----------------------------+-------+---------+---------+
-       Total:                       7442    0         21286  
+       Total:                       7442    0         430    
                                                              
     .\driverlib\
-       cs.obj                       1154    0         16     
+       cs.obj                       1154    0         0      
        gpio.obj                     324     0         96     
        sysctl.obj                   128     0         0      
     +--+----------------------------+-------+---------+---------+
-       Total:                       1606    0         112    
+       Total:                       1606    0         96     
                                                              
     .\interface\
-       MPU9250.obj                  922     20        36     
+       MPU9250.obj                  922     20        4      
     +--+----------------------------+-------+---------+---------+
-       Total:                       922     20        36     
+       Total:                       922     20        4      
                                                              
     .\src\
-       dataStorage.obj              976     0         2444   
-       taskManager.obj              1128    0         56     
-       houseKeeping.obj             832     0         36     
+       taskManager.obj              1128    0         48     
+       dataStorage.obj              976     0         56     
+       houseKeeping.obj             832     0         0      
        watchDogTask.obj             140     0         0      
        ttcTask.obj                  104     0         0      
        aodcsTask.obj                68      0         0      
        cameraTask.obj               68      0         0      
        pptTask.obj                  68      0         0      
     +--+----------------------------+-------+---------+---------+
-       Total:                       3384    0         2536   
+       Total:                       3384    0         104    
                                                              
     .\system\CCS\
        msp432_startup_ccs.obj       30      324       0      
@@ -707,11 +663,11 @@ MODULE SUMMARY
        Total:                       256     0         0      
                                                              
     .\util\fatfs\
-       ff.obj                       4793    10        12     
-       mmc_MSP432P401r.obj          1694    0         22     
+       ff.obj                       4793    10        0      
+       mmc_MSP432P401r.obj          1694    0         4      
        diskio.obj                   148     0         0      
     +--+----------------------------+-------+---------+---------+
-       Total:                       6635    10        34     
+       Total:                       6635    10        4      
                                                              
     C:/ti/simplelink_msp432p4_sdk_2_40_00_10/source/ti/devices/msp432p4xx/driverlib/ccs/msp432p4xx_driverlib.lib
        adc14.o                      500     128       0      
@@ -737,14 +693,14 @@ MODULE SUMMARY
        Stack:                       0       0         1600   
        Linker Generated:            0       149       0      
     +--+----------------------------+-------+---------+---------+
-       Grand Total:                 36921   643       130108 
+       Grand Total:                 36921   643       3398   
 
 
 LINKER GENERATED COPY TABLES
 
 __TI_cinit_table @ 00009598 records: 2, size/record: 8, table size: 16
-	.data: load addr=00009510, load size=00000071 bytes, run addr=2000f77c, run size=00000383 bytes, compression=lzss
-	.bss: load addr=00009590, load size=00000008 bytes, run addr=20000000, run size=0000f77c bytes, compression=zero_init
+	.data: load addr=00009510, load size=00000071 bytes, run addr=20000000, run size=00000383 bytes, compression=lzss
+	.bss: load addr=00009590, load size=00000008 bytes, run addr=00000000, run size=0001071c bytes, compression=zero_init
 
 
 LINKER GENERATED HANDLER TABLE
@@ -768,8 +724,8 @@ address   name
 00008fc9  CS_getMCLK                                 
 00003cb9  CS_initClockSignal                         
 00008969  CS_setDCOCenteredFrequency                 
-2000f9c6  CurrentFilterGroup                         
-2000f9c4  CurrentFilterMask                          
+2000024a  CurrentFilterGroup                         
+20000248  CurrentFilterMask                          
 00009209  GPIO_High                                  
 00008ae9  GPIO_Init                                  
 00009219  GPIO_Low                                   
@@ -787,14 +743,14 @@ address   name
 00006329  MMC_disk_read                              
 000092e9  MMC_disk_status                            
 00005841  MMC_disk_write                             
-2000f99a  MPU9250_devAddr                            
+2000021e  MPU9250_devAddr                            
 00009229  MPU9250_getMotion9                         
 00008ce9  MPU9250_initialize                         
 000092f9  MPU9250_setClockSource                     
 00006d21  RTC_C_getCalendarTime                      
-2000c800  RecorderData                               
-2000f9cc  RecorderDataPtr                            
-2000fa80  SPI0MasterConfig                           
+0000c800  RecorderData                               
+20000250  RecorderDataPtr                            
+20000304  SPI0MasterConfig                           
 00007da9  SPI_Init                                   
 00008669  SPI_Read                                   
 000086a1  SPI_Write                                  
@@ -803,8 +759,8 @@ address   name
 00009309  SysCtl_getTempCalibrationConstant          
 00008d09  SysCtl_setWDTTimeoutResetType              
 000073f9  SystemInit                                 
-2000faf8  TraceQueueClassTable                       
-2000f744  WATCHDOG_EVENT_GROUP                       
+2000037c  TraceQueueClassTable                       
+000106e4  WATCHDOG_EVENT_GROUP                       
 4000480c  WDTCTL_SYM                                 
 00008d09  WDT_A_setTimeoutReset                      
 20010000  __STACK_END                                
@@ -839,18 +795,18 @@ UNDEFED   _system_post_cinit
 000007dd  _system_pre_init                           
 00000af5  abort                                      
 00003dd9  adcInit                                    
-2000faca  adcInitDelay                               
+2000034e  adcInitDelay                               
 000086d9  aodcsTask                                  
-2000fac8  batteryValue                               
+2000034c  batteryValue                               
 ffffffff  binit                                      
-2000f730  buffer                                     
-2000f6e0  bufferIMU                                  
-2000f748  bw                                         
-2000f73e  cal30                                      
-2000f778  cal85                                      
-2000f77a  calDifference                              
+000106d0  buffer                                     
+00010680  bufferIMU                                  
+000106e8  bw                                         
+000106de  cal30                                      
+00010718  cal85                                      
+0001071a  calDifference                              
 00008711  cameraTask                                 
-2000f74c  clock                                      
+000106ec  clock                                      
 000089c9  configWakeUpPin                            
 000007e1  dataStorage                                
 00008ff9  disk_initialize                            
@@ -859,36 +815,36 @@ ffffffff  binit
 00009011  disk_status                                
 00008c79  disk_write                                 
 000083c1  eTaskConfirmSleepModeStatus                
-2000f637  fResult                                    
+000105d7  fResult                                    
 00007fd9  f_mount                                    
 000017a1  f_open                                     
 00006291  f_sync                                     
 00001401  f_write                                    
-2000f2e8  file                                       
-2000f750  flag_lowBattery                            
-2000f754  flag_systemMode                            
+00010288  file                                       
+000106f0  flag_lowBattery                            
+000106f4  flag_systemMode                            
 00008231  getLocalTime                               
 000066a9  getMotion6                                 
 00007b99  getTemperature                             
 00009429  get_fattime                                
-2000f9bd  handle_of_last_logged_task                 
+20000241  handle_of_last_logged_task                 
 00008781  hibernate                                  
 00001969  houseKeeping                               
 000094e4  i2cConfig                                  
-2000f5f8  imuData                                    
+00010598  imuData                                    
 000082c1  initI2C                                    
 000074c9  initSD                                     
-2000f758  init_hwtc_count                            
+000106f8  init_hwtc_count                            
 00000000  interruptVectors                           
-2000f99c  isPendingContextSwitch                     
+20000220  isPendingContextSwitch                     
 00005f61  itoa                                       
-2000f738  localTime                                  
+000106d8  localTime                                  
 00008111  main                                       
 00006151  memcpy                                     
 00006e25  memset                                     
-2000f9bc  nISRactive                                 
-2000f510  obcData                                    
-2000f90c  objectHandleStacks                         
+20000240  nISRactive                                 
+000104b0  obcData                                    
+20000190  objectHandleStacks                         
 000087f1  pptTask                                    
 00008d49  prvCalendarConfiguration                   
 00008d69  prvMarkObjectAsUsed                        
@@ -925,14 +881,14 @@ ffffffff  binit
 00000149  pszTraceGetErrorNotEnoughHandles           
 00002e69  pvPortMalloc                               
 00009029  pvTaskIncrementMutexHeldCount              
-2000fa1c  pxCurrentTCB                               
+200002a0  pxCurrentTCB                               
 00008a29  pxPortInitialiseStack                      
 00004459  readI2C                                    
-2000f9b0  recorder_busy                              
-2000f6f0  resultsBuffer                              
-2000f0b8  sdDriver                                   
-2000fac0  semaphoreIMU                               
-2000fac4  semaphoreSystem                            
+20000234  recorder_busy                              
+00010690  resultsBuffer                              
+00010058  sdDriver                                   
+20000344  semaphoreIMU                               
+20000348  semaphoreSystem                            
 00009381  setFullScaleAccelRange                     
 00009391  setFullScaleGyroRange                      
 00007ee9  setOperationMode                           
@@ -943,22 +899,22 @@ ffffffff  binit
 00009279  setWatchDogBit_HOUSEKEEPING                
 00009289  setWatchDogBit_PPT                         
 00009299  setWatchDogBit_TTC                         
-2000f75c  taskHandlerAodcs                           
-2000f760  taskHandlerCamera                          
-2000f764  taskHandlerDataStorage                     
-2000f768  taskHandlerHouseKeeping                    
-2000f76c  taskHandlerPpt                             
-2000f770  taskHandlerTtc                             
-2000f774  taskHandlerWatchDog                        
+000106fc  taskHandlerAodcs                           
+00010700  taskHandlerCamera                          
+00010704  taskHandlerDataStorage                     
+00010708  taskHandlerHouseKeeping                    
+0001070c  taskHandlerPpt                             
+00010710  taskHandlerTtc                             
+00010714  taskHandlerWatchDog                        
 00006ca1  taskManager                                
-2000f9b4  timestampFrequency                         
-2000f9b8  traceErrorMessage                          
-2000f9a8  trace_disable_timestamp                    
+20000238  timestampFrequency                         
+2000023c  traceErrorMessage                          
+2000022c  trace_disable_timestamp                    
 00007989  ttcTask                                    
 00009411  ucQueueGetQueueType                        
 00003231  uiIndexOfObject                            
 00004c69  uiTraceStart                               
-2000f9a4  uiTraceTickCount                           
+20000228  uiTraceTickCount                           
 00009504  ulMaxSyscallInterruptPriority              
 000050ed  ulPortGetIPSR                              
 00004b71  updateBatteryLevel                         
@@ -1011,10 +967,10 @@ ffffffff  binit
 00003ef9  vTraceInitObjectPropertyTable              
 00009441  vTraceStart                                
 00008c01  vTraceStop                                 
-2000f9c0  vTraceStopHookPtr                          
+20000244  vTraceStopHookPtr                          
 000059c1  vTraceStoreMemMangEvent                    
 00005b39  vUART_Handler                              
-2000facb  wakeState                                  
+2000034f  wakeState                                  
 00006859  watchDogTask                               
 00007f39  writeBit                                   
 00007869  writeBits                                  
@@ -1027,17 +983,17 @@ ffffffff  binit
 00005001  xPortStartScheduler                        
 00008a89  xPortSysTickHandler                        
 000090e9  xQueueCreateMutex                          
-2000fab8  xQueueDataObc                              
+2000033c  xQueueDataObc                              
 00007001  xQueueGenericCreate                        
 00006619  xQueueGenericReset                         
 00000af9  xQueueGenericSend                          
 00002371  xQueueGenericSendFromISR                   
-2000fab4  xQueueIMU                                  
+20000338  xQueueIMU                                  
 00008ab9  xQueueIsQueueFullFromISR                   
 00001111  xQueueReceive                              
 00002d21  xQueueReceiveFromISR                       
 000004a9  xQueueSemaphoreTake                        
-2000fabc  xQueueSystem                               
+20000340  xQueueSystem                               
 00001b29  xSecondTimerHandler                        
 000064f1  xTaskCheckForTimeOut                       
 00007601  xTaskCreate                                
@@ -1287,57 +1243,57 @@ address   name
 00009590  __TI_Handler_Table_Limit                   
 00009598  __TI_CINIT_Base                            
 000095a8  __TI_CINIT_Limit                           
-2000c800  RecorderData                               
-2000f0b8  sdDriver                                   
-2000f2e8  file                                       
-2000f510  obcData                                    
-2000f5f8  imuData                                    
-2000f637  fResult                                    
-2000f6e0  bufferIMU                                  
-2000f6f0  resultsBuffer                              
-2000f730  buffer                                     
-2000f738  localTime                                  
-2000f73e  cal30                                      
-2000f744  WATCHDOG_EVENT_GROUP                       
-2000f748  bw                                         
-2000f74c  clock                                      
-2000f750  flag_lowBattery                            
-2000f754  flag_systemMode                            
-2000f758  init_hwtc_count                            
-2000f75c  taskHandlerAodcs                           
-2000f760  taskHandlerCamera                          
-2000f764  taskHandlerDataStorage                     
-2000f768  taskHandlerHouseKeeping                    
-2000f76c  taskHandlerPpt                             
-2000f770  taskHandlerTtc                             
-2000f774  taskHandlerWatchDog                        
-2000f778  cal85                                      
-2000f77a  calDifference                              
-2000f90c  objectHandleStacks                         
-2000f99a  MPU9250_devAddr                            
-2000f99c  isPendingContextSwitch                     
-2000f9a4  uiTraceTickCount                           
-2000f9a8  trace_disable_timestamp                    
-2000f9b0  recorder_busy                              
-2000f9b4  timestampFrequency                         
-2000f9b8  traceErrorMessage                          
-2000f9bc  nISRactive                                 
-2000f9bd  handle_of_last_logged_task                 
-2000f9c0  vTraceStopHookPtr                          
-2000f9c4  CurrentFilterMask                          
-2000f9c6  CurrentFilterGroup                         
-2000f9cc  RecorderDataPtr                            
-2000fa1c  pxCurrentTCB                               
-2000fa80  SPI0MasterConfig                           
-2000fab4  xQueueIMU                                  
-2000fab8  xQueueDataObc                              
-2000fabc  xQueueSystem                               
-2000fac0  semaphoreIMU                               
-2000fac4  semaphoreSystem                            
-2000fac8  batteryValue                               
-2000faca  adcInitDelay                               
-2000facb  wakeState                                  
-2000faf8  TraceQueueClassTable                       
+0000c800  RecorderData                               
+00010058  sdDriver                                   
+00010288  file                                       
+000104b0  obcData                                    
+00010598  imuData                                    
+000105d7  fResult                                    
+00010680  bufferIMU                                  
+00010690  resultsBuffer                              
+000106d0  buffer                                     
+000106d8  localTime                                  
+000106de  cal30                                      
+000106e4  WATCHDOG_EVENT_GROUP                       
+000106e8  bw                                         
+000106ec  clock                                      
+000106f0  flag_lowBattery                            
+000106f4  flag_systemMode                            
+000106f8  init_hwtc_count                            
+000106fc  taskHandlerAodcs                           
+00010700  taskHandlerCamera                          
+00010704  taskHandlerDataStorage                     
+00010708  taskHandlerHouseKeeping                    
+0001070c  taskHandlerPpt                             
+00010710  taskHandlerTtc                             
+00010714  taskHandlerWatchDog                        
+00010718  cal85                                      
+0001071a  calDifference                              
+20000190  objectHandleStacks                         
+2000021e  MPU9250_devAddr                            
+20000220  isPendingContextSwitch                     
+20000228  uiTraceTickCount                           
+2000022c  trace_disable_timestamp                    
+20000234  recorder_busy                              
+20000238  timestampFrequency                         
+2000023c  traceErrorMessage                          
+20000240  nISRactive                                 
+20000241  handle_of_last_logged_task                 
+20000244  vTraceStopHookPtr                          
+20000248  CurrentFilterMask                          
+2000024a  CurrentFilterGroup                         
+20000250  RecorderDataPtr                            
+200002a0  pxCurrentTCB                               
+20000304  SPI0MasterConfig                           
+20000338  xQueueIMU                                  
+2000033c  xQueueDataObc                              
+20000340  xQueueSystem                               
+20000344  semaphoreIMU                               
+20000348  semaphoreSystem                            
+2000034c  batteryValue                               
+2000034e  adcInitDelay                               
+2000034f  wakeState                                  
+2000037c  TraceQueueClassTable                       
 2000fce0  __stack                                    
 20010000  __STACK_END                                
 4000480c  WDTCTL_SYM                                 
