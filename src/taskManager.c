@@ -44,7 +44,7 @@ void prvQueueCommunicationCreate(void);
 void prvSetClock();
 void prvResumeAllTasks(void);
 void prvSuspendAllTasks(void);
-void hibernate(uint8_t time_ms);
+void hibernate(uint32_t time_ms);
 
 extern void *aodcsTask(void *pvParameters);
 extern void *cameraTask(void *pvParameters);
@@ -110,20 +110,23 @@ void prvTaskCreate(void)
 
     prvWatchDogEventGroupCreate();
 
-    xTaskCreate((TaskFunction_t) aodcsTask, "AODCS Task", configMINIMAL_STACK_SIZE, NULL, 1,
-                &taskHandlerAodcs);
-    xTaskCreate((TaskFunction_t) cameraTask, "CAMERA Task", configMINIMAL_STACK_SIZE, NULL, 1,
-                &taskHandlerCamera);
+    xTaskCreate((TaskFunction_t) aodcsTask, "AODCS Task",
+    configMINIMAL_STACK_SIZE,
+                NULL, 1, &taskHandlerAodcs);
+    xTaskCreate((TaskFunction_t) cameraTask, "CAMERA Task",
+    configMINIMAL_STACK_SIZE,
+                NULL, 1, &taskHandlerCamera);
     xTaskCreate((TaskFunction_t) houseKeeping, "House Keeping", 1024, NULL, 2,
                 &taskHandlerDataStorage);
     xTaskCreate((TaskFunction_t) dataStorage, "Data Storage", 1024, NULL, 1,
                 &taskHandlerHouseKeeping);
-    xTaskCreate((TaskFunction_t) pptTask, "PPT Task", configMINIMAL_STACK_SIZE, NULL, 1,
-                &taskHandlerPpt);
-    xTaskCreate((TaskFunction_t) ttcTask, "TT&C Task", configMINIMAL_STACK_SIZE, NULL, 1,
-                &taskHandlerTtc);
-    xTaskCreate((TaskFunction_t) watchDogTask, "WTD Task", configMINIMAL_STACK_SIZE, NULL, 5,
-                &taskHandlerWatchDog);
+    xTaskCreate((TaskFunction_t) pptTask, "PPT Task", configMINIMAL_STACK_SIZE,
+                NULL, 1, &taskHandlerPpt);
+    xTaskCreate((TaskFunction_t) ttcTask, "TT&C Task", configMINIMAL_STACK_SIZE,
+                NULL, 1, &taskHandlerTtc);
+    xTaskCreate((TaskFunction_t) watchDogTask, "WTD Task",
+    configMINIMAL_STACK_SIZE,
+                NULL, 5, &taskHandlerWatchDog);
 
 }
 
@@ -137,18 +140,28 @@ void setOperationMode(void)
     {
     case NM_MODE:
 
+#if DEGUB_SESSION_TRACEALYZER
+        vTracePrintF(stateChanel, "NM_MODE");
+#endif
         prvResumeAllTasks();
 
         break;
     case BLLM1_MODE:
 
+#if DEGUB_SESSION_TRACEALYZER
+        vTracePrintF(stateChanel, "BLLM1_MODE");
+#endif
+
         prvSuspendAllTasks();
 
         break;
     case HM_MODE:
-        prvSuspendAllTasks();
 
-        hibernate(50000);
+#if DEGUB_SESSION_TRACEALYZER
+        vTracePrintF(stateChanel, "HM_MODE");
+#endif
+        prvSuspendAllTasks();
+        hibernate(5000);
 
         break;
     case SM_MODE:
@@ -160,17 +173,16 @@ void setOperationMode(void)
 
 }
 
-void hibernate(uint8_t time_ms)
+void hibernate(uint32_t time_ms)
 {
 
-    int clockFrequency = 48000000;  //48MHz
-    int tickRateHZ = 1000;           //1KHz
+    uint32_t clockFrequency = 48000000;  //48MHz
+    uint32_t tickRateHZ = 1000;           //1KHz
 
-    int timerCountsForOneTick = (clockFrequency / tickRateHZ); // timer for one tick 20,8ms
-    int maximumPossibleSuppressedTicks = portMAX_24_BIT_NUMBER
-            / timerCountsForOneTick;
-    int iterations = time_ms / maximumPossibleSuppressedTicks;
-    int i = 0;
+    uint32_t timerCountsForOneTick = (clockFrequency / tickRateHZ); // timer for one tick 20,8ms
+    uint32_t maximumPossibleSuppressedTicks = portMAX_24_BIT_NUMBER/timerCountsForOneTick;
+    uint32_t iterations = time_ms / maximumPossibleSuppressedTicks;
+    uint32_t i = 0;
 
     for (i = 0; i < iterations; i++)
     {
@@ -189,7 +201,7 @@ void killAllTasks(void)
 void updateBatteryLevel(void)
 {
 
-    if (adcInitDelay < 10)
+    if (adcInitDelay < 5)
     {
         adcInitDelay++;
         memcpy(obcData.system_status, "INIT", sizeof("INIT"));
@@ -239,7 +251,6 @@ void updateBatteryLevel(void)
             memcpy(obcData.system_status, "NM_MODE", sizeof("NM_MODE"));
             flag_systemMode = NM_MODE;
             flag_lowBattery = NM_MODE;
-
 
         }
     }

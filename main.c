@@ -86,14 +86,29 @@ int main(void)
     //chose between TRC_START_AWAIT_HOST or TRC_START
     vTraceEnable(TRC_START);
 
+#if DEGUB_SESSION_TRACEALYZER
+    stateChanel= xTraceRegisterString("STATE");
+    vTracePrintF(stateChanel,"init");
+    vTracePrintF(stateChanel,"hardware setup");
+    vTracePrintF(stateChanel,"clock setup");
+#endif
+
     /*init the calendar*/
     prvCalendarConfiguration();
 
+#if DEGUB_SESSION_TRACEALYZER
+    vTracePrintF(stateChanel,"create taskManager");
+#endif
     //create the Task Manager task
     xTaskCreate((TaskFunction_t)taskManager, "Task Manager", configMINIMAL_STACK_SIZE, NULL, 5, NULL );
 
     /*read the previous counter*/
     //prvReadDataCounter();
+
+#if DEGUB_SESSION_TRACEALYZER
+    vTracePrintF(stateChanel,"start scheduler");
+#endif
+
     /* Start the tasks and timer running. */
     vTaskStartScheduler();
 
