@@ -14,4 +14,4 @@ There is many bugs:bug: in the code, so be free to suggest improvements and feat
 ![On Board Computer](https://github.com/guilionzzo/tcc_files/blob/master/latex/figuras/arquitetura_de_software_2.png)
 
 ## Hardware Architecture
-![On Board Computer](https://github.com/guilionzzo/2IAA_paper/blob/master/image/arquitetura de hardware 2.png)
+![On Board Computer](https://github.com/guilionzzo/2IAA_paper/blob/master/image/arquitetura_de_hardware_2.png)
