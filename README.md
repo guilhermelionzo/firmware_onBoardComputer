@@ -9,3 +9,10 @@ There is many bugs:bug: in the code, so be free to suggest improvements and feat
 
 ## Kicad PCB
 ![On Board Computer](https://github.com/guilionzzo/tcc_files/blob/master/latex/figuras/pcbRealistic.PNG)
+
+## Software Architecture
+![On Board Computer](https://github.com/guilionzzo/tcc_files/blob/master/latex/figuras/arquitetura_de_software_2.png)
+
+## Hardware Architecture
+![On Board Computer](https://github.com/guilionzzo/tcc_files/blob/master/latex/figuras/arquitetura_de_hardware_2.PNG)
+
