@@ -63,7 +63,7 @@ void *ttcTask(void *pvParameters){
             setWatchDogBit_TTC();
         }
 
-        vTaskDelay(10);
+        //vTaskDelay(10);
 
         //DEBUG SESSION
         #if DEBUG_SESSION

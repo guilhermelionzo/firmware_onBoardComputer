@@ -41,7 +41,6 @@ void prvTaskCreate(void);
 void prvWatchDogEventGroupCreate(void);
 void prvQueueDataCreate(void);
 void prvQueueCommunicationCreate(void);
-void prvSetClock();
 void prvResumeAllTasks(void);
 void prvSuspendAllTasks(void);
 void hibernate(uint32_t time_ms);
@@ -58,28 +57,30 @@ extern void *watchDogTask(void *pvParameters);
 QueueHandle_t xQueueIMU = NULL;
 QueueHandle_t xQueueDataObc = NULL;
 QueueHandle_t xQueueSystem = NULL;
+QueueHandle_t xQueueDeletedTasks = NULL;
 SemaphoreHandle_t semaphoreIMU = NULL;
 SemaphoreHandle_t semaphoreSystem = NULL;
-
-TaskHandle_t taskHandlerAodcs;
-TaskHandle_t taskHandlerCamera;
-TaskHandle_t taskHandlerDataStorage;
-TaskHandle_t taskHandlerHouseKeeping;
-TaskHandle_t taskHandlerPpt;
-TaskHandle_t taskHandlerTtc;
-TaskHandle_t taskHandlerWatchDog;
+/*
+ TaskHandle_t taskHandlerAodcs;
+ TaskHandle_t taskHandlerCamera;
+ TaskHandle_t taskHandlerDataStorage;
+ TaskHandle_t taskHandlerHouseKeeping;
+ TaskHandle_t taskHandlerPpt;
+ TaskHandle_t taskHandlerTtc;
+ TaskHandle_t taskHandlerWatchDog;
+ */
 
 uint16_t batteryValue = 0;
 
 uint8_t adcInitDelay = 0;
-volatile bool wakeState = 1;
+volatile bool lastMode = 1;
 volatile uint32_t clock;
 
 void *taskManager(void *pvParameters)
 {
     memset(obcData, 0x00, sizeof(obcData));
 
-    memcpy(obcData.system_status, "NM", sizeof("NM"));
+    memcpy((void*) obcData.system_status, "NM", sizeof("NM"));
 
     prvTaskCreate();
 
@@ -90,14 +91,25 @@ void *taskManager(void *pvParameters)
 
         updateBatteryLevel();
 
-        //xQueueReceive(xQueueSystem, &batteryValue, 2000);
+        if (lastMode != flag_systemMode)
+        {
+            //setOperationMode();
+        }
 
-        setOperationMode();
+        if (taskHandlerTTC == NULL)
+        {
+            xTaskCreate((TaskFunction_t) ttcTask, "TT&C Task",
+            configMINIMAL_STACK_SIZE,
+                        NULL, 1, &taskHandlerTTC);
+        }
 
         (flag_lowBattery) ? vTaskDelayUntil(&xLastWakeTimeTaskManager,
-        TASK_MANAGER_TICK_PERIOD_LOW_BATTERY) :
+                            TASK_MANAGER_TICK_PERIOD_LOW_BATTERY) :
                             vTaskDelayUntil(&xLastWakeTimeTaskManager,
                             TASK_MANAGER_TICK_PERIOD);
+
+        prvTaskRestart();
+
     }
 
 }
@@ -110,20 +122,20 @@ void prvTaskCreate(void)
 
     prvWatchDogEventGroupCreate();
 
-    xTaskCreate((TaskFunction_t) aodcsTask, "AODCS Task",
-    configMINIMAL_STACK_SIZE,
-                NULL, 1, &taskHandlerAodcs);
-    xTaskCreate((TaskFunction_t) cameraTask, "CAMERA Task",
-    configMINIMAL_STACK_SIZE,
-                NULL, 1, &taskHandlerCamera);
-    xTaskCreate((TaskFunction_t) houseKeeping, "House Keeping", 1024, NULL, 2,
-                &taskHandlerDataStorage);
-    xTaskCreate((TaskFunction_t) dataStorage, "Data Storage", 1024, NULL, 1,
-                &taskHandlerHouseKeeping);
-    xTaskCreate((TaskFunction_t) pptTask, "PPT Task", configMINIMAL_STACK_SIZE,
-                NULL, 1, &taskHandlerPpt);
+    /* xTaskCreate((TaskFunction_t) aodcsTask, "AODCS Task",
+     configMINIMAL_STACK_SIZE,
+     NULL, 1, &taskHandlerAodcs);
+     xTaskCreate((TaskFunction_t) cameraTask, "CAMERA Task",
+     configMINIMAL_STACK_SIZE,
+     NULL, 1, &taskHandlerCamera);
+     xTaskCreate((TaskFunction_t) houseKeeping, "House Keeping", 1024, NULL, 2,
+     &taskHandlerDataStorage);
+     xTaskCreate((TaskFunction_t) dataStorage, "Data Storage", 1024, NULL, 1,
+     &taskHandlerHouseKeeping);
+     xTaskCreate((TaskFunction_t) pptTask, "PPT Task", configMINIMAL_STACK_SIZE,
+     NULL, 1, &taskHandlerPpt);*/
     xTaskCreate((TaskFunction_t) ttcTask, "TT&C Task", configMINIMAL_STACK_SIZE,
-                NULL, 1, &taskHandlerTtc);
+                NULL, 1, &taskHandlerTTC);
     xTaskCreate((TaskFunction_t) watchDogTask, "WTD Task",
     configMINIMAL_STACK_SIZE,
                 NULL, 5, &taskHandlerWatchDog);
@@ -143,7 +155,7 @@ void setOperationMode(void)
 #if DEGUB_SESSION_TRACEALYZER
         vTracePrintF(stateChanel, "NM_MODE");
 #endif
-        prvResumeAllTasks();
+        //prvResumeAllTasks();
 
         break;
     case BLLM1_MODE:
@@ -152,7 +164,7 @@ void setOperationMode(void)
         vTracePrintF(stateChanel, "BLLM1_MODE");
 #endif
 
-        prvSuspendAllTasks();
+        //prvSuspendAllTasks();
 
         break;
     case HM_MODE:
@@ -160,8 +172,8 @@ void setOperationMode(void)
 #if DEGUB_SESSION_TRACEALYZER
         vTracePrintF(stateChanel, "HM_MODE");
 #endif
-        prvSuspendAllTasks();
-        hibernate(5000);
+        //prvSuspendAllTasks();
+        //hibernate(10);
 
         break;
     case SM_MODE:
@@ -180,7 +192,8 @@ void hibernate(uint32_t time_ms)
     uint32_t tickRateHZ = 1000;           //1KHz
 
     uint32_t timerCountsForOneTick = (clockFrequency / tickRateHZ); // timer for one tick 20,8ms
-    uint32_t maximumPossibleSuppressedTicks = portMAX_24_BIT_NUMBER/timerCountsForOneTick;
+    uint32_t maximumPossibleSuppressedTicks = portMAX_24_BIT_NUMBER
+            / timerCountsForOneTick;
     uint32_t iterations = time_ms / maximumPossibleSuppressedTicks;
     uint32_t i = 0;
 
@@ -200,11 +213,13 @@ void killAllTasks(void)
 
 void updateBatteryLevel(void)
 {
+    lastMode = flag_systemMode;
 
-    if (adcInitDelay < 5)
+    if (adcInitDelay < 6)
     {
         adcInitDelay++;
-        memcpy(obcData.system_status, "INIT", sizeof("INIT"));
+        memcpy((void*) obcData.system_status, "INIT", sizeof("INIT"));
+
         flag_systemMode = NM_MODE;
         flag_lowBattery = NM_MODE;
 
@@ -223,7 +238,7 @@ void updateBatteryLevel(void)
             MAP_GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN0); // PIN RED
 #endif
 
-            memcpy(obcData.system_status, "BLLM1", sizeof("BLLM1"));
+            memcpy((void*) obcData.system_status, "BLLM1", sizeof("BLLM1"));
             flag_systemMode = BLLM1_MODE;
             flag_lowBattery = BATTERY_LEVEL_1;
 
@@ -236,7 +251,7 @@ void updateBatteryLevel(void)
 #if DEBUG_SESSION
             MAP_GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN0); // PIN RED
 #endif
-            memcpy(obcData.system_status, "HM_MODE", sizeof("HM_MODE"));
+            memcpy((void*) obcData.system_status, "HM_MODE", sizeof("HM_MODE"));
             flag_systemMode = HM_MODE;
             flag_lowBattery = BATTERY_LEVEL_1;
         }
@@ -248,7 +263,7 @@ void updateBatteryLevel(void)
 #if DEBUG_SESSION
             MAP_GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN0); // PIN RED
 #endif
-            memcpy(obcData.system_status, "NM_MODE", sizeof("NM_MODE"));
+            memcpy((void*) obcData.system_status, "NM_MODE", sizeof("NM_MODE"));
             flag_systemMode = NM_MODE;
             flag_lowBattery = NM_MODE;
 
@@ -272,6 +287,10 @@ void prvQueueDataCreate(void)
     //xQueueDataObc=xQueueCreate( 1,sizeof(obcData));
     //xQueueIMU = xQueueCreate( 1,sizeof(obcData));
     xQueueSystem = xQueueCreate(1, sizeof(int16_t));
+
+    //creating a queue to handle the tasks that were deleted by wtdTask
+    xQueueDeletedTasks = xQueueCreate(6, sizeof(uint8_t));
+
     semaphoreSystem = xSemaphoreCreateMutex();
 
     semaphoreIMU = xSemaphoreCreateMutex();
@@ -290,9 +309,10 @@ void prvSuspendAllTasks()
     {
     case BLLM1_MODE:
 
-        vTaskSuspend(taskHandlerDataStorage);
-        vTaskSuspend(taskHandlerHouseKeeping);
-        vTaskSuspend(taskHandlerWatchDog);
+        vTaskSuspend(taskHandlerAodcs);
+        vTaskSuspend(taskHandlerCamera);
+        vTaskSuspend(taskHandlerPPT);
+        vTaskSuspend(taskHandlerTTC);
         MAP_WDT_A_holdTimer();
 
         break;
@@ -302,8 +322,8 @@ void prvSuspendAllTasks()
         vTaskSuspend(taskHandlerCamera);
         vTaskSuspend(taskHandlerDataStorage);
         vTaskSuspend(taskHandlerHouseKeeping);
-        vTaskSuspend(taskHandlerPpt);
-        vTaskSuspend(taskHandlerTtc);
+        vTaskSuspend(taskHandlerPPT);
+        vTaskSuspend(taskHandlerTTC);
         vTaskSuspend(taskHandlerWatchDog);
         MAP_WDT_A_holdTimer();
         break;
@@ -320,60 +340,60 @@ void prvResumeAllTasks()
     vTaskResume(taskHandlerCamera);
     vTaskResume(taskHandlerDataStorage);
     vTaskResume(taskHandlerHouseKeeping);
-    vTaskResume(taskHandlerPpt);
-    vTaskResume(taskHandlerTtc);
+    vTaskResume(taskHandlerPPT);
+    vTaskResume(taskHandlerTTC);
     vTaskResume(taskHandlerWatchDog);
     MAP_WDT_A_startTimer();
 
 }
 
-void prvSetClock()
+void prvTaskRestart()
 {
+    uint8_t deletedTask;
 
-    switch (flag_systemMode)
+    xQueueReceive(xQueueDeletedTasks, &deletedTask, 3);
+
+    /*if (deletedTask == 1 || taskHandlerAodcs == NULL)
     {
-    case NM_MODE:
-        /* Set 2 flash wait states for Flash bank 0 and 1*/
-        MAP_FlashCtl_setWaitState( FLASH_BANK0, 2);
-        MAP_FlashCtl_setWaitState( FLASH_BANK1, 2);
+        xTaskCreate((TaskFunction_t) aodcsTask, "AODCS Task",
+        configMINIMAL_STACK_SIZE,
+                    NULL, 1, &taskHandlerAodcs);
 
-        /* Initializes Clock System */
-        MAP_CS_setDCOCenteredFrequency( CS_DCO_FREQUENCY_48);            //48MHZ
-        MAP_CS_initClockSignal( CS_MCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1);
-        break;
-
-    case BLLM1_MODE:
-        /* At 4MHz in VCORE0, MSP432P401R needs 0 wait states */
-        //MAP_FlashCtl_setWaitState(FLASH_BANK0, 0);
-        //MAP_FlashCtl_setWaitState(FLASH_BANK1, 0);
-        /* Set DCO to 4MHz */
-        MAP_CS_setDCOCenteredFrequency(CS_DCO_FREQUENCY_24);
-        //MAP_CS_setDCOFrequency(2400000);
-
-        /* Set MCLK = DCO = 4MHz */
-        MAP_CS_initClockSignal(CS_MCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1);
-
-        /* Disabling high side voltage monitor/supervisor */
-        MAP_PSS_disableHighSide();
-        break;
-
-    case HM_MODE:
-        break;
-        /* Set 2 flash wait states for Flash bank 0 and 1*/
-        MAP_FlashCtl_setWaitState( FLASH_BANK0, 2);
-        MAP_FlashCtl_setWaitState( FLASH_BANK1, 2);
-
-        /* Initializes Clock System */
-        //MAP_CS_setDCOFrequency(1000000);                //1-2MHz
-        /* Disabling high side voltage monitor/supervisor */
-        MAP_CS_setDCOCenteredFrequency( CS_DCO_FREQUENCY_24);
-        MAP_CS_initClockSignal( CS_MCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1);
-        MAP_GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN0);
-        MAP_GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN2);
-        break;
-    default:
-        break;
     }
+    if (deletedTask == 2 || taskHandlerCamera == NULL)
+    {
+
+        xTaskCreate((TaskFunction_t) cameraTask, "CAMERA Task",
+        configMINIMAL_STACK_SIZE,
+                    NULL, 1, &taskHandlerCamera);
+
+    }
+    if (deletedTask == 3 || taskHandlerDataStorage == NULL)
+    {
+        xTaskCreate((TaskFunction_t) houseKeeping, "House Keeping", 1024, NULL,
+                    2, &taskHandlerDataStorage);
+
+    }
+    if (deletedTask == 4 || taskHandlerHouseKeeping == NULL)
+    {
+        xTaskCreate((TaskFunction_t) dataStorage, "Data Storage", 1024, NULL, 1,
+                    &taskHandlerHouseKeeping);
+
+    }
+    if (deletedTask == 5 || taskHandlerPPT == NULL)
+    {
+        xTaskCreate((TaskFunction_t) pptTask, "PPT Task",
+        configMINIMAL_STACK_SIZE,
+                    NULL, 1, &taskHandlerPPT);
+
+    }*/
+    if (deletedTask == 6 || taskHandlerTTC == NULL)
+    {
+        xTaskCreate((TaskFunction_t) ttcTask, "TT&C Task",
+        configMINIMAL_STACK_SIZE,
+                    NULL, 1, &taskHandlerTTC);
+    }
+
 }
 
 void ADC14_IRQHandler(void)

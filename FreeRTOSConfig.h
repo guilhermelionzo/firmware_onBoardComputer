@@ -82,7 +82,7 @@ See http://www.FreeRTOS.org/TI_MSP432_Free_RTOS_Demo.html for instructions. */
 /* Note heap_5.c is used so this only defines the part of the heap that is in
 the first block of RAM on the LPC device.  See the initialisation of the heap
 in main.c. */
-#define configTOTAL_HEAP_SIZE					( ( size_t ) ( 50 * 1024 ) )
+#define configTOTAL_HEAP_SIZE					( ( size_t ) ( 45 * 1024 ) )
 
 /* Constants that build features in or out. */
 #define configUSE_MUTEXES						1
@@ -140,7 +140,7 @@ FreeRTOS/Source/tasks.c for limitations. */
 /* Dimensions a buffer that can be used by the FreeRTOS+CLI command
 interpreter.  See the FreeRTOS+CLI documentation for more information:
 http://www.FreeRTOS.org/FreeRTOS-Plus/FreeRTOS_Plus_CLI/ */
-#define configCOMMAND_INT_MAX_OUTPUT_SIZE		2048
+#define configCOMMAND_INT_MAX_OUTPUT_SIZE		1048
 
 
 /* Cortex-M3/4 interrupt priority configuration follows...................... */

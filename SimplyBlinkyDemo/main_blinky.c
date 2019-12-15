@@ -142,7 +142,7 @@ void main_blinky( void )
     achieved between using the generic tickless RTOS implementation (as used by
     the blinky demo) and a tickless RTOS implementation that is tailored
     specifically to the MSP432. */
-    vTraceEnable(TRC_START);
+    //vTraceEnable(TRC_START);
     /* The full demo configures the clocks for maximum frequency, wheras this
     blinky demo uses a slower clock as it also uses low power features. */
     prvConfigureClocks();

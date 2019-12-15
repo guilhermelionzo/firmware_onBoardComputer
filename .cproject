@@ -164,7 +164,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="interface/i2c_driver.c|${PROJECT_LOC}/system/CCS/msp432p401r_.cmd|${PROJECT_LOC}/SystemFiles_CCS/msp432p401r.cmd|msp432p401r.cmd" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="util/Hardware/CS_Driver.c|interface/i2c_driver.c|${PROJECT_LOC}/system/CCS/msp432p401r_.cmd|${PROJECT_LOC}/SystemFiles_CCS/msp432p401r.cmd|msp432p401r.cmd" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

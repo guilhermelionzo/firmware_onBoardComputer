@@ -187,7 +187,7 @@ int initSD(){
 
     SPI_Init(EUSCI_B0_BASE, SPI0MasterConfig);
 
-    GPIO_Init(GPIO_PORT_P4, GPIO_PIN6);
+    GPIO_Init(GPIO_PORT_P6, GPIO_PIN7);
 
     MAP_Interrupt_enableMaster();
 
